@@ -18,6 +18,7 @@ namespace SeeSharpersCinema.Models.Repository
             context = ctx;
         }
 
+        //Add Movies to read specific movie in details view
         public IQueryable<Movie> Movies => context.Movies;
 
         //public IQueryable<PlayList> PlayLists => context.PlayLists;

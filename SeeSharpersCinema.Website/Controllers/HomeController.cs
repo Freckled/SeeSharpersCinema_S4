@@ -30,6 +30,11 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(movieWeek);
         }
 
+        /// <summary>
+        /// Read detailed view for specific Movie based on MovieId or if an incorect movieId is provided; return NotFound
+        /// </summary>
+        /// <param name="id">MovieId used to read specific Movie</param>
+        /// <returns>NotFound view or specific details view</returns>
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
