@@ -2,7 +2,6 @@
 {
     public enum Genre
     {
-        HackerEDITME,
         Comedy,
         SciFi,
         Horror,

@@ -368,9 +368,5 @@ namespace SeeSharpersCinema.Models.Database
                 new PlayList { Id = 56, MovieId = 14, TimeSlotId = 56 }
             };
 
-        /*public static List<Ticket> FakeTickets => new List<Ticket>
-        {
-            new Ticket { TicketID = 1, Movie = , TimeSlot = 1, }
-        }*/
     }
 }

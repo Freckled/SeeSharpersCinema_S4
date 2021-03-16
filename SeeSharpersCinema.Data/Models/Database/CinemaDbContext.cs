@@ -31,9 +31,7 @@ namespace SeeSharpersCinema.Models.Database
             modelBuilder.Entity<Room>().HasData(FakeData.FakeRooms);
             modelBuilder.Entity<TimeSlot>().HasData(FakeData.FakeTimeSlots);
             modelBuilder.Entity<Movie>().HasData(FakeData.FakeMovies);
-            modelBuilder.Entity<PlayList>().HasData(FakeData.FakePlayLists);
-            //modelBuilder.Entity<Ticket>().HasData(FakeData.FakeTicket);
-           
+            modelBuilder.Entity<PlayList>().HasData(FakeData.FakePlayLists);           
         }
     }
 }
