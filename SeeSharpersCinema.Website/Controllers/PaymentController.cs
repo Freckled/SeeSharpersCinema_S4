@@ -26,9 +26,7 @@ namespace SeeSharpersCinema.Website.Controllers
             RedirectUrl = "http://google.com",
             Method = Mollie.Api.Models.Payment.PaymentMethod.Ideal // instead of "Ideal"
         };
-        /*        PaymentResponse paymentResponse = await paymentClient.CreatePaymentAsync(paymentRequest);
-        */
-        private IMovieRepository repository;
+/*        PaymentResponse paymentResponse = await paymentClient.CreatePaymentAsync(paymentRequest);
         public PaymentController(IMovieRepository repository)
         {
             this.repository = repository;
@@ -40,11 +38,11 @@ namespace SeeSharpersCinema.Website.Controllers
             return View();
         }
 
-        /*        public IActionResult Pay()
-                {
-                    SeeSharpersCinema.Models.EmailService emailService = new SeeSharpersCinema.Models.EmailService();
-                    emailService.email_send();
-                    return RedirectToAction("Overview", "Playlist");
-                }*/
+/*        public IActionResult Pay()
+        {
+            SeeSharpersCinema.Models.EmailService emailService = new SeeSharpersCinema.Models.EmailService();
+            emailService.email_send();
+            return RedirectToAction("Overview", "Playlist");
+        }*/
     }
 }
