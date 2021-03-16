@@ -25,6 +25,9 @@ namespace SeeSharpersCinema.Models.Repository
             context = ctx;
         }
 
+        //Add Movies to read specific movie in details view
+        public IQueryable<Movie> Movies => context.Movies;
+
         /// <summary>
         /// Queries the database to find all movies in a task for correct threading
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using SeeSharpersCinema.Models.Program;
+﻿using SeeSharpersCinema.Models.Film;
+using SeeSharpersCinema.Models.Program;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,6 @@ namespace SeeSharpersCinema.Models.Repository
         public Task<IEnumerable<PlayList>> FindByViewIndication(DateTime startDate, DateTime endDate, string uiViewIndication);
         public Task<IEnumerable<PlayList>> FindByDateAndViewIndication(DateTime uiDate, string uiViewIndication);
         public Task<IEnumerable<PlayList>> FindByViewIndicationAndGenre(DateTime startDate, DateTime endDate, string uiViewIndication, string uiGenre);
+        IQueryable<Movie> Movies { get; }
     }
 }
