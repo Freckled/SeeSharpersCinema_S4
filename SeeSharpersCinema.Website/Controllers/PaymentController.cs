@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SeeSharpersCinema.Models.Repository;
 using SeeSharpersCinema.Models.Payment;
+using Microsoft.EntityFrameworkCore;
 
 namespace SeeSharpersCinema.Website.Controllers
 {
@@ -26,23 +27,61 @@ namespace SeeSharpersCinema.Website.Controllers
             RedirectUrl = "http://google.com",
             Method = Mollie.Api.Models.Payment.PaymentMethod.Ideal // instead of "Ideal"
         };
-/*        PaymentResponse paymentResponse = await paymentClient.CreatePaymentAsync(paymentRequest);
-        public PaymentController(IMovieRepository repository)
+        /*        PaymentResponse paymentResponse = await paymentClient.CreatePaymentAsync(paymentRequest);
+        */
+
+        private IPlayListRepository repository;
+        public PaymentController(IPlayListRepository repo)
         {
-            this.repository = repository;
+            repository = repo;
         }
 
         [Route("Payment/Pay")]
+
         public IActionResult Index([FromRoute] long movieId)
         {
             return View();
         }
-
-/*        public IActionResult Pay()
+        public async Task<IActionResult> Index()
         {
-            SeeSharpersCinema.Models.EmailService emailService = new SeeSharpersCinema.Models.EmailService();
-            emailService.email_send();
-            return RedirectToAction("Overview", "Playlist");
-        }*/
+            var movieWeek = await repository.FindBetweenDatesAsync(DateTime.Now.Date, GetNextThursday());
+            if (movieWeek == null)
+            {
+                return NotFound();
+            }
+            return View(movieWeek);
+        }
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await repository.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
+        public DateTime GetNextThursday()
+        {
+            DateTime today = DateTime.Now.Date;
+            //Voorbeeld voor vrijdag: 4 - 5 + 7 = 6 dagen tot donderdag. mooie uitleg: https://stackoverflow.com/questions/6346119/datetime-get-next-tuesday
+            int daysUntilThursday = ((int)DayOfWeek.Thursday - (int)today.DayOfWeek + 7) % 7;
+            DateTime nextThursday = today.AddDays(daysUntilThursday);
+            return nextThursday;
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
     }
 }
+

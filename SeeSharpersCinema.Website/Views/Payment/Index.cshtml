@@ -18,13 +18,13 @@
                         @DateTime.Now
                     </p>
                     <p>
-                        <em>Factuur: ##</em>
+                        <em>Uw bestelling: ##</em>
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="text-center">
-                    <h1>Factuur</h1>
+                    <h1>Uw Bestelling</h1>
                 </div>
 
                 <table class="table table-hover">
@@ -38,7 +38,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="col-md-9"><em>@Html.DisplayNameFor(model => model.Title)</em></td>
+                            <td class="col-md-9">
+                                @Html.DisplayNameFor(model => model.Title)
+                            </td>
+                            
                             <td class="col-md-1" style="text-align: center"> 2 </td>
                             <td class="col-md-1 text-center">€13</td>
                             <td class="col-md-1 text-center">€26</td>
