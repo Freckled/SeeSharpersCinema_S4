@@ -21,6 +21,6 @@
         RomCom,
         ActionComedy,
         Superhero,
-        Documentary
+        Documentary,
     }
 }

@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpersCinema.Tests", "SeeSharpersCinema.Tests\SeeSharpersCinema.Tests.csproj", "{C57335F6-E615-4771-BE3B-6C57B3713C21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpersCinema.Data", "SeeSharpersCinema.Data\SeeSharpersCinema.Data.csproj", "{FBF090AC-494E-4AA3-9D30-9F59B465CC78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpersCinema.Data", "SeeSharpersCinema.Data\SeeSharpersCinema.Data.csproj", "{FBF090AC-494E-4AA3-9D30-9F59B465CC78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpersCinema.TouchScreen", "SeeSharpersCinema.TouchScreen\SeeSharpersCinema.TouchScreen.csproj", "{CEB9D7E1-0E00-41B2-B643-B45D5B1ABEA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpersCinema.TouchScreen", "SeeSharpersCinema.TouchScreen\SeeSharpersCinema.TouchScreen.csproj", "{CEB9D7E1-0E00-41B2-B643-B45D5B1ABEA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpersCinema.Website", "SeeSharpersCinema.Website\SeeSharpersCinema.Website.csproj", "{C5FD794C-B033-4582-B7EA-D04942319665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpersCinema.Website", "SeeSharpersCinema.Website\SeeSharpersCinema.Website.csproj", "{C5FD794C-B033-4582-B7EA-D04942319665}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

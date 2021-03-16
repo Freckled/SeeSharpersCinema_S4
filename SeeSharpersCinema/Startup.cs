@@ -34,6 +34,7 @@ namespace SeeSharpersCinema
                     Configuration["ConnectionStrings:CinemaConnection"]);
             });
             services.AddScoped<IMovieRepository, EFMovieRepository>();
+            services.AddScoped<ITicketRepository, EFTicketRepository>();
             services.AddTransient<IPlayListRepository, EFPlayListRepository>();
         }
 

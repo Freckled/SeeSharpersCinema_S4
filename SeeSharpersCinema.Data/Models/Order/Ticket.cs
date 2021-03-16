@@ -12,7 +12,6 @@ namespace SeeSharpersCinema.Models.Order
         public long TicketID { get; set; }
         public Movie Movie { get; set; }
         public Room Room { get; set; }
-        public Seat Seat { get; set; }
         public TimeSlot TimeSlot { get; set; }
 
         public TicketResponse TicketResponse;
