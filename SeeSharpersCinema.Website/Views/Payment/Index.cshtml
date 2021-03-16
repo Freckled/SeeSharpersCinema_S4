@@ -1,0 +1,87 @@
+﻿@model SeeSharpersCinema.Models.Film.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<div class="container">
+    <div class="row">
+        <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <p>SeeSharper Cinema</p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <p>
+                        <em>Datum</em>
+                        @DateTime.Now
+                    </p>
+                    <p>
+                        <em>Uw bestelling: ##</em>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <h1>Uw Bestelling</h1>
+                </div>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>#</th>
+                            <th class="text-center">Prijs</th>
+                            <th class="text-center">Totaal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-md-9">
+                                @Html.DisplayNameFor(model => model.Title)
+                            </td>
+                            
+                            <td class="col-md-1" style="text-align: center"> 2 </td>
+                            <td class="col-md-1 text-center">€13</td>
+                            <td class="col-md-1 text-center">€26</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-9"><em>Film2</em></td>
+                            <td class="col-md-1" style="text-align: center"> 1 </td>
+                            <td class="col-md-1 text-center">€8</td>
+                            <td class="col-md-1 text-center">€8</td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right">
+                                <p>
+                                    <strong>Subtotal: </strong>
+                                </p>
+                                <p>
+                                    <strong>BTW: </strong>
+                                </p>
+                            </td>
+                            <td class="text-center">
+                                <p>
+                                    <strong>10 €</strong>
+                                </p>
+                                <p>
+                                    <strong>20 €</strong>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong>30 €</strong></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="navbar-brand" asp-area="" asp-controller="Payment" asp-action="Pay">Pay</a>
+            </div>
+        </div>
+    </div>
+</div>
