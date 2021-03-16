@@ -1,4 +1,6 @@
-﻿namespace SeeSharpersCinema.Models.Theater
+﻿using System.Collections.Generic;
+
+namespace SeeSharpersCinema.Models.Theater
 {
     public class Room
     {
@@ -7,7 +9,7 @@
         public long CinemaId { get; set; }
         public Cinema Cinema { get; set; }
 
-        // public List<Seat> SeatList { get; set; }
+        public List<int> ReservedSeatList { get;}
 
         // public void CountDownCapacity(int seats) => Capacity -= seats;
     }

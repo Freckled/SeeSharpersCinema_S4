@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SeeSharpersCinema.Models.Database;
+using SeeSharpersCinema.Models.Film;
 using SeeSharpersCinema.Models.Program;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace SeeSharpersCinema.Models.Repository
         {
             context = ctx;
         }
+
+        public IQueryable<Movie> Movies => context.Movies;
 
         //public IQueryable<PlayList> PlayLists => context.PlayLists;
 

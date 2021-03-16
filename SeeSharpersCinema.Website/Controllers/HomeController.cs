@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SeeSharpersCinema.Models.Repository;
 using SeeSharpersCinema.Models.ViewModel;
@@ -28,6 +29,24 @@ namespace SeeSharpersCinema.Website.Controllers
             }
             return View(movieWeek);
         }
+
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await repository.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
         public DateTime GetNextThursday()
         {
             DateTime today = DateTime.Now.Date;

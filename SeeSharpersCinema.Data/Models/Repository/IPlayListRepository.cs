@@ -1,4 +1,5 @@
-﻿using SeeSharpersCinema.Models.Program;
+﻿using SeeSharpersCinema.Models.Film;
+using SeeSharpersCinema.Models.Program;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace SeeSharpersCinema.Models.Repository
     {
         //IQueryable<PlayList> PlayLists { get; }
         public Task<IEnumerable<PlayList>> FindBetweenDatesAsync(DateTime startDate, DateTime endDate);
+        IQueryable<Movie> Movies { get; }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SeeSharpersCinema.Data.Models.Repository;
 using SeeSharpersCinema.Models.Database;
 using SeeSharpersCinema.Models.Repository;
 using System;
@@ -33,6 +34,8 @@ namespace SeeSharpersCinema.Website
             });
             services.AddScoped<IMovieRepository, EFMovieRepository>();
             services.AddTransient<IPlayListRepository, EFPlayListRepository>();
+            services.AddTransient<IReservedSeatRepository, EFReservedSeatRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
