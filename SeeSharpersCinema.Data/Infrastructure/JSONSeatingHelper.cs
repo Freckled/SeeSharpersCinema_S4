@@ -1,17 +1,12 @@
-﻿using SeeSharpersCinema.Models.Program;
-using SeeSharpersCinema.Models.Theater;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using JsonSerializer = System.Text.Json.JsonSerializer;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
+﻿using SeeSharpersCinema.Data.Models.Program;
 using SeeSharpersCinema.Data.Program;
-using SeeSharpersCinema.Data.Models.Program;
+using SeeSharpersCinema.Models.Program;
+using SeeSharpersCinema.Models.Theater;
+using System.Collections.Generic;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace SeeSharpersCinema.Data.Infrastructure
 {
@@ -34,7 +29,8 @@ namespace SeeSharpersCinema.Data.Infrastructure
 
                     ObjSeat ObjSeat = new ObjSeat { GridSeatNum = i, seatNumber = i, SeatStatus = "0" };
                     var seatTaken = 0;
-                    Seats.ForEach(s => {
+                    Seats.ForEach(s =>
+                    {
                         if (s.SeatId == i & s.RowId == j & s.SeatState == SeatState.Reserved)
                         {
                             seatTaken = 1;
@@ -44,7 +40,7 @@ namespace SeeSharpersCinema.Data.Infrastructure
                             seatTaken = 2;
                         }
                     });
-                    if (seatTaken>0)//Todo think this can be integrated in seatTaken = true. Check later
+                    if (seatTaken > 0)
                     {
                         ObjSeat.SeatStatus = seatTaken.ToString();
                         seatTaken = 0;
@@ -76,7 +72,6 @@ namespace SeeSharpersCinema.Data.Infrastructure
                 groupedSeats = groupedSeatsList
             };
 
-            // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
             var encoderSettings = new TextEncoderSettings();
             encoderSettings.AllowCharacters('\u0022');
             encoderSettings.AllowRange(UnicodeRanges.BasicLatin);
@@ -86,7 +81,6 @@ namespace SeeSharpersCinema.Data.Infrastructure
                 WriteIndented = true
             };
             string jsonString = JsonSerializer.Serialize(Root, options);
-            // System.Diagnostics.Debug.WriteLine(jsonString);
 
             return jsonString;
         }

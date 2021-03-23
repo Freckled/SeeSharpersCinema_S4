@@ -5,9 +5,6 @@ using SeeSharpersCinema.Infrastructure;
 using SeeSharpersCinema.Models.Repository;
 using SeeSharpersCinema.Models.Website;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Website.Controllers

@@ -1,5 +1,4 @@
-﻿using SeeSharpersCinema.Data.Models.Program;
-using SeeSharpersCinema.Data.Program;
+﻿using SeeSharpersCinema.Data.Program;
 using SeeSharpersCinema.Models.Film;
 using SeeSharpersCinema.Models.Program;
 using SeeSharpersCinema.Models.Theater;
@@ -53,7 +52,7 @@ namespace SeeSharpersCinema.Models.Database
                 new TimeSlot { Id = 12, Week = 12, SlotStart = new DateTime(2021, 3, 22, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 22, 23, 00, 00), RoomId= 6 },
                 new TimeSlot { Id = 13, Week = 12, SlotStart = new DateTime(2021, 3, 22, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 22, 20, 30, 00), RoomId= 7 },
                 new TimeSlot { Id = 14, Week = 12, SlotStart = new DateTime(2021, 3, 22, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 22, 23, 00, 00), RoomId= 7 },
-                
+
                 new TimeSlot { Id = 15, Week = 12, SlotStart = new DateTime(2021, 3, 23, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 23, 20, 30, 00), RoomId= 1 },
                 new TimeSlot { Id = 16, Week = 12, SlotStart = new DateTime(2021, 3, 23, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 23, 23, 00, 00), RoomId= 1 },
                 new TimeSlot { Id = 17, Week = 12, SlotStart = new DateTime(2021, 3, 23, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 23, 20, 30, 00), RoomId= 2 },
@@ -73,48 +72,48 @@ namespace SeeSharpersCinema.Models.Database
                 new TimeSlot { Id = 30, Week = 12, SlotStart = new DateTime(2021, 3, 24, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 24, 23, 00, 00), RoomId= 2 },
                 new TimeSlot { Id = 31, Week = 12, SlotStart = new DateTime(2021, 3, 24, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 24, 20, 30, 00), RoomId= 3 },
                 new TimeSlot { Id = 32, Week = 12, SlotStart = new DateTime(2021, 3, 24, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 24, 23, 00, 00), RoomId= 4 },
-                
+
                 new TimeSlot { Id = 33, Week = 12, SlotStart = new DateTime(2021, 3, 25, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 25, 20, 30, 00), RoomId= 1 },
                 new TimeSlot { Id = 34, Week = 12, SlotStart = new DateTime(2021, 3, 25, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 25, 23, 00, 00), RoomId= 2 },
                 new TimeSlot { Id = 35, Week = 12, SlotStart = new DateTime(2021, 3, 25, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 25, 20, 30, 00), RoomId= 3 },
                 new TimeSlot { Id = 36, Week = 12, SlotStart = new DateTime(2021, 3, 25, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 25, 23, 00, 00), RoomId= 4 },
                 new TimeSlot { Id = 37, Week = 12, SlotStart = new DateTime(2021, 3, 25, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 25, 20, 30, 00), RoomId= 5 },
                 new TimeSlot { Id = 38, Week = 12, SlotStart = new DateTime(2021, 3, 25, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 25, 23, 00, 00), RoomId= 6 },
-                
+
                 new TimeSlot { Id = 39, Week = 12, SlotStart = new DateTime(2021, 3, 26, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 26, 20, 30, 00), RoomId= 1 },
                 new TimeSlot { Id = 40, Week = 12, SlotStart = new DateTime(2021, 3, 26, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 26, 23, 00, 00), RoomId= 1 },
                 new TimeSlot { Id = 41, Week = 12, SlotStart = new DateTime(2021, 3, 26, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 26, 20, 30, 00), RoomId= 2 },
-                
+
                 new TimeSlot { Id = 42, Week = 12, SlotStart = new DateTime(2021, 3, 27, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 27, 23, 00, 00), RoomId= 2 },
                 new TimeSlot { Id = 43, Week = 12, SlotStart = new DateTime(2021, 3, 27, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 27, 20, 30, 00), RoomId= 3 },
                 new TimeSlot { Id = 44, Week = 12, SlotStart = new DateTime(2021, 3, 27, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 27, 23, 00, 00), RoomId= 3 },
-                
+
                 new TimeSlot { Id = 45, Week = 12, SlotStart = new DateTime(2021, 3, 28, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 28, 20, 30, 00), RoomId= 4 },
                 new TimeSlot { Id = 46, Week = 12, SlotStart = new DateTime(2021, 3, 28, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 28, 23, 00, 00), RoomId= 4 },
                 new TimeSlot { Id = 47, Week = 12, SlotStart = new DateTime(2021, 3, 28, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 28, 20, 30, 00), RoomId= 5 },
-                
+
                 new TimeSlot { Id = 48, Week = 13, SlotStart = new DateTime(2021, 3, 29, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 29, 23, 00, 00), RoomId= 5 },
                 new TimeSlot { Id = 49, Week = 13, SlotStart = new DateTime(2021, 3, 29, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 29, 20, 30, 00), RoomId= 6 },
                 new TimeSlot { Id = 50, Week = 13, SlotStart = new DateTime(2021, 3, 29, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 29, 23, 00, 00), RoomId= 6 },
-                
+
                 new TimeSlot { Id = 51, Week = 13, SlotStart = new DateTime(2021, 3, 30, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 30, 20, 30, 00), RoomId= 7 },
                 new TimeSlot { Id = 52, Week = 13, SlotStart = new DateTime(2021, 3, 30, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 30, 23, 00, 00), RoomId= 7 },
                 new TimeSlot { Id = 53, Week = 13, SlotStart = new DateTime(2021, 3, 30, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 30, 20, 30, 00), RoomId= 1 },
-                
+
                 new TimeSlot { Id = 54, Week = 13, SlotStart = new DateTime(2021, 3, 31, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 31, 23, 00, 00), RoomId= 1 },
                 new TimeSlot { Id = 55, Week = 13, SlotStart = new DateTime(2021, 3, 31, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 31, 20, 30, 00), RoomId= 2 },
                 new TimeSlot { Id = 56, Week = 13, SlotStart = new DateTime(2021, 3, 31, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 31, 23, 00, 00), RoomId= 2 },
                 new TimeSlot { Id = 57, Week = 13, SlotStart = new DateTime(2021, 3, 31, 19, 00, 00), SlotEnd = new DateTime(2021, 3, 31, 20, 30, 00), RoomId= 3 },
                 new TimeSlot { Id = 58, Week = 13, SlotStart = new DateTime(2021, 3, 31, 21, 00, 00), SlotEnd = new DateTime(2021, 3, 31, 23, 00, 00), RoomId= 3 },
-                
+
                 new TimeSlot { Id = 59, Week = 13, SlotStart = new DateTime(2021, 4, 1, 19, 00, 00), SlotEnd = new DateTime(2021, 4, 1, 20, 30, 00), RoomId= 4 },
                 new TimeSlot { Id = 60, Week = 13, SlotStart = new DateTime(2021, 4, 1, 21, 00, 00), SlotEnd = new DateTime(2021, 4, 1, 23, 00, 00), RoomId= 4 },
                 new TimeSlot { Id = 61, Week = 13, SlotStart = new DateTime(2021, 4, 1, 19, 00, 00), SlotEnd = new DateTime(2021, 4, 1, 20, 30, 00), RoomId= 5 },
-               
+
                 new TimeSlot { Id = 62, Week = 13, SlotStart = new DateTime(2021, 4, 2, 21, 00, 00), SlotEnd = new DateTime(2021, 4, 2, 23, 00, 00), RoomId= 5 },
                 new TimeSlot { Id = 63, Week = 13, SlotStart = new DateTime(2021, 4, 2, 19, 00, 00), SlotEnd = new DateTime(2021, 4, 2, 20, 30, 00), RoomId= 6 },
                 new TimeSlot { Id = 64, Week = 13, SlotStart = new DateTime(2021, 4, 2, 21, 00, 00), SlotEnd = new DateTime(2021, 4, 2, 23, 00, 00), RoomId= 6 },
-                
+
                 new TimeSlot { Id = 65, Week = 13, SlotStart = new DateTime(2021, 4, 3, 19, 00, 00), SlotEnd = new DateTime(2021, 4, 3, 20, 30, 00), RoomId= 7 },
                 new TimeSlot { Id = 66, Week = 13, SlotStart = new DateTime(2021, 4, 3, 21, 00, 00), SlotEnd = new DateTime(2021, 4, 3, 23, 00, 00), RoomId= 7 },
 

@@ -9,7 +9,6 @@ namespace SeeSharpersCinema.Models.Repository
 {
     public interface IPlayListRepository : IRepository<PlayList>
     {
-        //IQueryable<PlayList> PlayLists { get; }
         public Task<IEnumerable<PlayList>> FindBetweenDatesAsync(DateTime startDate, DateTime endDate);
         public Task<IEnumerable<PlayList>> FindByTitle(DateTime startDate, DateTime endDate, string uiTitle);
         public Task<IEnumerable<PlayList>> FindByDate(DateTime uiDate);

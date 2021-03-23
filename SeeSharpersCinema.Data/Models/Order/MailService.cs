@@ -20,7 +20,6 @@ namespace SeeSharpersCinema.Models
             String qrCodew = ticket.GetQr();
 
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            //QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://www.google.com", QRCodeGenerator.ECCLevel.Q);
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(guid.ToString(), QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
             Bitmap qrCodeImage = qrCode.GetGraphic(20);
