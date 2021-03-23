@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace SeeSharpersCinema.Data.Migrations
 {
-    public partial class Ammar : Migration
+    public partial class bananenschil : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
