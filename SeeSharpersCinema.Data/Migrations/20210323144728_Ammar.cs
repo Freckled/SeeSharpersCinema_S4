@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SeeSharpersCinema.Data.Migrations
 {
-    public partial class Banenschil : Migration
+    public partial class Ammar : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
