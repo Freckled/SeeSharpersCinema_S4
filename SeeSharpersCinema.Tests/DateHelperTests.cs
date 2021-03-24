@@ -4,8 +4,14 @@ using Xunit;
 
 namespace SeeSharpersCinema.Tests
 {
+    /// <summary>
+    /// Tests for the DateHelper Class
+    /// </summary>
     public class DateHelperTests
     {
+        /// <summary>
+        /// Check if the Day returned is type of String
+        /// </summary>
         [Fact]
         public void GetDayIsString()
         {
@@ -16,6 +22,9 @@ namespace SeeSharpersCinema.Tests
             Assert.IsType<string>(sut);
         }
 
+        /// <summary>
+        /// Check if the returned Day is really equal to Today
+        /// </summary>
         [Fact]
         public void GetCurrentDayOfWeek()
         {
@@ -27,6 +36,9 @@ namespace SeeSharpersCinema.Tests
             Assert.Equal(sut, today.ToString());
         }
 
+        /// <summary>
+        /// Check is the String to DateTime function returns the correct DateTime
+        /// </summary>
         [Fact]
         public void CheckStringToDateTime()
         {
@@ -41,6 +53,9 @@ namespace SeeSharpersCinema.Tests
             Assert.Equal(sut, new DateTime(1985, 10, 05, 00, 00, 00));
         }
 
+        /// <summary>
+        /// Check if the date returned is next Thursday
+        /// </summary>
         [Fact]
         public void GetNextThursday()
         {

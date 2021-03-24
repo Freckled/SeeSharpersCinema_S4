@@ -1,22 +1,23 @@
 ﻿using SeeSharpersCinema.Data.Infrastructure;
-using SeeSharpersCinema.Data.Models.Program;
 using SeeSharpersCinema.Data.Program;
 using SeeSharpersCinema.Models.Program;
 using SeeSharpersCinema.Models.Theater;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace SeeSharpersCinema.Tests
 {
+    /// <summary>
+    /// Tests for the JSONSeatingHelper class
+    /// </summary>
     public class JSONSeatingHelperTests
     {
+        /// <summary>
+        /// Check if the returns the correct json
+        /// </summary>
         [Fact]
         public void GenerateCorrectJson()
         {
@@ -96,4 +97,92 @@ namespace SeeSharpersCinema.Tests
 
         }
     }
+    
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class ObjSeat
+    {
+        public int GridSeatNum { get; set; }
+        public string SeatStatus { get; set; }
+        public int seatNumber { get; set; }
+    }
+
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class ObjRow
+    {
+        public int GridRowId { get; set; }
+        public string PhyRowId { get; set; }
+        public List<ObjSeat> objSeat { get; set; }
+    }
+
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class ObjArea
+    {
+        public string AreaDesc { get; set; }
+        public string AreaCode { get; set; }
+        public string AreaNum { get; set; }
+        public bool HasCurrentOrder { get; set; }
+        public List<ObjRow> objRow { get; set; }
+    }
+
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class ColAreas
+    {
+        public int Count { get; set; }
+        public int intMaxSeatId { get; set; }
+        public int intMinSeatId { get; set; }
+        public List<ObjArea> objArea { get; set; }
+    }
+
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class SeatLayout
+    {
+        public ColAreas colAreas { get; set; }
+    }
+
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class Root
+    {
+        public int product_id { get; set; }
+        public bool freeSeating { get; set; }
+        public string tempTransId { get; set; }
+        public SeatLayout seatLayout { get; set; }
+        public List<object> areas { get; set; }
+        public List<object> groupedSeats { get; set; }
+    }
+
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class Selected
+    {
+        public int GridSeatNum { get; set; }
+        public string SeatStatus { get; set; }
+        public int seatNumber { get; set; }
+        public int GridRowId { get; set; }
+        public string PhyRowId { get; set; }
+        public string AreaNum { get; set; }
+        public string AreaCode { get; set; }
+        public string AreaDesc { get; set; }
+    }
+
+    /// <summary>
+    /// Class needed for setting up the test
+    /// </summary>
+    class DeserializeRoot
+    {
+        public List<Selected> selected { get; set; }
+    }
+
 }
