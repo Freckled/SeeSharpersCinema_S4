@@ -51,7 +51,7 @@ namespace SeeSharpersCinema.Tests
             PlayList p = new PlayList { Id = 1 };
 
             // Assert
-            Assert.True(p.Id.GetType() == typeof(long));
+            Assert.IsType<long>(p.Id);
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace SeeSharpersCinema.Tests
             PlayList p = new PlayList { TimeSlotId = 1 };
 
             // Assert
-            Assert.True(p.TimeSlotId.GetType() == typeof(long));
+            Assert.IsType<long>(p.TimeSlotId);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace SeeSharpersCinema.Tests
             PlayList p = new PlayList { MovieId = 1 };
 
             // Assert
-            Assert.True(p.MovieId.GetType() == typeof(long));
+            Assert.IsType<long>(p.MovieId);
         }
 
 
