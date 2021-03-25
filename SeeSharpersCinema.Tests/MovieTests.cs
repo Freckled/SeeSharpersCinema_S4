@@ -25,7 +25,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Id = 1 };
 
             // Assert
-            Assert.True(m.Id.GetType() == typeof(long));
+            Assert.IsType<long>(m.Id);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Title = "Test" };
 
             // Assert
-            Assert.True(m.Title.GetType() == typeof(string));
+            Assert.IsType<string>(m.Title);
         }
 
         [Fact]
@@ -71,7 +71,8 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { PosterUrl = "https://www.nos.nl" };
 
             // Assert
-            Assert.True(m.PosterUrl.GetType() == typeof(string));
+            Assert.IsType<string>(m.PosterUrl);
+
         }
 
         [Fact]
@@ -94,7 +95,8 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Duration = 120 };
 
             // Assert
-            Assert.True(m.Duration.GetType() == typeof(int));
+            Assert.IsType<int>(m.Duration);
+
         }
 
         [Fact]
@@ -117,7 +119,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Language = "Original" };
 
             // Assert
-            Assert.True(m.Language.GetType() == typeof(string));
+            Assert.IsType<string>(m.Language);
         }
 
         [Fact]
@@ -140,7 +142,8 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Technique = "2D" };
 
             // Assert
-            Assert.True(m.Technique.GetType() == typeof(string));
+            Assert.IsType<string>(m.Technique);
+
         }
 
         [Fact]
@@ -163,7 +166,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Description = "Lorem Ipsum" };
 
             // Assert
-            Assert.True(m.Description.GetType() == typeof(string));
+            Assert.IsType<string>(m.Description);
         }
 
         [Fact]
@@ -186,7 +189,8 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { ViewIndication = ViewIndication.Fourteen };
 
             // Assert
-            Assert.True(m.ViewIndication.GetType() == typeof(ViewIndication));
+            Assert.IsType<ViewIndication>(m.ViewIndication);
+
         }
 
         [Fact]
@@ -209,7 +213,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Genre = Genre.Action };
 
             // Assert
-            Assert.True(m.Genre.GetType() == typeof(Genre));
+            Assert.IsType<Genre>(m.Genre);
         }
 
         [Fact]
@@ -232,7 +236,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Year = 2021 };
 
             // Assert
-            Assert.True(m.Year.GetType() == typeof(int));
+            Assert.IsType<int>(m.Year);
         }
 
         [Fact]
@@ -258,7 +262,7 @@ namespace SeeSharpersCinema.Tests
             m.Director = "SeeSharpers";
 
             // Assert
-            Assert.True(m.Director.GetType() == typeof(string));
+            Assert.IsType<string>(m.Director);
         }
 
         [Fact]
@@ -281,7 +285,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Country = "United States" };
 
             // Assert
-            Assert.True(m.Country.GetType() == typeof(string));
+            Assert.IsType<string>(m.Country);
         }
 
         [Fact]
@@ -301,7 +305,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Duration = 130 };
 
             // Assert
-            Assert.True(m.IsLongMovie.GetType() == typeof(bool));
+            Assert.IsType<bool>(m.IsLongMovie);
         }
 
         [Fact]
@@ -323,7 +327,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Genre = Genre.Children };
 
             // Assert
-            Assert.True(m.IsGenreChild.GetType() == typeof(bool));
+            Assert.IsType<bool>(m.IsGenreChild);
         }
 
         [Fact]
@@ -345,7 +349,7 @@ namespace SeeSharpersCinema.Tests
             Movie m = new Movie { Technique = "3D" };
 
             // Assert
-            Assert.True(m.IsThreeDimensional.GetType() == typeof(bool));
+            Assert.IsType<bool>(m.IsThreeDimensional);
         }
     }
 }
