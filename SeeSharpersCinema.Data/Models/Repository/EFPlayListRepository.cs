@@ -36,6 +36,7 @@ namespace SeeSharpersCinema.Models.Repository
             => await context.PlayLists
             .Include(b => b.Movie)
             .Include(c => c.TimeSlot)
+            .Include(r => r.TimeSlot.Room)
             .OrderBy(p => p.TimeSlot.SlotStart)
             .ThenBy(q => q.TimeSlot.RoomId)
             .ToListAsync();

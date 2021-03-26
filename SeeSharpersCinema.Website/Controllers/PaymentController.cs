@@ -1,17 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SeeSharpersCinema.Models.Order;
-/*using Mollie.Api.Client;
-using Mollie.Api.Client.Abstract;
-using Mollie.Api.Models;
-using Mollie.Api.Models.Payment.Request;
-using Mollie.Api.Models.Payment.Response;*/
-using SeeSharpersCinema.Models.Film;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SeeSharpersCinema.Models.Repository;
-using SeeSharpersCinema.Models.Payment;
 using Microsoft.EntityFrameworkCore;
 
 namespace SeeSharpersCinema.Website.Controllers
@@ -19,42 +10,39 @@ namespace SeeSharpersCinema.Website.Controllers
 
     public class PaymentController : Controller
     {
-        Movie mov;
-        //IPaymentClient paymentClient = new PaymentClient("test_rWeMRKpke8RHJFezCqenNyJmHtQry8");
-        //PaymentRequest paymentRequest = new PaymentRequest()
-        //{
-        // Amount = new Amount(Currency.EUR, 100.00m),
-        // Description = "Test payment of the example project",
-        // RedirectUrl = "http://google.com",
-        //  Method = Mollie.Api.Models.Payment.PaymentMethod.Ideal // instead of "Ideal"
-        //};
-        /*        PaymentResponse paymentResponse = await paymentClient.CreatePaymentAsync(paymentRequest);
-        */
-
         private IPlayListRepository repository;
         public PaymentController(IPlayListRepository repo)
         {
             repository = repo;
         }
 
-        [Route("Payment/Pay")]
-
-        public async Task<IActionResult> IndexAsync(long movieId)
+        /// <summary>
+        /// Open payment overview
+        /// </summary>
+        /// <param name="movieId">Id used to select correct PlayList object</param>
+        /// <returns>Payment View</returns>
+        [Route("Payment/Pay/{movieId}")]
+        public async Task<IActionResult> IndexAsync([FromRoute] long? movieId)
         {
-            if (movieId == 0)
+            if (movieId == null)
+            {
+                return NotFound();
+            }
+            var PlayListList = await repository.FindAllAsync();
+            var PlayList = PlayListList.FirstOrDefault(p => p.Id == movieId);
+
+            if (PlayList == null)
             {
                 return NotFound();
             }
 
-            var movie = await repository.Movies
-                .FirstOrDefaultAsync(m => m.Id == movieId);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-            mov = movie;
-            return View(movie);
+            return View(PlayList);
         }
+
+        /// <summary>
+        /// Movies per week
+        /// </summary>
+        /// <returns>Return view</returns>
         public async Task<IActionResult> Index()
         {
             var movieWeek = await repository.FindBetweenDatesAsync(DateTime.Now.Date, GetNextThursday());
@@ -64,37 +52,32 @@ namespace SeeSharpersCinema.Website.Controllers
             }
             return View(movieWeek);
         }
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var movie = await repository.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-
-            return View(movie);
-        }
-
+        /// <summary>
+        /// Get datetime for next thursday
+        /// </summary>
+        /// <returns>DateTime for next thursday</returns>
         public DateTime GetNextThursday()
         {
             DateTime today = DateTime.Now.Date;
-            //Voorbeeld voor vrijdag: 4 - 5 + 7 = 6 dagen tot donderdag. mooie uitleg: https://stackoverflow.com/questions/6346119/datetime-get-next-tuesday
             int daysUntilThursday = ((int)DayOfWeek.Thursday - (int)today.DayOfWeek + 7) % 7;
             DateTime nextThursday = today.AddDays(daysUntilThursday);
             return nextThursday;
         }
 
+        /// <summary>
+        /// Go to Privacy View
+        /// </summary>
+        /// <returns>Privacy View</returns>
         public IActionResult Privacy()
         {
             return View();
         }
 
+        /// <summary>
+        /// Sends email to customer with QR code
+        /// </summary>
+        /// <returns>Payment View</returns>
         public IActionResult MolliePayment()
         {
             SeeSharpersCinema.Models.EmailService emailService = new SeeSharpersCinema.Models.EmailService();

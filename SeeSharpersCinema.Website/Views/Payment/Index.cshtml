@@ -1,5 +1,4 @@
-﻿@model SeeSharpersCinema.Models.Film.Movie
-
+﻿@model SeeSharpersCinema.Models.Program.PlayList
 @{
     ViewData["Title"] = "Details";
 }
@@ -15,10 +14,13 @@
                 <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                     <p>
                         <em>Datum</em>
-                        @DateTime.Now
+                        @Model.TimeSlot.SlotStart.ToString("dd-MM-yyyy")
                     </p>
                     <p>
-                        <em>Uw bestelling: @Model.Id</em>
+                        @Model.TimeSlot.SlotStart.ToString("hh:mm") - @Model.TimeSlot.SlotEnd.ToString("hh:mm")
+                    </p>
+                    <p>
+                        <em>Film nummer: @Model.Id</em>
                     </p>
                 </div>
             </div>
@@ -37,7 +39,7 @@
                     <tbody>
                         <tr>
                             <td class="col-md-9">
-                                @Model.Title
+                                @Model.Movie.Title
                             </td>
 
                             <td class="col-md-1 text-center">€13</td>

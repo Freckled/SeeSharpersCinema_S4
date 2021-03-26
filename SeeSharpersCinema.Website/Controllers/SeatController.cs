@@ -41,6 +41,7 @@ namespace SeeSharpersCinema.Website.Controllers
             SeatViewModel SeatViewModel = new SeatViewModel();
             SeatViewModel.Movie = PlayList.Movie;
             SeatViewModel.TimeSlot = PlayList.TimeSlot;
+            SeatViewModel.PlayListId = playListId;
 
             var Seats = ReservedSeats.ToList();
             var Seating = JSONSeatingHelper.JSONSeating(PlayList.TimeSlot.Room, Seats);
@@ -73,8 +74,12 @@ namespace SeeSharpersCinema.Website.Controllers
             {
                 SeatList = await COVIDSeats(SeatList);
             }
+
+            var PlayListList = await playListRepository.FindAllAsync();
+            var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == TimeSlotId);
+
             await seatRepository.ReserveSeats(SeatList);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
         }
 
 

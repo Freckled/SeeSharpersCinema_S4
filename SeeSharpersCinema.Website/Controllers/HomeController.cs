@@ -5,6 +5,7 @@ using SeeSharpersCinema.Infrastructure;
 using SeeSharpersCinema.Models.Repository;
 using SeeSharpersCinema.Models.Website;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Website.Controllers
@@ -38,15 +39,15 @@ namespace SeeSharpersCinema.Website.Controllers
             {
                 return NotFound();
             }
+            var PlayListList = await repository.FindAllAsync();
+            var PlayList = PlayListList.FirstOrDefault(p => p.Id == id);
 
-            var movie = await repository.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
+            if (PlayList == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(PlayList);
         }
 
         /// <summary>

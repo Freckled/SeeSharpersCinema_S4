@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpersCinema.TouchScre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeSharpersCinema.Website", "SeeSharpersCinema.Website\SeeSharpersCinema.Website.csproj", "{C5FD794C-B033-4582-B7EA-D04942319665}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpersCinema.IntegrationTests", "SeeSharpersCinema.IntegrationTests\SeeSharpersCinema.IntegrationTests.csproj", "{BC5DB557-BAFC-40E7-8A91-AAA79F775BA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C5FD794C-B033-4582-B7EA-D04942319665}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5FD794C-B033-4582-B7EA-D04942319665}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5FD794C-B033-4582-B7EA-D04942319665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5DB557-BAFC-40E7-8A91-AAA79F775BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5DB557-BAFC-40E7-8A91-AAA79F775BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5DB557-BAFC-40E7-8A91-AAA79F775BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5DB557-BAFC-40E7-8A91-AAA79F775BA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

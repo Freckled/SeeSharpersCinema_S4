@@ -20,6 +20,11 @@ namespace SeeSharpersCinema.Data.Infrastructure
         /// <returns>A JSON string to the ViewModel</returns>
         public static string JSONSeating(Room Room, List<ReservedSeat> Seats)
         {
+            if (Room == null)
+            {
+                Room = new Room();
+            }
+
             List<ObjRow> ObjRowList = new List<ObjRow>();
             for (var j = 1; j <= Room.Rows; j++)
             {
