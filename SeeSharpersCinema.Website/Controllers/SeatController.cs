@@ -15,7 +15,11 @@ namespace SeeSharpersCinema.Website.Controllers
 {
     public class SeatController : Controller
     {
-
+        /// <summary>
+        /// Constructor SeatController
+        /// </summary>
+        /// <param name="playListRepository">Constructor needs IPlayListRepository object</param>
+        /// <param name="seatRepository">Constructor needs IReservedSeatRepository object</param>
         private IPlayListRepository playListRepository;
         private IReservedSeatRepository seatRepository;
         bool COVID = true;

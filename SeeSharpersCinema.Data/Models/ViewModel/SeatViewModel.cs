@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {
+    /// <summary>
+    /// SeatViewModel used by the Seat View.
+    /// </summary>
     public class SeatViewModel
     {
         public TimeSlot TimeSlot { get; set; }
