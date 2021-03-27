@@ -63,12 +63,8 @@
                 return Obj;
             },
             callOnSeatSelect: function (_event, _data, _element) {
-@*                console.log(_event);
-                console.log(_data);
-                console.log(_element);*@
             },
             selectionDone: function (_array) {
-                //console.log(_array);
                 var SeatString = JSON.stringify(_array);
                 document.getElementById("SeatString").value = SeatString;
                 document.forms[0].submit();

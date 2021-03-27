@@ -2,6 +2,11 @@
 
 namespace SeeSharpersCinema.Data.Models.Program
 {
+    /// <summary>
+    /// These are is used in the JSONSeatinghelper to create a JSON object for the view.
+    /// ObjSeat is the actual seat with number/id and the ENUM state the seat is in for the given moment.
+    /// All other classes are used to construct the JSON object.
+    /// </summary>
     public class ObjSeat
     {
         public int GridSeatNum { get; set; }
