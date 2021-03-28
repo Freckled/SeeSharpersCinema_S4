@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SeeSharpersCinema.Models.Film;
 using SeeSharpersCinema.Models.Order;
 using SeeSharpersCinema.Models.Program;
@@ -7,7 +8,7 @@ using SeeSharpersCinema.Models.Website;
 
 namespace SeeSharpersCinema.Models.Database
 {
-    public class CinemaDbContext : DbContext
+    public class CinemaDbContext : IdentityDbContext
     {
         public CinemaDbContext(DbContextOptions<CinemaDbContext> options)
             : base(options) { }
@@ -23,6 +24,7 @@ namespace SeeSharpersCinema.Models.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Cinema>().ToTable("Cinema");
             modelBuilder.Entity<Room>().ToTable("Room");
             modelBuilder.Entity<TimeSlot>().ToTable("TimeSlot");
