@@ -10,8 +10,8 @@ using SeeSharpersCinema.Models.Database;
 namespace SeeSharpersCinema.Data.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    [Migration("20210328140323_identity_base_001")]
-    partial class identity_base_001
+    [Migration("20210401202057_identitysecondstep")]
+    partial class identitysecondstep
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

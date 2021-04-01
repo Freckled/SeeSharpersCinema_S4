@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SeeSharpersCinema.Data.Migrations
 {
-    public partial class identity_base_001 : Migration
+    public partial class identitysecondstep : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
