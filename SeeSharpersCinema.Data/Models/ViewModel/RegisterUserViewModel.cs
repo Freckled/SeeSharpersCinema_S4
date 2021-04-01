@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {
+    /// <summary>
+    /// RegisterUserViewModel used by the Register View.
+    /// </summary>
     public class RegisterUserViewModel
     {
         [Required]

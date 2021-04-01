@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {
+    /// <summary>
+    /// LoginViewModel used by the Login View.
+    /// </summary>
     public class LoginViewModel
     {
         [Required]

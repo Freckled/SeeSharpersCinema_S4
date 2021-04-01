@@ -10,10 +10,17 @@ namespace SeeSharpersCinema.Website.Controllers
 {
     public class UsersController : Controller
     {
+
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
+        /// <summary>
+        /// Constructor UsersController
+        /// </summary>
+        /// <param name="userManager">Constructor needs UserManager of IdentityUser object</param>
+        /// <param name="signInManager">Constructorneeds SignInManager of IdentityUser object</param>
+        /// <param name="roleManager">Constructor needs RoleManager of IdentityUser object</param>
         public UsersController(UserManager<IdentityUser> userManager, 
                                SignInManager<IdentityUser> signInManager, 
                                RoleManager<IdentityRole> roleManager)
@@ -23,6 +30,10 @@ namespace SeeSharpersCinema.Website.Controllers
             this.roleManager = roleManager;
         }
 
+        /// <summary>
+        /// Signout user and return home
+        /// </summary>
+        /// <returns>Redirects to home</returns>
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -30,12 +41,15 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("index", "home");
         }
 
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        /// <param name="model">RegisterUserViewModel used to register new user</param>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // todo stap 8: maak controller-action voor [HhtpPost] Register.
                 IdentityUser user = new IdentityUser
                 {
                     UserName = model.Name,
@@ -57,23 +71,33 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(model);
         }
 
-
+        /// <summary>
+        /// Login Action
+        /// </summary>
+        /// <returns>Login View</returns>
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        /// Register Action
+        /// </summary>
+        /// <returns>Register View</returns>
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        /// <summary>
+        /// On succeed login user and redirect to home. Else show Error.
+        /// </summary>
+        /// <param name="model">LoginViewModel used to verify and login the user</param>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            // todo stap-14: maak controller-action voor [HttpPost] Login.
             if (ModelState.IsValid)
             {
                 Microsoft.AspNetCore.Identity.SignInResult result
