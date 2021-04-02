@@ -38,20 +38,20 @@ namespace SeeSharpersCinema.Website.Controllers
 
             ReviewViewModel model = new ReviewViewModel();
             model.Movie = PlayList.Movie;
-                        
+                
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([Bind("MovieId,Title,Message,Rating")] Review review)
+        [Route("Review/Post/{playListId}")]
+        public async Task<IActionResult> Post([FromRoute] long playListId,[Bind("MovieId,Title,Message,Rating")] Review review)
         {
-            
             review.IdentityUser = await _userManager.GetUserAsync(HttpContext.User);
             review.Date = DateTime.UtcNow;
 
             await reviewRepository.PostReview(review);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Details", "Home", new { id = playListId });
         }
 
     }
