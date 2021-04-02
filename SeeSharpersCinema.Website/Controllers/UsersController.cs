@@ -110,6 +110,7 @@ namespace SeeSharpersCinema.Website.Controllers
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
+                    //todo change to previous page
                 }
                 ModelState.AddModelError("", "Login failed.");
             }
