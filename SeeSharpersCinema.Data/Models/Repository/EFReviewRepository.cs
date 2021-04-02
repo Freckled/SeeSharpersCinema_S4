@@ -25,7 +25,7 @@ namespace SeeSharpersCinema.Data.Models.Repository
         public async Task<IEnumerable<Review>> FindAllAsync()
             => await context.Reviews
             .Include(c => c.Movie)
-            .OrderBy(q => q.score)
+            .OrderBy(q => q.Rating)
             .ToListAsync();
 
         /// <summary>

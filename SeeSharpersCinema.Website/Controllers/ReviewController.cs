@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SeeSharpersCinema.Data.Models.Film;
+using SeeSharpersCinema.Data.Models.ViewModel;
 using SeeSharpersCinema.Models.Repository;
 using System;
 using System.Collections.Generic;
@@ -12,20 +14,34 @@ namespace SeeSharpersCinema.Website.Controllers
 
         private IPlayListRepository repository;
         
+
+        //todo Authorize
                         
         public ReviewController(IPlayListRepository playListRepo)
         {
             this.repository = playListRepo;
         }
 
-        public async Task<IActionResult> Index([FromRoute] long playListId)
+        [Route("Review/Post/{playListId}")]
+        public async Task<IActionResult> Write([FromRoute] long playListId)
         {
             var PlayListList = await repository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.Id == playListId);
 
-            
-            return View();
-            //todo make VM return View(ReviewViewModel);
+            ReviewViewModel model = new ReviewViewModel();
+            model.Movie = PlayList.Movie;
+                        
+            return View(model);
         }
+
+
+        public async Task<IActionResult> Post(long id, [Bind("Id,Message,Rating")] Review review)
+        {
+            return View();
+        }
+
+
+
+
     }
 }

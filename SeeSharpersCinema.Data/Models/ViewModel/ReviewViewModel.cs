@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {
-    class ReviewViewModel
+    public class ReviewViewModel
     {
-        Movie Movie { get; set; }
-        int Score { get; set; }
-        string Text { get; set; }
+        public Movie Movie { get; set; }
+        public int Rating { get; set; }
+        public string Message { get; set; }
+
+        //todo add user
 
     }
 }

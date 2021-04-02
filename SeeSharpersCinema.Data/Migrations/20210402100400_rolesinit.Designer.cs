@@ -10,7 +10,7 @@ using SeeSharpersCinema.Models.Database;
 namespace SeeSharpersCinema.Data.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    [Migration("20210402093758_rolesinit")]
+    [Migration("20210402100400_rolesinit")]
     partial class rolesinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,13 +224,13 @@ namespace SeeSharpersCinema.Data.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("MovieId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("score")
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
