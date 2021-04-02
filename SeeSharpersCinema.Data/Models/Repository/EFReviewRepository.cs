@@ -25,6 +25,7 @@ namespace SeeSharpersCinema.Data.Models.Repository
         public async Task<IEnumerable<Review>> FindAllAsync()
             => await context.Reviews
             .Include(c => c.Movie)
+            .Include(u => u.IdentityUser)
             .OrderBy(q => q.Rating)
             .ToListAsync();
 
@@ -35,6 +36,7 @@ namespace SeeSharpersCinema.Data.Models.Repository
         /// <returns>IEnumerable<Review> that match the MovieId</returns>
         public async Task<IEnumerable<Review>> FindAllByMovieIdAsync(long MovieId)
             => await context.Reviews
+            .Include(u => u.IdentityUser)
             .Where(t => t.Movie.Id == MovieId)
             .ToListAsync();
 

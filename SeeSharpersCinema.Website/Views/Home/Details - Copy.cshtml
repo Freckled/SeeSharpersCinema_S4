@@ -1,6 +1,6 @@
 ﻿@using  Microsoft.AspNetCore.Identity;
 @inject SignInManager<IdentityUser> signInManager;
-@model DetailsViewModel
+@model SeeSharpersCinema.Models.Program.PlayList
 
 
 @{
@@ -87,28 +87,11 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary ms-1" asp-action="Index">Back to List</a>
-    <a class="btn btn-primary ms-1" asp-action="Selector" asp-controller="Seat" asp-route-playListId="@Model.PlayListId">Reserve a Seat</a>
+    <a class = "btn btn-primary ms-1" asp-action="Index">Back to List</a>
+    <a class = "btn btn-primary ms-1" asp-action="Selector" asp-controller="Seat" asp-route-playListId="@Model.Id">Reserve a Seat</a>
     @if (User.IsInRole("Member"))
     {
-        <a class="btn btn-primary ms-1" asp-action="Post" asp-controller="Review" asp-route-playListId="@Model.PlayListId">Plaats een review</a>
+        <a class = "btn btn-primary ms-1" asp-action="Post" asp-controller="Review" asp-route-playListId="@Model.Id">Plaats een review</a>
     }
 
-</div>
-
-<div class="container">
-    @foreach (var item in Model.Reviews)
-    {
-        <div class="container">
-            <div class="col-md-12">
-                <h1>@item.Title</h1>
-                <p>@item.Message</p>
-                <div>
-                    <span class="badge">Posted 2012-08-02 20:47:04 by @item.IdentityUser.UserName</span><div class="pull-right">
-                    </div>
-                </div>
-                <hr>
-            </div>
-        </div>
-     }
 </div>

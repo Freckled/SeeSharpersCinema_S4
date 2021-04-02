@@ -19,6 +19,8 @@ namespace SeeSharpersCinema.Data.Models.Film
         public Movie Movie { get; set; }
         public string Message { get; set; }
         
+        public string Title { get; set; }
+
         [ForeignKey("UserId")]
         public virtual IdentityUser IdentityUser { get; set; }
     }

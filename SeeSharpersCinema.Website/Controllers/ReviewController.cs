@@ -44,7 +44,7 @@ namespace SeeSharpersCinema.Website.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([Bind("MovieId,Message,Rating")] Review review)
+        public async Task<IActionResult> Post([Bind("MovieId,Title,Message,Rating")] Review review)
         {
             //var user = await GetCurrentUserAsync();
 
