@@ -91,7 +91,7 @@
     <a class = "btn btn-primary ms-1" asp-action="Selector" asp-controller="Seat" asp-route-playListId="@Model.Id">Reserve a Seat</a>
     @if (User.IsInRole("Member"))
     {
-        <a class = "btn btn-primary ms-1" asp-action="Write" asp-controller="Review" asp-route-playListId="@Model.Id">Plaats een review</a>
+        <a class = "btn btn-primary ms-1" asp-action="Post" asp-controller="Review" asp-route-playListId="@Model.Id">Plaats een review</a>
     }
 
 </div>

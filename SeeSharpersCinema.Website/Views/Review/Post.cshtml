@@ -55,7 +55,7 @@
                 <form asp-action="Post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Rating" />
-                    <input type="hidden" asp-for="Movie" />
+                    <input type="hidden" asp-for="Movie" value=@Model.Movie />
                     @*//todo add date?*@
 
                     <div class="form-group">

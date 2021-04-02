@@ -1,4 +1,5 @@
-﻿using SeeSharpersCinema.Models.Film;
+﻿using Microsoft.AspNetCore.Identity;
+using SeeSharpersCinema.Models.Film;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,7 @@ namespace SeeSharpersCinema.Data.Models.Film
         public Movie Movie { get; set; }
         public string Message { get; set; }
         
-        //todo add userID
+        [ForeignKey("UserId")]
+        public virtual IdentityUser IdentityUser { get; set; }
     }
 }
