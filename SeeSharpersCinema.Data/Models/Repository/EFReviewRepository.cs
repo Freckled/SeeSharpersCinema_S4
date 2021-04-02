@@ -26,7 +26,7 @@ namespace SeeSharpersCinema.Data.Models.Repository
             => await context.Reviews
             .Include(c => c.Movie)
             .Include(u => u.IdentityUser)
-            .OrderBy(q => q.Rating)
+            .OrderBy(q => q.Date)
             .ToListAsync();
 
         /// <summary>

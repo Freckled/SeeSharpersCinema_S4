@@ -238,6 +238,7 @@ namespace SeeSharpersCinema.Data.Migrations
                     Rating = table.Column<int>(type: "int", nullable: false),
                     MovieId = table.Column<long>(type: "bigint", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },

@@ -222,6 +222,9 @@ namespace SeeSharpersCinema.Data.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 

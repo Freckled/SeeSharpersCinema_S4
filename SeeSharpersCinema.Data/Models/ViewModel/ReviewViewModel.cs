@@ -14,6 +14,6 @@ namespace SeeSharpersCinema.Data.Models.ViewModel
         public string Title { get; set; }
         public string Message { get; set; }
         public long MovieId { get; set; }
-        
+        public DateTime Date { get; set; }
     }
 }

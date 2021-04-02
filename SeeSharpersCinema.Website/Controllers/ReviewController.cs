@@ -27,7 +27,6 @@ namespace SeeSharpersCinema.Website.Controllers
             this._userManager = userManager;
             this.reviewRepository = reviewRepository;
 
-
         }
 
         [HttpGet]
@@ -46,11 +45,9 @@ namespace SeeSharpersCinema.Website.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([Bind("MovieId,Title,Message,Rating")] Review review)
         {
-            //var user = await GetCurrentUserAsync();
-
-
+            
             review.IdentityUser = await _userManager.GetUserAsync(HttpContext.User);
-
+            review.Date = DateTime.UtcNow;
 
             await reviewRepository.PostReview(review);
 

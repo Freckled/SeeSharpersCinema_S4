@@ -10,7 +10,7 @@ using SeeSharpersCinema.Models.Database;
 namespace SeeSharpersCinema.Data.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    [Migration("20210402214434_banana")]
+    [Migration("20210402221931_banana")]
     partial class banana
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,6 +223,9 @@ namespace SeeSharpersCinema.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");

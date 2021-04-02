@@ -18,7 +18,8 @@ namespace SeeSharpersCinema.Data.Models.Film
         public long MovieId { get; set; }
         public Movie Movie { get; set; }
         public string Message { get; set; }
-        
+        public DateTime Date { get; set; }
+
         public string Title { get; set; }
 
         [ForeignKey("UserId")]
