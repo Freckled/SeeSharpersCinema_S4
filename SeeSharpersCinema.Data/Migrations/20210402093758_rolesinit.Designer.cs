@@ -10,7 +10,7 @@ using SeeSharpersCinema.Models.Database;
 namespace SeeSharpersCinema.Data.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    [Migration("20210402085204_rolesinit")]
+    [Migration("20210402093758_rolesinit")]
     partial class rolesinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,6 +215,29 @@ namespace SeeSharpersCinema.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("SeeSharpersCinema.Data.Models.Film.Review", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("MovieId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("SeeSharpersCinema.Models.Film.Movie", b =>
@@ -4293,6 +4316,15 @@ namespace SeeSharpersCinema.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SeeSharpersCinema.Data.Models.Film.Review", b =>
+                {
+                    b.HasOne("SeeSharpersCinema.Models.Film.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("SeeSharpersCinema.Models.Order.Ticket", b =>

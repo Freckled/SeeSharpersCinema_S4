@@ -230,6 +230,27 @@ namespace SeeSharpersCinema.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Review",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    score = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<long>(type: "bigint", nullable: true),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Review", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Review_Movie_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movie",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TimeSlot",
                 columns: table => new
                 {
@@ -1028,6 +1049,11 @@ namespace SeeSharpersCinema.Data.Migrations
                 column: "TimeSlotId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Review_MovieId",
+                table: "Review",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Room_CinemaId",
                 table: "Room",
                 column: "CinemaId");
@@ -1078,6 +1104,9 @@ namespace SeeSharpersCinema.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ReservedSeat");
+
+            migrationBuilder.DropTable(
+                name: "Review");
 
             migrationBuilder.DropTable(
                 name: "Ticket");

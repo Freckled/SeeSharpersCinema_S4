@@ -215,6 +215,29 @@ namespace SeeSharpersCinema.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("SeeSharpersCinema.Data.Models.Film.Review", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("MovieId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Review");
+                });
+
             modelBuilder.Entity("SeeSharpersCinema.Models.Film.Movie", b =>
                 {
                     b.Property<long>("Id")
@@ -4291,6 +4314,15 @@ namespace SeeSharpersCinema.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SeeSharpersCinema.Data.Models.Film.Review", b =>
+                {
+                    b.HasOne("SeeSharpersCinema.Models.Film.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("SeeSharpersCinema.Models.Order.Ticket", b =>

@@ -1,4 +1,5 @@
-﻿using SeeSharpersCinema.Data.Models.Film;
+﻿using Microsoft.EntityFrameworkCore;
+using SeeSharpersCinema.Data.Models.Film;
 using SeeSharpersCinema.Models.Database;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,9 @@ namespace SeeSharpersCinema.Data.Models.Repository
         /// </summary>
         /// <returns>IEnumerable<Review></returns>
         public async Task<IEnumerable<Review>> FindAllAsync()
-            => await context.Review
-            .Include(c => c.TimeSlot)
-            .OrderBy(q => q.TimeSlotId)
+            => await context.Reviews
+            .Include(c => c.Movie)
+            .OrderBy(q => q.score)
             .ToListAsync();
 
         /// <summary>
@@ -33,10 +34,8 @@ namespace SeeSharpersCinema.Data.Models.Repository
         /// <param name="MovieId">The MovieId the reviews should match. This is defined by the method in ReviewController.</param>
         /// <returns>IEnumerable<Review> that match the MovieId</returns>
         public async Task<IEnumerable<Review>> FindAllByMovieIdAsync(long MovieId)
-            => await context.Review
-            .Include(c => c.Movie)
-            .Include(r => r.TimeSlot.Room)
-            .Where(t => t.MovieId == MovieId)
+            => await context.Reviews
+            .Where(t => t.Movie.Id == MovieId)
             .ToListAsync();
 
 
