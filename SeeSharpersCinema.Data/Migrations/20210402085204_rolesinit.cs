@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SeeSharpersCinema.Data.Migrations
 {
-    public partial class identitysecondstep : Migration
+    public partial class rolesinit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,4 +1,7 @@
-﻿@model SeeSharpersCinema.Models.Program.PlayList
+﻿@using  Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager;
+@model SeeSharpersCinema.Models.Program.PlayList
+
 
 @{
     ViewData["Title"] = "Details";
@@ -84,6 +87,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Selector" asp-controller="Seat" asp-route-playListId="@Model.Id">Reserve a Seat</a>
-    <a asp-action="Index">Back to List</a>
+    <a class = "btn btn-primary ms-1" asp-action="Index">Back to List</a>
+    <a class = "btn btn-primary ms-1" asp-action="Selector" asp-controller="Seat" asp-route-playListId="@Model.Id">Reserve a Seat</a>
+    @if (User.IsInRole("Member"))
+    {
+        <a class = "btn btn-primary ms-1" asp-action="Review" asp-controller="Review" asp-route-playListId="@Model.Id">Plaats een review</a>
+    }
+
 </div>

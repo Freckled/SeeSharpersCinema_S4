@@ -52,7 +52,7 @@ namespace SeeSharpersCinema.Models.Database
                 user.UserName = "Noel";
                 user.Email = "noel@ssc.nl";
 
-                IdentityResult result = userManager.CreateAsync(user, "noel1234").Result;
+                IdentityResult result = userManager.CreateAsync(user, "Noel1234").Result;
 
                 if (result.Succeeded)
                 {
@@ -66,7 +66,7 @@ namespace SeeSharpersCinema.Models.Database
                 user.UserName = "Loes";
                 user.Email = "loes@ssc.nl";
 
-                IdentityResult result = userManager.CreateAsync(user, "loes1234").Result;
+                IdentityResult result = userManager.CreateAsync(user, "Loes1234").Result;
 
                 if (result.Succeeded)
                 {
@@ -80,7 +80,7 @@ namespace SeeSharpersCinema.Models.Database
                 user.UserName = "Ilona";
                 user.Email = "ilona@ssc.nl";
 
-                IdentityResult result = userManager.CreateAsync(user, "ilona1234").Result;
+                IdentityResult result = userManager.CreateAsync(user, "Ilona1234").Result;
 
                 if (result.Succeeded)
                 {
