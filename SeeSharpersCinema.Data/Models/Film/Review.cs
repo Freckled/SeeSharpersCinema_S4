@@ -14,6 +14,8 @@ namespace SeeSharpersCinema.Data.Models.Film
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public int Rating { get; set; }
+
+        public long MovieId { get; set; }
         public Movie Movie { get; set; }
         public string Message { get; set; }
         

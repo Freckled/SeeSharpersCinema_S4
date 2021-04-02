@@ -12,6 +12,7 @@ namespace SeeSharpersCinema.Data.Models.ViewModel
         public Movie Movie { get; set; }
         public int Rating { get; set; }
         public string Message { get; set; }
+        public long MovieId { get; set; }
         
     }
 }

@@ -225,15 +225,20 @@ namespace SeeSharpersCinema.Data.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("MovieId")
+                    b.Property<long>("MovieId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MovieId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Review");
                 });
@@ -4320,7 +4325,15 @@ namespace SeeSharpersCinema.Data.Migrations
                 {
                     b.HasOne("SeeSharpersCinema.Models.Film.Movie", "Movie")
                         .WithMany()
-                        .HasForeignKey("MovieId");
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("IdentityUser");
 
                     b.Navigation("Movie");
                 });

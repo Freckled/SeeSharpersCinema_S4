@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace SeeSharpersCinema.Website.Controllers
 {
@@ -16,14 +17,14 @@ namespace SeeSharpersCinema.Website.Controllers
 
         private IPlayListRepository playListRepository;
         private IReviewRepository reviewRepository;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
         //todo Authorize
 
         public ReviewController(IPlayListRepository playListRepo, UserManager<IdentityUser> userManager, IReviewRepository reviewRepository)
         {
             this.playListRepository = playListRepo;
-            this.userManager = userManager;
+            this._userManager = userManager;
             this.reviewRepository = reviewRepository;
 
 
@@ -43,18 +44,18 @@ namespace SeeSharpersCinema.Website.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(long id, [Bind("Movie,Message,Rating")] Review review)
+        public async Task<IActionResult> Post([Bind("MovieId,Message,Rating")] Review review)
         {
-            var user = await GetCurrentUserAsync();
-            review.UserId = user?.Id;
+            //var user = await GetCurrentUserAsync();
+
+
+            review.IdentityUser = await _userManager.GetUserAsync(HttpContext.User);
+
 
             await reviewRepository.PostReview(review);
 
             return RedirectToAction("Index", "Home");
         }
-
-        private Task<IdentityUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
-
 
     }
 }

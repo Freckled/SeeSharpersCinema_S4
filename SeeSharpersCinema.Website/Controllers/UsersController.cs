@@ -104,7 +104,7 @@ namespace SeeSharpersCinema.Website.Controllers
                     = await signInManager.PasswordSignInAsync(
                             model.Name,
                             model.Password,
-                            isPersistent: true,
+                            isPersistent: false,
                             lockoutOnFailure: false);
 
                 if (result.Succeeded)

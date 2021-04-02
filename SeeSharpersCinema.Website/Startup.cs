@@ -33,6 +33,7 @@ namespace SeeSharpersCinema.Website
             services.AddTransient<IPlayListRepository, EFPlayListRepository>();
             services.AddTransient<IReservedSeatRepository, EFReservedSeatRepository>();
             services.AddTransient<INoticeRepository, EFNoticeRepository>();
+            services.AddTransient<IReviewRepository, EFReviewRepository>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<CinemaDbContext>();

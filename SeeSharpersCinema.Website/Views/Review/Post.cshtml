@@ -54,9 +54,9 @@
             <div class="col-lg-12">
                 <form asp-action="Post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Rating" />
-                    <input type="hidden" asp-for="Movie" value=@Model.Movie />
-                    @*//todo add date?*@
+                    <input type="hidden" asp-for="Rating" value="5"/>
+                    <input type="hidden" asp-for="MovieId" value="@Model.Movie.Id" />
+                    @*//todo add date and make star rating work and link to rating?*@
 
                     <div class="form-group">
                         <label asp-for="Message" class="control-label"></label>
