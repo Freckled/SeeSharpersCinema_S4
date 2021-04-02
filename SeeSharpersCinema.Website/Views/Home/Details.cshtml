@@ -96,19 +96,20 @@
 
 </div>
 
-<div class="container">
+<div class="container mt-3">
     @foreach (var item in Model.Reviews)
     {
-        <div class="container">
-            <div class="col-md-12">
-                <h1>@item.Title</h1>
-                <p>@item.Message</p>
-                <div>
-                    <span class="badge">Posted 2012-08-02 20:47:04 by @item.IdentityUser.UserName</span><div class="pull-right">
-                    </div>
-                </div>
-                <hr>
-            </div>
+        
+    <div class="card">
+        <div class="card-header">
+            @item.Title
         </div>
-     }
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>@item.Message</p>
+                <footer class="blockquote-footer">@item.IdentityUser.UserName <cite title="Source Title"> posted at 2012-08-02</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+    }
 </div>
