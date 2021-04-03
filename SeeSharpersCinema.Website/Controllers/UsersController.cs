@@ -21,8 +21,8 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <param name="userManager">Constructor needs UserManager of IdentityUser object</param>
         /// <param name="signInManager">Constructorneeds SignInManager of IdentityUser object</param>
         /// <param name="roleManager">Constructor needs RoleManager of IdentityUser object</param>
-        public UsersController(UserManager<IdentityUser> userManager, 
-                               SignInManager<IdentityUser> signInManager, 
+        public UsersController(UserManager<IdentityUser> userManager,
+                               SignInManager<IdentityUser> signInManager,
                                RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
@@ -39,6 +39,17 @@ namespace SeeSharpersCinema.Website.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
+        }
+
+
+        /// <summary>
+        /// Register Action
+        /// </summary>
+        /// <returns>Register View</returns>
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
         }
 
         /// <summary>
@@ -82,16 +93,6 @@ namespace SeeSharpersCinema.Website.Controllers
         }
 
         /// <summary>
-        /// Register Action
-        /// </summary>
-        /// <returns>Register View</returns>
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        /// <summary>
         /// On succeed login user and redirect to home. Else show Error.
         /// </summary>
         /// <param name="model">LoginViewModel used to verify and login the user</param>
@@ -119,6 +120,59 @@ namespace SeeSharpersCinema.Website.Controllers
         }
 
 
+        public async Task<IActionResult> Manage()
+        {
+            //var users = userManager.Users.ToList();
+            //var roles = await userManager.GetRolesAsync(users[1]);
+
+            var users = userManager.Users.ToList();
+
+
+            UserViewModel model = new UserViewModel();
+            
+
+            foreach (var user in users)
+            {
+                UserRole userRole = new UserRole();
+                userRole.User = user;
+                userRole.Roles = (List<string>)await userManager.GetRolesAsync(user);
+                
+                model.Users.Add(userRole);
+            }
+            
+            //var users = allusers.Where(x => x.Roles.Select(role => role.Name).Contains("User")).ToList();
+            //var userVM = allusers.Select(user => new UserViewModel { Username = user.FullName, Roles = string.Join(",", user.Roles.Select(role => role.Name)) }).ToList();
+
+            //var admins = allusers.Where(x => x.Roles.Select(role => role.Name).Contains("Admin")).ToList();
+            //var adminsVM = admins.Select(user => new UserViewModel { Username = user.FullName, Roles = string.Join(",", user.Roles.Select(role => role.Name)) }).ToList();
+            //var model = new GroupedUserViewModel { Users = userVM, Admins = adminsVM };
+
+            return View(model);
+
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            IdentityUser user = await userManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                IdentityResult result = await userManager.DeleteAsync(user);
+                if (result.Succeeded) 
+                { 
+                    return RedirectToAction("Manage", "User");
+                }
+            }
+            else 
+            { 
+                ModelState.AddModelError("", "User Not Found");
+            }
+
+            return RedirectToAction("Manage","User");
+        }
 
     }
 }

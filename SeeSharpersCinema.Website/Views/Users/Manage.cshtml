@@ -1,5 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model UserViewModel
+
+@{ ViewData["Title"] = "Gebruiker managment"; }
+
+
+
+<h1>Overzicht</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Gebruiker
+            </th>
+            <th>
+                Rollen
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => user.User.UserName)
+            </td>
+
+            @foreach (var role in user.Roles)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => role)
+                </td>
+            }
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@user.User.Id">Edit</a> |
+@*                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |*@
+                <a asp-action="Delete" asp-route-id="@user.User.Id">Delete</a>
+            </td>
+        </tr>}
+    </tbody>
+</table>
