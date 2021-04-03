@@ -21,23 +21,33 @@
     <tbody>
         @foreach (var user in Model.Users)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => user.User.UserName)
-            </td>
-
-            @foreach (var role in user.Roles)
-            {
+            <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => role)
+                    @Html.DisplayFor(modelItem => user.User.UserName)
                 </td>
-            }
-
-            <td>
-                <a asp-action="Edit" asp-route-id="@user.User.Id">Edit</a> |
-@*                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@user.User.Id">Delete</a>
-            </td>
-        </tr>}
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        <p>@Html.DisplayFor(modelItem => role)</p>
+                    }
+                </td>
+                <td>
+                    <p>@user.User.Id</p>
+                    <a class ="btn-danger" asp-action="DeleteUser" asp-route-id="@user.User.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+
+        //todo warning you sure?
+        document.getElementById("myForm").submit();
+    </script>
+}

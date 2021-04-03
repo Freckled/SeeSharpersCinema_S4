@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SeeSharpersCinema.Data.Models.ViewModel;
 using System;
@@ -119,7 +120,7 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(model);
         }
 
-
+        //[Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Manage()
         {
             //var users = userManager.Users.ToList();
@@ -139,31 +140,24 @@ namespace SeeSharpersCinema.Website.Controllers
                 
                 model.Users.Add(userRole);
             }
-            
-            //var users = allusers.Where(x => x.Roles.Select(role => role.Name).Contains("User")).ToList();
-            //var userVM = allusers.Select(user => new UserViewModel { Username = user.FullName, Roles = string.Join(",", user.Roles.Select(role => role.Name)) }).ToList();
-
-            //var admins = allusers.Where(x => x.Roles.Select(role => role.Name).Contains("Admin")).ToList();
-            //var adminsVM = admins.Select(user => new UserViewModel { Username = user.FullName, Roles = string.Join(",", user.Roles.Select(role => role.Name)) }).ToList();
-            //var model = new GroupedUserViewModel { Users = userVM, Admins = adminsVM };
 
             return View(model);
 
 
         }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        //[Authorize(Roles = "Admin, Manager")]
+        //[ValidateAntiForgeryToken]
+        [Route("Users/DeleteUser/{UserId}")]
+        public async Task<IActionResult> DeleteUser(string UserId)
         {
-            IdentityUser user = await userManager.FindByIdAsync(id);
+            IdentityUser user = await userManager.FindByIdAsync(UserId);
 
             if (user != null)
             {
                 IdentityResult result = await userManager.DeleteAsync(user);
                 if (result.Succeeded) 
                 { 
-                    return RedirectToAction("Manage", "User");
+                    return RedirectToAction("Manage", "Users");
                 }
             }
             else 
@@ -171,7 +165,7 @@ namespace SeeSharpersCinema.Website.Controllers
                 ModelState.AddModelError("", "User Not Found");
             }
 
-            return RedirectToAction("Manage","User");
+            return RedirectToAction("Manage","Users");
         }
 
     }

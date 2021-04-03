@@ -27,5 +27,6 @@ namespace SeeSharpersCinema.Website.Controllers
             var playlist = await repository.FindBetweenDatesAsync(DateTime.Now.Date, DateHelper.GetNextThursday());
             return View(playlist);
         }
+
     }
 }
