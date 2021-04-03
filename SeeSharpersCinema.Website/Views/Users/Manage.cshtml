@@ -33,7 +33,8 @@
                 </td>
                 <td>
                     <p>@user.User.Id</p>
-                    <a class ="btn-danger" asp-action="DeleteUser" asp-route-id="@user.User.Id">Delete</a>
+                    @*<a class ="btn btn-warning" asp-action="DeleteUser" asp-route-id="@user.User.Id">Delete</a>*@
+                    <a class ="btn btn-danger" onclick="deleteUser('@user.User.Id')">Delete</a>
                 </td>
             </tr>
         }
@@ -46,8 +47,10 @@
 @section Scripts{
     <script type="text/javascript">
 
-
-        //todo warning you sure?
-        document.getElementById("myForm").submit();
+        function deleteUser(id) {
+            if (confirm("Are you sure you want to delete this user")) {
+                window.location.href = '@Url.Action("DeleteUser", "Users")/' + id;
+            } 
+        }
     </script>
 }
