@@ -1,0 +1,77 @@
+﻿@model EditUserViewModel
+@{ ViewData["Title"] = "User Details"; }
+
+
+<div>
+    <h4>Gebruiker</h4>
+    <hr />
+    <form>
+        <div class="form-group">
+            <label for="userName">UserName</label>
+            <input type="text" class="form-control" id="UserName" placeholder="Enter UserName" value="@Model.userRole.User.UserName">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" , value="@Model.userRole.User.Email">
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var type in Model.RoleTypes)
+                    {
+                        <tr>
+                            <td>
+                                @type
+                            </td>
+                            <td>
+                                @if (Model.userRole.Roles.Contains(type))
+                                {
+                                    <p>Assigned</p>
+                                }
+                                else
+                                {
+                                    <p>Unassigned</p>
+                                }
+                            </td>
+                            <td>
+                                @if (Model.userRole.Roles.Contains(type))
+                                {
+                                    <input type="checkbox" id="unAssign" name="unAssign" value="@type">
+                                    <label for="unAssign">Unassign</label>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" id="assign" name="assign" value="@type">
+                                    <label for="assign">Assign</label>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        function updateUser(id) {
+            window.location.href = '@Url.Action("DeleteUser", "Users")/' + id;
+        }
+    </script>
+}

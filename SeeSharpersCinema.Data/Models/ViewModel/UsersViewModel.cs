@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SeeSharpersCinema.Data.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

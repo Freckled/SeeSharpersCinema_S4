@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SeeSharpersCinema.Data.Models.User;
 using SeeSharpersCinema.Data.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -166,6 +167,48 @@ namespace SeeSharpersCinema.Website.Controllers
             }
 
             return RedirectToAction("Manage","Users");
+        }
+
+        //[Authorize(Roles = "Admin, Manager")]
+        //[ValidateAntiForgeryToken]
+        [HttpGet]
+        [Route("Users/Edit/{UserId}")]
+        public async Task<IActionResult> Edit(string UserId)
+        {
+            IdentityUser user = await userManager.FindByIdAsync(UserId);
+
+            UserRole userRole = new UserRole();
+            userRole.User = user;
+            userRole.Roles = (List<string>)await userManager.GetRolesAsync(user);
+
+            EditUserViewModel model = new EditUserViewModel();
+            model.userRole = userRole;
+            model.RoleTypes = roleManager.Roles.Select(x => x.Name).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("Users/Edit/{UserId}")]
+        public async Task<IActionResult> Edit([Bind("User,Roles")] UserRole userRole)
+        {
+            IdentityUser user = await userManager.FindByIdAsync(userRole.User.Id);
+
+            if (user != null)
+            {
+/*                IdentityResult result = await userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Edit", "Users", new { id = UserId });
+                }*/
+            }
+            else
+            {
+                ModelState.AddModelError("", "User Not Found");
+            }
+
+            //return RedirectToAction("Edit", "Users", new { id = UserId });
+            return View();
         }
 
     }
