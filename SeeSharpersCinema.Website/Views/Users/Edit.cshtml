@@ -5,7 +5,7 @@
 <div>
     <h4>Gebruiker</h4>
     <hr />
-    <form>
+    <form id="editUser" name="editUser">
         <div class="form-group">
             <label for="userName">UserName</label>
             <input type="text" class="form-control" id="UserName" placeholder="Enter UserName" value="@Model.userRole.User.UserName">
@@ -50,12 +50,12 @@
                             <td>
                                 @if (Model.userRole.Roles.Contains(type))
                                 {
-                                    <input type="checkbox" id="unAssign" name="unAssign" value="@type">
+                                    <input type="checkbox" id="@type" name="unAssign" value="">
                                     <label for="unAssign">Unassign</label>
                                 }
                                 else
                                 {
-                                    <input type="checkbox" id="assign" name="assign" value="@type">
+                                    <input type="checkbox" id="@type" name="assign" value="">
                                     <label for="assign">Assign</label>
                                 }
                             </td>
@@ -64,14 +64,21 @@
                 </tbody>
             </table>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        @*<button type="submit" class="btn btn-primary">Submit</button>*@
+        <button onclick="editUser2()" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
 @section Scripts{
     <script type="text/javascript">
-        function updateUser(id) {
-            window.location.href = '@Url.Action("DeleteUser", "Users")/' + id;
+        function editUser2() {
+            var elements = document.querySelectorAll("#editUser input[type=checkbox]")
+
+            for (var i = 0, element; element = elements[i++];) {
+                if (element.checked == true) {
+                    console.log(element.id + element.checked + element.getAttribute("name"))
+                }
+            }
         }
     </script>
 }

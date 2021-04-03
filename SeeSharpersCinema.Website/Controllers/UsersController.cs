@@ -190,26 +190,42 @@ namespace SeeSharpersCinema.Website.Controllers
 
         [HttpPost]
         [Route("Users/Edit/{UserId}")]
-        public async Task<IActionResult> Edit([Bind("User,Roles")] UserRole userRole)
+        public async Task<IActionResult> Edit(string[] Roles)
         {
-            IdentityUser user = await userManager.FindByIdAsync(userRole.User.Id);
+ /*           IdentityUser user = await userManager.FindByIdAsync(userRole.User.Id);
 
             if (user != null)
             {
-/*                IdentityResult result = await userManager.DeleteAsync(user);
+                IdentityResult result = await userManager.
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Edit", "Users", new { id = UserId });
-                }*/
+                }
             }
             else
             {
                 ModelState.AddModelError("", "User Not Found");
-            }
+            }*/
 
             //return RedirectToAction("Edit", "Users", new { id = UserId });
             return View();
         }
+
+        /*        public async Task<IActionResult> AddRoles()
+                {
+
+                }
+
+                public async Task<IActionResult> RemoveRole()
+                {
+
+                }
+
+                public async Task<IActionResult> EditNameEmail(EditUserViewModel model)
+                {
+
+                }*/
+
 
     }
 }
