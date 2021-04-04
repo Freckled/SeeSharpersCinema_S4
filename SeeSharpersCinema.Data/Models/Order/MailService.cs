@@ -28,9 +28,10 @@ namespace SeeSharpersCinema.Models
             Bitmap qrCodeImage = qrCode.GetGraphic(20);
             Byte[] bytee;
 
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\qr", guid + ".png");
             using (MemoryStream stream = new MemoryStream())
             {
-                qrCodeImage.Save("D:\\Avans\\Temp\\QRCode_" + guid + ".png");
+                qrCodeImage.Save(filePath);
                 bytee = stream.ToArray();
             }
 
@@ -51,7 +52,7 @@ namespace SeeSharpersCinema.Models
                 mail.Subject = "Thank you " + "(name)" + " for ordering a ticket for movie " + "(moviename)";
                 mail.Body = emailBody;
                 mail.IsBodyHtml = true;
-                mail.Attachments.Add(new Attachment("D:/Avans/Temp/QRCode_" + guid + ".png"));
+                mail.Attachments.Add(new Attachment(filePath));
 
                 using (SmtpClient smtp = new SmtpClient(emailClient, 587))
                 {
