@@ -2,6 +2,7 @@
 using SeeSharpersCinema.Infrastructure;
 using SeeSharpersCinema.Models.Repository;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Website.Controllers
@@ -27,6 +28,25 @@ namespace SeeSharpersCinema.Website.Controllers
             var playlist = await repository.FindBetweenDatesAsync(DateTime.Now.Date, DateHelper.GetNextThursday());
             return View(playlist);
         }
+        public async Task<IActionResult> Edit(long? id)
+        {
+            //change repos later
+            if (id == null)
+            {
+                //return NotFound();
+                id = 2;
+            }
+            var PlayListList = await repository.FindAllAsync();
+            var PlayList = PlayListList.FirstOrDefault(p => p.Id == id);
+
+            if (PlayList == null)
+            {
+                return NotFound();
+            }
+
+            return View(PlayList.Movie);
+        }
+
 
     }
 }
