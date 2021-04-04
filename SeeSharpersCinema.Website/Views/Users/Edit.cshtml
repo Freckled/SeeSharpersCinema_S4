@@ -1,84 +1,83 @@
 ﻿@model EditUserViewModel
+
 @{ ViewData["Title"] = "User Details"; }
 
 
 <div>
     <h4>Gebruiker</h4>
     <hr />
-    <form id="editUser" name="editUser">
+    <form id="editUser" name="editUser" class="mb-4" method="post">
         <div class="form-group">
             <label for="userName">UserName</label>
-            <input type="text" class="form-control" id="UserName" placeholder="Enter UserName" value="@Model.userRole.User.UserName">
+            <input type="text" asp-for="UserName" class="form-control" id="UserName" placeholder="Enter UserName" value="@Model.UserRole.User.UserName">
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" , value="@Model.userRole.User.Email">
+            <input type="email" asp-for="Email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" , value="@Model.UserRole.User.Email">
         </div>
         <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            Role
-                        </th>
-                        <th>
-                            Status
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var type in Model.RoleTypes)
-                    {
-                        <tr>
-                            <td>
-                                @type
-                            </td>
-                            <td>
-                                @if (Model.userRole.Roles.Contains(type))
-                                {
-                                    <p>Assigned</p>
-                                }
-                                else
-                                {
-                                    <p>Unassigned</p>
-                                }
-                            </td>
-                            <td>
-                                @if (Model.userRole.Roles.Contains(type))
-                                {
-                                    <input type="checkbox" id="@type" name="unAssign" value="">
-                                    <label for="unAssign">Unassign</label>
-                                }
-                                else
-                                {
-                                    <input type="checkbox" id="@type" name="assign" value="">
-                                    <label for="assign">Assign</label>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <input type ="hidden" asp-for="UserId" value="@Model.UserRole.User.Id" />
         </div>
         @*<button type="submit" class="btn btn-primary">Submit</button>*@
-        <button onclick="editUser2()" class="btn btn-primary">Submit</button>
+        <button onclick="submit" class="btn btn-primary">Change userinfo</button>
     </form>
+    
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var type in Model.RoleTypes)
+                {
+                    <tr>
+                        <td>
+                            @if (Model.UserRole.Roles.Contains(type))
+                            {
+                                <p><b>@type</b></p>
+                            }
+                            else
+                            {
+                                <p>@type</p>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.UserRole.Roles.Contains(type))
+                            {
+
+                                @Html.ActionLink("Remove",
+                                                    "RemoveRole",
+                                                    new { userId = Model.UserRole.User.Id, role = type },
+                                                    new { @class = "btn btn-danger" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Assign",
+                                                    "AddRole",
+                                                    new { userId = Model.UserRole.User.Id, role = type },
+                                                    new { @class = "btn btn-info" })
+
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 
-@section Scripts{
+@*@section Scripts{
     <script type="text/javascript">
-        function editUser2() {
-            var elements = document.querySelectorAll("#editUser input[type=checkbox]")
 
-            for (var i = 0, element; element = elements[i++];) {
-                if (element.checked == true) {
-                    console.log(element.id + element.checked + element.getAttribute("name"))
-                }
-            }
-        }
     </script>
-}
+}*@

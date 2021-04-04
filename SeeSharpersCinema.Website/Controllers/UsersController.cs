@@ -121,7 +121,7 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(model);
         }
 
-        //[Authorize(Roles = "Admin, Manager")]
+       [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Manage()
         {
             //var users = userManager.Users.ToList();
@@ -146,7 +146,7 @@ namespace SeeSharpersCinema.Website.Controllers
 
 
         }
-        //[Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager")]
         //[ValidateAntiForgeryToken]
         [Route("Users/DeleteUser/{UserId}")]
         public async Task<IActionResult> DeleteUser(string UserId)
@@ -169,8 +169,7 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("Manage","Users");
         }
 
-        //[Authorize(Roles = "Admin, Manager")]
-        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Manager")]
         [HttpGet]
         [Route("Users/Edit/{UserId}")]
         public async Task<IActionResult> Edit(string UserId)
@@ -182,50 +181,42 @@ namespace SeeSharpersCinema.Website.Controllers
             userRole.Roles = (List<string>)await userManager.GetRolesAsync(user);
 
             EditUserViewModel model = new EditUserViewModel();
-            model.userRole = userRole;
+            model.UserRole = userRole;
             model.RoleTypes = roleManager.Roles.Select(x => x.Name).ToList();
 
             return View(model);
         }
 
+        [Authorize(Roles = "Admin, Manager")]
         [HttpPost]
-        [Route("Users/Edit/{UserId}")]
-        public async Task<IActionResult> Edit(string[] Roles)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("UserId,UserName,Email")] EditUserViewModel model)
         {
- /*           IdentityUser user = await userManager.FindByIdAsync(userRole.User.Id);
 
-            if (user != null)
-            {
-                IdentityResult result = await userManager.
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Edit", "Users", new { id = UserId });
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "User Not Found");
-            }*/
+            IdentityUser user = await userManager.FindByIdAsync(model.UserId);
+            user.Email = model.Email;
+            user.UserName = model.UserName;
 
-            //return RedirectToAction("Edit", "Users", new { id = UserId });
-            return View();
+            await userManager.UpdateAsync(user);
+            return RedirectToAction("Manage", "Users", new { id = model.UserId });
         }
 
-        /*        public async Task<IActionResult> AddRoles()
-                {
+        [Authorize(Roles = "Admin, Manager")]
+        public async Task<IActionResult> AddRole(string userId, string role)
+        {
+            IdentityUser user = await userManager.FindByIdAsync(userId);
 
-                }
+            await userManager.AddToRoleAsync(user, role);
+            return RedirectToAction("Manage", "Users", new { id = userId });
+        }
 
-                public async Task<IActionResult> RemoveRole()
-                {
-
-                }
-
-                public async Task<IActionResult> EditNameEmail(EditUserViewModel model)
-                {
-
-                }*/
-
+        [Authorize(Roles = "Admin, Manager")]
+        public async Task<IActionResult> RemoveRole(string userId, string role)
+        {
+            IdentityUser user = await userManager.FindByIdAsync(userId);
+            await userManager.RemoveFromRoleAsync(user, role);
+            return RedirectToAction("Manage", "Users", new { id = userId });
+        }
 
     }
 }

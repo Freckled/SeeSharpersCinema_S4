@@ -10,7 +10,10 @@ namespace SeeSharpersCinema.Data.Models.ViewModel
 {
     public class EditUserViewModel
     {
-        public UserRole userRole { get; set; }
+        public UserRole UserRole { get; set; }
         public List<string> RoleTypes { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
     }
 }
