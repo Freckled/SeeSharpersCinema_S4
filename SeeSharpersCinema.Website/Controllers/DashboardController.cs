@@ -75,11 +75,12 @@ namespace SeeSharpersCinema.Website.Controllers
 
 
         [HttpPost]
+        [Route("Dashboard/Add")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddMovie([Bind("Id,Title,PosterUrl,Duration,Cast,Director,Country,Language,Technique,Description,ViewIndication,Genre,Year")] Movie movie)
+        public async Task<IActionResult> AddMovie([Bind("Title,PosterUrl,Duration,Cast,Director,Country,Language,Technique,Description,ViewIndication,Genre,Year")] Movie movie)
         {
             await movieRepository.AddMovieAsync(movie);
-            return RedirectToAction("Edit", "Dashboard", new { id = movie.Id });
+            return RedirectToAction("Week", "Dashboard");
             //add movie overview redirect
         }
 
