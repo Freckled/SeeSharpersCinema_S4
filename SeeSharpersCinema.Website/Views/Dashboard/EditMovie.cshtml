@@ -1,0 +1,62 @@
+﻿@model Movie 
+
+<div class="container">
+    <div class="bg-primary m-1 p-1 text-white"><h4>Edit movie details</h4></div>
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+    <form asp-action="EditMovie" method="post">
+        <div class="form-group">
+            <input type="hidden" class="form-control" asp-for="Id" value="@Model.Id" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Title">Title</label>
+            <input class="form-control" asp-for="Title" value="@Model.Title" />
+        </div>
+        <div class="form-group">
+            <label asp-for="PosterUrl">Poster Url</label>
+            <input class="form-control" asp-for="PosterUrl" value="@Model.PosterUrl" />
+            @*add poster fluid thing here based on this value*@
+        </div>
+        <div class="form-group">
+            <label asp-for="Genre">Year</label>
+            <input class="form-control" asp-for="Year" value="@Model.Year" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Duration">Duration</label>
+            <input class="form-control" asp-for="Duration" value="@Model.Duration" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Director">Director</label>
+            <input class="form-control" asp-for="Director" value="@Model.Director" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Cast">Cast</label>
+            <input class="form-control" asp-for="Cast" value="@Model.Cast" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Country">Country</label>
+            <input class="form-control" asp-for="Country" value="@Model.Country" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Language">Language</label>
+            <input class="form-control" asp-for="Language" value="@Model.Language" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Technique">Technique</label>
+            <input class="form-control" asp-for="Technique" value="@Model.Technique" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ViewIndication">View Indication</label><br />
+            <select asp-for="ViewIndication" asp-items="@Html.GetEnumSelectList<ViewIndication>()">@Model.ViewIndication</select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Genre">Genre</label><br />
+            <select asp-for="Genre" asp-items="@Html.GetEnumSelectList<Genre>()">@Model.Genre</select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea rows="4" class="form-control" asp-for="Description" value="@Model.Description"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Update movie details</button>
+    </form>
+</div>

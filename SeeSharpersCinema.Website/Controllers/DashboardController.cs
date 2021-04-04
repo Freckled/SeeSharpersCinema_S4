@@ -1,22 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SeeSharpersCinema.Infrastructure;
+using SeeSharpersCinema.Models.Film;
 using SeeSharpersCinema.Models.Repository;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Website.Controllers
-{   
+{
+    [Authorize(Roles = "Admin, Manager")]
     public class DashboardController : Controller
     {
-        private IPlayListRepository repository;
+        private IPlayListRepository playListRepository;
+        private IMovieRepository movieRepository;
 
         /// <summary>
         /// DashboardController constructor
         /// </summary>
-        public DashboardController(IPlayListRepository repository)
+        public DashboardController(IPlayListRepository playListRepository, IMovieRepository movieRepository)
         {
-            this.repository = repository;
+            this.playListRepository = playListRepository;
+            this.movieRepository = movieRepository;
         }
 
         /// <summary>
@@ -25,10 +30,14 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <returns>The view with movie playlist of the week page</returns>
         public async Task<IActionResult> WeekAsync()
         {
-            var playlist = await repository.FindBetweenDatesAsync(DateTime.Now.Date, DateHelper.GetNextThursday());
+            var playlist = await playListRepository.FindBetweenDatesAsync(DateTime.Now.Date, DateHelper.GetNextThursday());
             return View(playlist);
         }
-        public async Task<IActionResult> Edit(long? id)
+
+
+        [HttpGet]
+        [Route("Dashboard/Edit")]
+        public async Task<IActionResult> EditMovie(long? id)
         {
             //change repos later
             if (id == null)
@@ -36,7 +45,7 @@ namespace SeeSharpersCinema.Website.Controllers
                 //return NotFound();
                 id = 2;
             }
-            var PlayListList = await repository.FindAllAsync();
+            var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.Id == id);
 
             if (PlayList == null)
@@ -45,6 +54,33 @@ namespace SeeSharpersCinema.Website.Controllers
             }
 
             return View(PlayList.Movie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Dashboard/Edit")]
+        public async Task<IActionResult> EditMovie([Bind("Id,Title,PosterUrl,Duration,Cast,Director,Country,Language,Technique,Description,ViewIndication,Genre,Year")] Movie movie)
+        {
+            await movieRepository.UpdateMovieDetailsAsync(movie);
+            return RedirectToAction("Edit", "Dashboard", new { id = movie.Id });
+        }
+
+
+        [HttpGet]
+        [Route("Dashboard/Add")]
+        public IActionResult AddMovie()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMovie([Bind("Id,Title,PosterUrl,Duration,Cast,Director,Country,Language,Technique,Description,ViewIndication,Genre,Year")] Movie movie)
+        {
+            await movieRepository.AddMovieAsync(movie);
+            return RedirectToAction("Edit", "Dashboard", new { id = movie.Id });
+            //add movie overview redirect
         }
 
 

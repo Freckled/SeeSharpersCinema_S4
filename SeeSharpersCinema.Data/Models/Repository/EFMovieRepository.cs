@@ -1,6 +1,8 @@
-﻿using SeeSharpersCinema.Models.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using SeeSharpersCinema.Models.Database;
 using SeeSharpersCinema.Models.Film;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Models.Repository
 {
@@ -17,5 +19,25 @@ namespace SeeSharpersCinema.Models.Repository
         {
             context = ctx;
         }
+
+        public async Task<Movie> FindByIdAsync(long MovieId)
+            => await context.Movies
+            .Where(t => t.Id == MovieId)
+            .FirstOrDefaultAsync();
+
+
+        public async Task UpdateMovieDetailsAsync(Movie movie) {
+            context.Update(movie);
+            await context.SaveChangesAsync();
+
+        }
+
+
+        public async Task AddMovieAsync(Movie movie)
+        {
+            await context.AddAsync(movie);
+            await context.SaveChangesAsync();
+        }
+
     }
 }

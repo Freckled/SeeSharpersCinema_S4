@@ -41,7 +41,7 @@ namespace SeeSharpersCinema.Website.Controllers
             {
                 return NotFound();
             }
-            var PlayListList = await repository.FindAllAsync();
+            var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.Id == id);
 
             if (PlayList == null)

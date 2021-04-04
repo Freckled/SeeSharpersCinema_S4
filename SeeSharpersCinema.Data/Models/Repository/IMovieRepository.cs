@@ -1,5 +1,6 @@
 ﻿using SeeSharpersCinema.Models.Film;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Models.Repository
 {
@@ -10,5 +11,8 @@ namespace SeeSharpersCinema.Models.Repository
         /// a property of type IQueryable<Movie>
         /// </summary>
         IQueryable<Movie> Movies { get; }
+        Task AddMovieAsync(Movie movie);
+        Task<Movie> FindByIdAsync(long Id);
+        Task UpdateMovieDetailsAsync(Movie movie);
     }
 }
