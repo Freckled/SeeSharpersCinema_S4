@@ -55,9 +55,23 @@ namespace SeeSharpersCinema.Data.Models.Repository
             {
                 Console.WriteLine(e.Message);
             }
-
-
         }
 
+        public async Task RemoveSeats(ICollection<ReservedSeat> reservedSeats)
+        {
+            try
+            {
+                foreach (ReservedSeat seat in reservedSeats)
+                {
+                    context.ReservedSeats.Remove(seat);                    
+                }
+
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }

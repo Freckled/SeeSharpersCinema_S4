@@ -99,23 +99,49 @@ namespace SeeSharpersCinema.Website.Controllers
         {
             var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
 
-            List<ReservedSeat> SeatList = new List<ReservedSeat>();
+            List<ReservedSeat> seatList = new List<ReservedSeat>();
             seatingArrangement.selected.ForEach(s =>
             {
                 ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = model.TimeSlotId, SeatState = SeatState.Reserved };
-                SeatList.Add(ReservedSeat);
+                seatList.Add(ReservedSeat);
             });
-
-            if (COVID)
-            {
-                SeatList = await COVIDSeats(SeatList);
-            }
-
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
 
-            await seatRepository.ReserveSeats(SeatList);
-            return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
+            var reservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
+
+            //var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
+            switch (model.SeatAction)
+            {
+                case "Add":
+                    if (COVID)
+                    {
+                        seatList = await COVIDSeats(seatList);
+                    }                                        
+                    await seatRepository.ReserveSeats(seatList);
+                    return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
+                    
+                case "Remove":
+                    if (COVID)
+                    {
+                        seatList = await COVIDSeats(seatList, false);
+                    }
+
+                    seatList.ForEach(s =>
+                    {
+                        s.Id = reservedSeats.FirstOrDefault(r => r.RowId == s.RowId && r.SeatId == s.SeatId).Id;
+                    });
+
+                    await seatRepository.RemoveSeats(seatList);
+                    return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
+
+                default:
+                    return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
+            }   
+
+
+                        
+            
         }
 
 
@@ -123,8 +149,9 @@ namespace SeeSharpersCinema.Website.Controllers
         /// Adds Seats to left and right in case of social distancing
         /// </summary>
         /// <param name="SeatList">A List of type Reserved Seat from user selected seats.</param>
+        /// /// <param name="addSeat">boolean: Addseat = true, RemoveSeat=false.</param>
         /// <returns>A List of type Reserved Seat from user selected seats with disables seats on each side</returns>
-        private async Task<List<ReservedSeat>> COVIDSeats(List<ReservedSeat> SeatList)
+        private async Task<List<ReservedSeat>> COVIDSeats(List<ReservedSeat> SeatList, bool addSeat = true)
         {
             var ReservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(SeatList[0].TimeSlotId);
             List<ReservedSeat> tempSeatList = new List<ReservedSeat>();
@@ -132,21 +159,38 @@ namespace SeeSharpersCinema.Website.Controllers
             List<ReservedSeat> ReservedSeatList = new List<ReservedSeat>();
             ReservedSeatList = ReservedSeats.ToList();
 
-            SeatList.ForEach(s =>
-            {
-                if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId - 1) && r.RowId == s.RowId) == -1) && SeatList.FindIndex(f => f.SeatId == (s.SeatId - 1) && f.RowId == s.RowId) == -1)
+            if (addSeat) { 
+                SeatList.ForEach(s =>
                 {
-                    ReservedSeat ReservedSeat = new ReservedSeat { SeatId = (s.SeatId - 1), RowId = s.RowId, TimeSlotId = s.TimeSlotId, SeatState = SeatState.Disabled };
-                    tempSeatList.Add(ReservedSeat);
-                }
+                    if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId - 1) && r.RowId == s.RowId) == -1) && SeatList.FindIndex(f => f.SeatId == (s.SeatId - 1) && f.RowId == s.RowId) == -1)
+                    {
+                        ReservedSeat ReservedSeat = new ReservedSeat { SeatId = (s.SeatId - 1), RowId = s.RowId, TimeSlotId = s.TimeSlotId, SeatState = SeatState.Disabled };
+                        tempSeatList.Add(ReservedSeat);
+                    }
 
-                if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId + 1) && r.RowId == s.RowId) == -1) && SeatList.FindIndex(f => f.SeatId == (s.SeatId + 1) && f.RowId == s.RowId) == -1)
+                    if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId + 1) && r.RowId == s.RowId) == -1) && SeatList.FindIndex(f => f.SeatId == (s.SeatId + 1) && f.RowId == s.RowId) == -1)
+                    {
+                        ReservedSeat ReservedSeat = new ReservedSeat { SeatId = (s.SeatId + 1), RowId = s.RowId, TimeSlotId = s.TimeSlotId, SeatState = SeatState.Disabled };
+                        tempSeatList.Add(ReservedSeat);
+                    }
+                });
+            }
+            else { 
+                SeatList.ForEach(s =>
                 {
-                    ReservedSeat ReservedSeat = new ReservedSeat { SeatId = (s.SeatId + 1), RowId = s.RowId, TimeSlotId = s.TimeSlotId, SeatState = SeatState.Disabled };
-                    tempSeatList.Add(ReservedSeat);
-                }
-            });
+                    if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId - 1) && r.RowId == s.RowId) >= 0) && SeatList.FindIndex(f => f.SeatId == (s.SeatId - 1) && f.RowId == s.RowId) == -1)
+                    {
+                        ReservedSeat ReservedSeat = new ReservedSeat { SeatId = (s.SeatId - 1), RowId = s.RowId, TimeSlotId = s.TimeSlotId, SeatState = SeatState.Disabled };
+                        tempSeatList.Add(ReservedSeat);
+                    }
 
+                    if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId + 1) && r.RowId == s.RowId) >= 0) && SeatList.FindIndex(f => f.SeatId == (s.SeatId + 1) && f.RowId == s.RowId) == -1)
+                    {
+                        ReservedSeat ReservedSeat = new ReservedSeat { SeatId = (s.SeatId + 1), RowId = s.RowId, TimeSlotId = s.TimeSlotId, SeatState = SeatState.Disabled };
+                        tempSeatList.Add(ReservedSeat);
+                    }
+                });
+            }
             return tempSeatList;
 
         }
