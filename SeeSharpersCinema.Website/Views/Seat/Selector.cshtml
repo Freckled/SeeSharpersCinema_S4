@@ -35,10 +35,11 @@
  }
 
 <div>
-    <form asp-action="ReserveSeats">
+    <form name="seatForm" asp-controller="Seat" asp-action="ReserveSeats">
         <div class="form-group">
-            <input type="hidden" <input asp-for="@SeatString" value="" id="SeatString" />
-            <input type="hidden" <input asp-for="@TimeSlotId" value=@Model.TimeSlot.Id />
+            <input type="hidden" asp-for="SeatingArrangement" value="" id="SeatString" />
+            <input type="hidden" asp-for="TimeSlotId" value=@Model.TimeSlot.Id />
+            <input type="hidden" asp-for="SeatAction" value="Add" />
         </div>
     </form>
 </div>
@@ -67,7 +68,7 @@
             selectionDone: function (_array) {
                 var SeatString = JSON.stringify(_array);
                 document.getElementById("SeatString").value = SeatString;
-                document.forms[0].submit();
+                document.forms["seatForm"].submit();
             },
             cancel: function () {
                 location.reload();

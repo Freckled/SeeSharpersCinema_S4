@@ -55,7 +55,7 @@ namespace SeeSharpersCinema.Website.Controllers
         }
 
 
-        /// <summary>
+/*        /// <summary>
         /// takes post input as JSONstring and saves seats to db
         /// </summary>
         /// <param name="Seatstring">The JSON string given back from the form in the Seat/Selector.</param>
@@ -81,6 +81,38 @@ namespace SeeSharpersCinema.Website.Controllers
 
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == TimeSlotId);
+
+            await seatRepository.ReserveSeats(SeatList);
+            return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
+        }*/
+
+
+        /// <summary>
+        /// takes post input as JSONstring and saves seats to db
+        /// </summary>
+        /// <param name="Seatstring">The JSON string given back from the form in the Seat/Selector.</param>
+        /// <param name="TimeSlotId">The id corresponding to a specific TimeSlot. This is given back from the form in the Seat/Selector.</param>
+        /// <returns>SeatViewModel</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReserveSeats([Bind("SeatingArrangement, TimeSlotId, SeatAction")] SeatViewModel model)//todo remove testdata
+        {
+            var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
+
+            List<ReservedSeat> SeatList = new List<ReservedSeat>();
+            seatingArrangement.selected.ForEach(s =>
+            {
+                ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = model.TimeSlotId, SeatState = SeatState.Reserved };
+                SeatList.Add(ReservedSeat);
+            });
+
+            if (COVID)
+            {
+                SeatList = await COVIDSeats(SeatList);
+            }
+
+            var PlayListList = await playListRepository.FindAllAsync();
+            var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
 
             await seatRepository.ReserveSeats(SeatList);
             return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
