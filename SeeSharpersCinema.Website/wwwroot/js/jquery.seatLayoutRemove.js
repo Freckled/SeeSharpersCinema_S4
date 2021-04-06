@@ -13,7 +13,7 @@
             for (var i = 0; i < _obj.objArea.length; i++) {
                 _html += getAreaLayoutFunc(_obj.objArea[i]);
             }
-            var actionPanel = pluginOptions.showActionButtons ? "<div class='seat-proccess-panel'> <button  type='button' class='layout-action-btn layout-btn-cancel  " + pluginOptions.classes.cancelBtn + "'> Cancel </button> <button type='button' class='layout-action-btn layout-btn-done " + pluginOptions.classes.doneBtn + "'> To payment </button> </div>" : "";
+            var actionPanel = pluginOptions.showActionButtons ? "<div class='seat-proccess-panel'> <button  type='button' class='layout-action-btn layout-btn-cancel  " + pluginOptions.classes.cancelBtn + "'> Cancel </button> <button type='button' class='layout-action-btn layout-btn-done " + pluginOptions.classes.doneBtn + "'> Reserve Seats </button><button type='button' class='layout-action-btn layout-btn-delete " + pluginOptions.classes.delBtn + "'> Remove Seats </button> </div>" : "";
             _html += "<div class='movie-screen " + pluginOptions.classes.screen + "'>-- Screen --</div>" + actionPanel + "</div>";
             return _html;
         }
@@ -118,7 +118,7 @@
             return _ele.data('seatdefination');
         }
         _el.find('li').click(function (e) {
-            if ($(this).hasClass('can-select')) {
+            
                 var seatData = getObjData($(this))
                 var nextAll = $(this).nextAll().addBack();
                 if (selectedSeats.length == nuberOfSeat) {
@@ -128,7 +128,7 @@
                 }
                 var count = tempSelected;
                 for (var i = 0; i < nuberOfSeat - tempSelected; i++) {
-                    if (nextAll[i] && $(nextAll[i]).hasClass('can-select') && !$(nextAll[i]).hasClass('current-selected')) {
+                    if (nextAll[i] && !$(nextAll[i]).hasClass('current-selected')) {
                         selectedSeats.push(getObjData($(nextAll[i])));
                         $(nextAll[i]).addClass('current-selected');
                         count++;
@@ -137,11 +137,12 @@
                     }
                 }
                 tempSelected = count;
-                _el.find('.layout-btn-done').prop('disabled', !(nuberOfSeat == selectedSeats.length));
+            _el.find('.layout-btn-done').prop('disabled', !(nuberOfSeat == selectedSeats.length));
+            _el.find('.layout-btn-delete').prop('disabled', !(nuberOfSeat == selectedSeats.length));
                 var dataToPass = $.extend({}, getObjData($(this)));
                 dataToPass.selected = selectedSeats;
                 _optionsObj.callOnSeatSelect(e, dataToPass, this);
-            }
+            
         });
 
         _el.find('.layout-btn-done').prop('disabled', true);
@@ -150,6 +151,16 @@
                 _optionsObj.selectionDone({ "selected": selectedSeats });
             }
         });
+
+        _el.find('.layout-btn-delete').prop('disabled', true);
+        _el.find('.layout-btn-delete').click(function (e) {
+            if (_optionsObj.selectionDelete) {
+                _optionsObj.selectionDelete({ "selected": selectedSeats });
+            }
+        });
+
+
+
         _el.find('.layout-btn-cancel').click(function (e) {
             returnFlag = true;
             if (_optionsObj.cancel) {
