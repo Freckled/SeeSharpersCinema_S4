@@ -54,39 +54,6 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(SeatViewModel);
         }
 
-
-/*        /// <summary>
-        /// takes post input as JSONstring and saves seats to db
-        /// </summary>
-        /// <param name="Seatstring">The JSON string given back from the form in the Seat/Selector.</param>
-        /// <param name="TimeSlotId">The id corresponding to a specific TimeSlot. This is given back from the form in the Seat/Selector.</param>
-        /// <returns>SeatViewModel</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ReserveSeats(string Seatstring, long TimeSlotId)//todo remove testdata
-        {
-            var SeatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(Seatstring);
-
-            List<ReservedSeat> SeatList = new List<ReservedSeat>();
-            SeatingArrangement.selected.ForEach(s =>
-            {
-                ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = TimeSlotId, SeatState = SeatState.Reserved };
-                SeatList.Add(ReservedSeat);
-            });
-
-            if (COVID)
-            {
-                SeatList = await COVIDSeats(SeatList);
-            }
-
-            var PlayListList = await playListRepository.FindAllAsync();
-            var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == TimeSlotId);
-
-            await seatRepository.ReserveSeats(SeatList);
-            return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
-        }*/
-
-
         /// <summary>
         /// takes post input as JSONstring and saves seats to db
         /// </summary>
@@ -108,9 +75,6 @@ namespace SeeSharpersCinema.Website.Controllers
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
 
-
-            //var reservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
-            //var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
             switch (model.SeatAction)
             {
                 case "Add":
@@ -127,10 +91,7 @@ namespace SeeSharpersCinema.Website.Controllers
                         seatList = await COVIDSeats(seatList, false);
                     }
 
-/*                    seatList.ForEach(s =>
-                    {
-                        s.Id = reservedSeats.FirstOrDefault(r => r.RowId == s.RowId && r.SeatId == s.SeatId).Id;
-                    });*/
+
 
                     await seatRepository.RemoveSeats(seatList);
                     return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });

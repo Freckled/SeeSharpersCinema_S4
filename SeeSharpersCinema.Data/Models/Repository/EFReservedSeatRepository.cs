@@ -62,14 +62,14 @@ namespace SeeSharpersCinema.Data.Models.Repository
         {
             try
             {
-                /*
-                                ICollection<ReservedSeat> seatList = (from rows in context.ReservedSeats select rows).ToList();
-                                foreach (ReservedSeat seat in reservedSeats)
-                                {
-                                    context.ReservedSeats.Remove(seat);
-                                }
-                                context.SaveChanges();*/
 
+                foreach(ReservedSeat seat in reservedSeats) { 
+                var tmpSeat = context.ReservedSeats
+                                   .Where(s => s.RowId == seat.RowId && s.SeatId == seat.SeatId && s.TimeSlotId == seat.TimeSlotId)
+                                   .FirstOrDefault<ReservedSeat>();
+                    context.Remove(tmpSeat);
+                }
+                await context.SaveChangesAsync();
 
             }
             catch (Exception e)
