@@ -108,8 +108,8 @@ namespace SeeSharpersCinema.Website.Controllers
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
 
-            //var reservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
 
+            //var reservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
             //var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
             switch (model.SeatAction)
             {
