@@ -36,16 +36,47 @@
         border-radius: 2px;
         border: 1px solid #ffffff;
     }
+    .seat-selection .seatstate-1 span {
+        display: block;
+        width: 14px;
+        height: 14px;
+        margin: 1px 0px 0px 1px;
+        background: #8b2222;
+        border-radius: 2px;
+        border: 1px solid #ffffff;
+    }
+
+    .seat-selection .seatstate-1 .current-selected span {
+        display: block;
+        width: 14px;
+        height: 14px;
+        margin: 1px 0px 0px 1px;
+        background: #cc8d2d;
+        border-radius: 2px;
+        border: 1px solid #ffffff;
+    }
+
+    .seat-selection .seatstate-2 span {
+        display: block;
+        width: 14px;
+        height: 14px;
+        margin: 1px 0px 0px 1px;
+        background: #b9b9b9;
+        border-radius: 2px;
+        border: 1px solid #ffffff;
+    }
 
     .seat-selection .seat-row-seat.seat-yes {
         border-color: #8a8a8a;
         background-color: #fafafa;
     }
 
+
     .seat-selection .seat-row-seat.can-select {
         background-color: #fff;
         cursor: pointer;
     }
+
 
         .seat-selection .seat-row-seat.can-select span {
             background-color: #fff;
@@ -59,6 +90,8 @@
     .seat-selection .seat-row-seat.current-selected.can-select:hover span {
         background-color: #41db41;
     }
+
+
 
     .seat-selection .seat-row-seat.can-select:hover span {
         background-color: #dcdcdc;

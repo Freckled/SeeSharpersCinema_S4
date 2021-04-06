@@ -70,7 +70,7 @@
                     if (_obj && _obj.SeatStatus == "0") {
                         classes += " can-select";
                     }
-                    classes += " seatstatus-" + _obj.SeatStatus;
+                    classes += " seatstate-" + _obj.SeatStatus;
                     return "<li data-seatdefination='" + dataString + "' class='seat-row-seat seat-yes " + classes + " '><span></span></li>";
                 } else {
                     return "<li class='seat-row-seat " + classes + "'></li>";
