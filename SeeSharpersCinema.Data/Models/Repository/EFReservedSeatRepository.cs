@@ -61,11 +61,8 @@ namespace SeeSharpersCinema.Data.Models.Repository
         {
             try
             {
-                foreach (ReservedSeat seat in reservedSeats)
-                {
-                    context.ReservedSeats.Remove(seat);                    
-                }
-
+                
+                context.ReservedSeats.RemoveRange(reservedSeats);                                  
                 await context.SaveChangesAsync();
             }
             catch (Exception e)

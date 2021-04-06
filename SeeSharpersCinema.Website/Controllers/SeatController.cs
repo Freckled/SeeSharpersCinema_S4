@@ -108,7 +108,7 @@ namespace SeeSharpersCinema.Website.Controllers
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
 
-            var reservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
+            //var reservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
 
             //var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
             switch (model.SeatAction)
@@ -127,10 +127,10 @@ namespace SeeSharpersCinema.Website.Controllers
                         seatList = await COVIDSeats(seatList, false);
                     }
 
-                    seatList.ForEach(s =>
+/*                    seatList.ForEach(s =>
                     {
                         s.Id = reservedSeats.FirstOrDefault(r => r.RowId == s.RowId && r.SeatId == s.SeatId).Id;
-                    });
+                    });*/
 
                     await seatRepository.RemoveSeats(seatList);
                     return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
