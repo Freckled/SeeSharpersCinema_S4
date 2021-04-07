@@ -57,9 +57,8 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <summary>
         /// takes post input as JSONstring and saves seats to db
         /// </summary>
-        /// <param name="Seatstring">The JSON string given back from the form in the Seat/Selector.</param>
-        /// <param name="TimeSlotId">The id corresponding to a specific TimeSlot. This is given back from the form in the Seat/Selector.</param>
-        /// <returns>SeatViewModel</returns>
+        /// <param name="model">SeatViewModel with data from the reserveseatform.</param>
+        /// <returns>Redirects to payment page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReserveSeats([Bind("SeatingArrangement, TimeSlotId, SeatAction")] SeatViewModel model)//todo remove testdata
@@ -82,65 +81,54 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });                   
         }
 
-        /*        [HttpPost]
-                [ValidateAntiForgeryToken]
-                public async Task<IActionResult> RemoveSeats([Bind("SeatingArrangement, TimeSlotId, SeatAction")] SeatViewModel model)//todo remove testdata
-                {
-                    var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
-
-                    List<ReservedSeat> seatList = new List<ReservedSeat>();
-                    seatingArrangement.selected.ForEach(s =>
-                    {
-                        ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = model.TimeSlotId, SeatState = SeatState.Reserved };
-                        seatList.Add(ReservedSeat);
-                    });
-                    var PlayListList = await playListRepository.FindAllAsync();
-                    var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
-
-                    if (COVID)
-                    {
-                        seatList = await COVIDSeats(seatList, false);
-                    }
-                    await seatRepository.RemoveSeats(seatList);
-                    return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });           
-                }*/
-
-
+        /// <summary>
+        /// takes post input as JSONstring and removes seats from db
+        /// </summary>
+        /// <param name="model">SeatViewModel with data from the reserveseatform.</param>
+        /// <returns>Redirects to seating page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveSeats([Bind("SeatingArrangement, TimeSlotId, SeatAction")] SeatViewModel model)//todo remove testdata
         {
-            var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
-            List<ReservedSeat> seatList = new List<ReservedSeat>();
-            List<ReservedSeat> tempList = new List<ReservedSeat>();
-
-            seatingArrangement.selected.ForEach(s =>
-            {
-                ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = model.TimeSlotId, SeatState = SeatState.Reserved };
-                tempList.Add(ReservedSeat);
-            });
-
-            var ReservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
-            var Seats = ReservedSeats.ToList();
-
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
 
-            if (COVID)
-            {
-                tempList = await COVIDSeats(tempList, false);
+            if (model.SeatingArrangement != null) { 
+                var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
+            
+                var ReservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
+                var Seats = ReservedSeats.ToList();
+
+                List<ReservedSeat> seatList = new List<ReservedSeat>();
+                List<ReservedSeat> tempList = new List<ReservedSeat>();
+
+                seatingArrangement.selected.ForEach(s =>
+                {
+                    ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = model.TimeSlotId, SeatState = SeatState.Reserved };
+                    tempList.Add(ReservedSeat);
+                });
+
+                if (COVID)
+                {
+                    tempList = await COVIDSeats(tempList, false);
+                }
+
+                tempList.ForEach(s =>
+                {
+                    var tmpSeat = ReservedSeats
+                                        .Where(r => s.RowId == r.RowId && s.SeatId == r.SeatId)
+                                        .FirstOrDefault<ReservedSeat>();
+                    if (tmpSeat != null)
+                    {
+                        seatList.Add(tmpSeat);
+                    }
+                });
+
+                if (seatList.Count > 0)
+                {
+                    await seatRepository.RemoveSeats(seatList);
+                }                
             }
-
-            tempList.ForEach(s =>
-            {
-                var tmpSeat = ReservedSeats
-                                    .Where(r => s.RowId == r.RowId && s.SeatId == r.SeatId)
-                                   .FirstOrDefault<ReservedSeat>();
-                seatList.Add(tmpSeat);
-            });
-
-
-            await seatRepository.RemoveSeats(seatList);
             return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
         }
 
