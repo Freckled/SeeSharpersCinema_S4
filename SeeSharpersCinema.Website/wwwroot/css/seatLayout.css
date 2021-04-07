@@ -46,7 +46,7 @@
         border: 1px solid #ffffff;
     }
 
-    .seat-selection .seatstate-1 .current-selected span {
+    .seat-selection .seatstate-1.current-selected span {
         display: block;
         width: 14px;
         height: 14px;
