@@ -13,9 +13,7 @@ namespace SeeSharpersCinema.Data.Models.ViewModel
         public TimeSlot TimeSlot { get; set; }
         public Movie Movie { get; set; }
         public string SeatingArrangement { get; set; }
-        public List<Seat> reserevedSeat { get; set; }
         public long PlayListId { get; set; }
         public long TimeSlotId { get; set; }
-        public string SeatAction { get; set; }
     }
 }

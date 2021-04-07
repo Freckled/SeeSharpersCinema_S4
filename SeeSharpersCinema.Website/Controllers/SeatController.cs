@@ -74,36 +74,96 @@ namespace SeeSharpersCinema.Website.Controllers
             });
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
-
-            switch (model.SeatAction)
+            if (COVID)
             {
-                case "Add":
-                    if (COVID)
+                seatList = await COVIDSeats(seatList);
+            }                                        
+            await seatRepository.ReserveSeats(seatList);
+            return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });                   
+        }
+
+        /*        [HttpPost]
+                [ValidateAntiForgeryToken]
+                public async Task<IActionResult> RemoveSeats([Bind("SeatingArrangement, TimeSlotId, SeatAction")] SeatViewModel model)//todo remove testdata
+                {
+                    var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
+
+                    List<ReservedSeat> seatList = new List<ReservedSeat>();
+                    seatingArrangement.selected.ForEach(s =>
                     {
-                        seatList = await COVIDSeats(seatList);
-                    }                                        
-                    await seatRepository.ReserveSeats(seatList);
-                    return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
-                    
-                case "Remove":
+                        ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = model.TimeSlotId, SeatState = SeatState.Reserved };
+                        seatList.Add(ReservedSeat);
+                    });
+                    var PlayListList = await playListRepository.FindAllAsync();
+                    var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
+
                     if (COVID)
                     {
                         seatList = await COVIDSeats(seatList, false);
                     }
-
-
-
                     await seatRepository.RemoveSeats(seatList);
-                    return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
-
-                default:
-                    return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
-            }   
+                    return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });           
+                }*/
 
 
-                        
-            
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveSeats([Bind("SeatingArrangement, TimeSlotId, SeatAction")] SeatViewModel model)//todo remove testdata
+        {
+            var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
+            List<ReservedSeat> seatList = new List<ReservedSeat>();
+            List<ReservedSeat> tempList = new List<ReservedSeat>();
+
+            seatingArrangement.selected.ForEach(s =>
+            {
+                ReservedSeat ReservedSeat = new ReservedSeat { SeatId = s.seatNumber, RowId = s.GridRowId, TimeSlotId = model.TimeSlotId, SeatState = SeatState.Reserved };
+                tempList.Add(ReservedSeat);
+            });
+
+            var ReservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
+            var Seats = ReservedSeats.ToList();
+
+            var PlayListList = await playListRepository.FindAllAsync();
+            var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
+
+            if (COVID)
+            {
+                tempList = await COVIDSeats(tempList, false);
+            }
+
+            tempList.ForEach(s =>
+            {
+                var tmpSeat = ReservedSeats
+                                    .Where(r => s.RowId == r.RowId && s.SeatId == r.SeatId)
+                                   .FirstOrDefault<ReservedSeat>();
+                seatList.Add(tmpSeat);
+            });
+
+
+            await seatRepository.RemoveSeats(seatList);
+            return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /// <summary>
