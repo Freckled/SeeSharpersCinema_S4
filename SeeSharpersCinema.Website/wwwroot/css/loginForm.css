@@ -1,0 +1,17 @@
+﻿body {
+}
+
+#loginForm {
+    border-color: black;
+    width: 50%;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid lightgrey;
+    border-radius:10px;
+    padding: 2em;
+}
+
+h4 {
+    padding:0.25em;
+    border-radius:4px;
+    background-color: #343a40 !important;
+}
