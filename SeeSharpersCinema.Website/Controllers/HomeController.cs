@@ -35,24 +35,6 @@ namespace SeeSharpersCinema.Website.Controllers
         /// </summary>
         /// <param name="id">MovieId used to read specific Movie</param>
         /// <returns>NotFound view or specific details view</returns>
-/*        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var PlayListList = await playListRepository.FindAllAsync();
-            var PlayList = PlayListList.FirstOrDefault(p => p.Id == id);
-
-            if (PlayList == null)
-            {
-                return NotFound();
-            }
-
-            return View(PlayList);
-        }*/
-
-        /////////////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -77,8 +59,7 @@ namespace SeeSharpersCinema.Website.Controllers
 
             return View(model);
         }
-        /////////////////////////////////////////////////////////////////////////////
-
+        
         /// <summary>
         /// Get the View Index for showing current movieweek
         /// </summary>
@@ -157,6 +138,9 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(homeViewModel);
         }
 
+        /// <summary>
+        /// Returns the privacy policy view
+        /// </summary>
         public IActionResult Privacy()
         {
             return View();

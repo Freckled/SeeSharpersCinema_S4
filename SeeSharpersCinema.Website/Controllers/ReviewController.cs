@@ -21,8 +21,12 @@ namespace SeeSharpersCinema.Website.Controllers
         private IReviewRepository reviewRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        //todo Authorize
-
+        /// <summary>
+        /// Constructor ReviewController
+        /// </summary>
+        /// <param name="playListRepository">Constructor needs IPlayListRepository object</param>
+        /// <param name="userManager">Constructor needs UserManager<IdentityUser> object</param>
+        /// <param name="reviewRepository">Constructor needs IReviewRepository object</param>
         public ReviewController(IPlayListRepository playListRepo, UserManager<IdentityUser> userManager, IReviewRepository reviewRepository)
         {
             this.playListRepository = playListRepo;
@@ -31,6 +35,10 @@ namespace SeeSharpersCinema.Website.Controllers
 
         }
 
+        /// <summary>
+        /// Returns the Post View for writing reviews
+        /// </summary>
+        /// <param name="playListId">PlaylistId to determine which movie to write review for</param>
         [HttpGet]
         [Route("Review/Post/{playListId}")]
         public async Task<IActionResult> Post([FromRoute] long playListId)
@@ -44,6 +52,11 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Takes the post form and stores the review
+        /// </summary>
+        /// <param name="playListId">PlaylistId to determine which movie to write review for</param>
+        /// <param name="review">Review object from the form with details for the review</param>
         [HttpPost]
         [Route("Review/Post/{playListId}")]
         public async Task<IActionResult> Post([FromRoute] long playListId,[Bind("MovieId,Title,Message,Rating")] Review review)

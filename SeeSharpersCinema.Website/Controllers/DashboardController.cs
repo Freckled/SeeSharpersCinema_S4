@@ -39,7 +39,10 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(playlist);
         }
 
-
+        /// <summary>
+        /// Shows the all the movies
+        /// </summary>
+        /// <returns>The view with movies</returns>
         [HttpGet]
         [Route("Dashboard/Edit/{movieId}")]
         public async Task<IActionResult> EditMovie(long movieId)
@@ -57,6 +60,10 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(PlayList.Movie);
         }
 
+        /// <summary>
+        /// Edits movie info for a movie
+        /// </summary>
+        /// <returns>The view of the movie, edited</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Dashboard/Edit")]
@@ -67,6 +74,10 @@ namespace SeeSharpersCinema.Website.Controllers
         }
 
 
+        /// <summary>
+        /// Gets the view for adding a movie
+        /// </summary>
+        /// <returns>The view of the movie add view</returns>
         [HttpGet]
         [Route("Dashboard/Add")]
         public IActionResult AddMovie()
@@ -74,17 +85,24 @@ namespace SeeSharpersCinema.Website.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Adds a new movie and about the movie
+        /// </summary>
+        /// <returns>Redirects to movie view after adding movie</returns>
         [HttpPost]
         [Route("Dashboard/Add")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddMovie([Bind("Title,PosterUrl,Duration,Cast,Director,Country,Language,Technique,Description,ViewIndication,Genre,Year")] Movie movie)
         {
             await movieRepository.AddMovieAsync(movie);
-            return RedirectToAction("Week", "Dashboard");
+            return RedirectToAction("Movies", "Dashboard");
             //add movie overview redirect
         }
 
+        /// <summary>
+        /// Gets all movies and calls the movie view
+        /// </summary>
+        /// <returns>Shows the movie View</returns>
         [HttpGet]
         //[Route("Dashboard/PlayList/{movieId}")]
         public async Task<IActionResult> Movies()

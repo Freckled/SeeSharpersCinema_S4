@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {
+    /// <summary>
+    /// DetailsViewModel used by the Detail view (index)
+    /// this combines the Movies and Reviews
+    /// </summary>
     public class DetailsViewModel
     {
         public Movie Movie { get; set; }

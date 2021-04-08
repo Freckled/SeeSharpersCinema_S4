@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {
+    /// <summary>
+    /// EditUserViewModel used by the EditUser view (index)
+    /// this combines the UserRole and Roletypes and specific user information
+    /// </summary>
     public class EditUserViewModel
     {
         public UserRole UserRole { get; set; }

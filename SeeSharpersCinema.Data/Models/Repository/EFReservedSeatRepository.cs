@@ -57,7 +57,10 @@ namespace SeeSharpersCinema.Data.Models.Repository
             }
         }
 
-
+        /// <summary>
+        /// Removes a collection of type ReservedSeat from the database.
+        /// </summary>
+        /// <param name="reservedSeat">A collection of Type Reserved Seat. This is defined by the method in SeatController.</param>
         public async Task RemoveSeats(ICollection<ReservedSeat> reservedSeats)
         {
             try

@@ -56,8 +56,6 @@ namespace SeeSharpersCinema.Data.Models.Repository
             {
                 Console.WriteLine(e.Message);
             }
-
-
         }
 
     }

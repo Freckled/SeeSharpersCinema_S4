@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {
+    /// <summary>
+    /// UserViewModel used by the Manage View.
+    /// </summary>
     public class UserViewModel
     {
         public List<UserRole> Users { get; set; }

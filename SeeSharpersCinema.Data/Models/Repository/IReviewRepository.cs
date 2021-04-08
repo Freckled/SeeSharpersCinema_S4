@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace SeeSharpersCinema.Data.Models.Repository
 {
     /// <summary>
-    /// IReservedSeatRepository interface makes sure these methods are implemented
+    /// IReviewRepository interface makes sure these methods are implemented
     /// in a tasks for correct threading
     /// </summary>
-    /// <returns>IEnumerable<ReservedSeat> objects or ICollection<ReservedSeat> object</returns>
+    /// <returns>IEnumerable<Review> objects or Review object</returns>
     public interface IReviewRepository : IRepository<Review>
     {
         public Task<IEnumerable<Review>> FindAllByMovieIdAsync(long MovieId);

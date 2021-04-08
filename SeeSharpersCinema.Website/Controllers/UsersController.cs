@@ -43,7 +43,6 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("index", "home");
         }
 
-
         /// <summary>
         /// Register Action
         /// </summary>
@@ -121,17 +120,16 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(model);
         }
 
-       [Authorize(Roles = "Admin, Manager")]
+
+
+        /// <summary>
+        /// Gets a list of all the users and their role(s)
+        /// </summary>
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Manage()
         {
-            //var users = userManager.Users.ToList();
-            //var roles = await userManager.GetRolesAsync(users[1]);
-
             var users = userManager.Users.ToList();
-
-
-            UserViewModel model = new UserViewModel();
-            
+            UserViewModel model = new UserViewModel();            
 
             foreach (var user in users)
             {
@@ -143,11 +141,13 @@ namespace SeeSharpersCinema.Website.Controllers
             }
 
             return View(model);
-
-
         }
+
+        /// <summary>
+        /// Deletes a user
+        /// </summary>
+        /// <param name="userId">the UserID to be deleted</param>
         [Authorize(Roles = "Admin, Manager")]
-        //[ValidateAntiForgeryToken]
         [Route("Users/DeleteUser/{UserId}")]
         public async Task<IActionResult> DeleteUser(string UserId)
         {
@@ -169,6 +169,10 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("Manage","Users");
         }
 
+        /// <summary>
+        /// Gets the user information
+        /// </summary>
+        /// <param name="userId">the UserID of which the info for</param>
         [Authorize(Roles = "Admin, Manager")]
         [HttpGet]
         [Route("Users/Edit/{UserId}")]
@@ -186,11 +190,16 @@ namespace SeeSharpersCinema.Website.Controllers
                 .Cast<RoleType>()
                 .Select(r => r.ToString())
                 .ToList();
-            //model.RoleTypes = roleManager.Roles.Select(x => x.Name).ToList();
 
             return View(model);
         }
 
+        /// <summary>
+        /// Edit user information
+        /// </summary>
+        /// <param name="userId">the UserID of which the infor to be modified</param>
+        /// <param name="UserName">the (new) UserName</param>
+        /// <param name="Email">the (new) Email adress</param>
         [Authorize(Roles = "Admin, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -205,6 +214,11 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("Manage", "Users", new { id = model.UserId });
         }
 
+        /// <summary>
+        /// Add a role to existing user
+        /// </summary>
+        /// <param name="userId">the UserID to which to add the role</param>
+        /// <param name="role">role to be added</param>
         [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> AddRole(string userId, string role)
         {
@@ -214,6 +228,11 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("Manage", "Users", new { id = userId });
         }
 
+        /// <summary>
+        /// Remove a role from existing user
+        /// </summary>
+        /// <param name="userId">the UserID to which to remove the role</param>
+        /// <param name="role">role to be removed</param>
         [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> RemoveRole(string userId, string role)
         {
