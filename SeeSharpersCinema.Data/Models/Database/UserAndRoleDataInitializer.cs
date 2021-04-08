@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SeeSharpersCinema.Data.Models.User;
+using System;
 using System.Security.Claims;
 
 namespace SeeSharpersCinema.Models.Database
@@ -8,27 +10,18 @@ namespace SeeSharpersCinema.Models.Database
 
         public static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
-            if (!roleManager.RoleExistsAsync("Admin").Result)
-            {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Admin";
-                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
-            }
 
-            if (!roleManager.RoleExistsAsync("Desk").Result)
+            foreach (string roleName in Enum.GetNames(typeof(RoleType)))
             {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Desk";
-                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
-            }
-
-            if (!roleManager.RoleExistsAsync("Member").Result)
-            {
-                IdentityRole role = new IdentityRole();
-                role.Name = "Member";
-                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+                if (!roleManager.RoleExistsAsync(roleName).Result)
+                {
+                    IdentityRole role = new IdentityRole();
+                    role.Name = roleName;
+                    IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+                }
             }
         }
+
         public static void SeedUsers(UserManager<IdentityUser> userManager)
         {
             if (userManager.FindByEmailAsync("admin@ssc.nl").Result == null)

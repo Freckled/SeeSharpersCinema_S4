@@ -182,7 +182,11 @@ namespace SeeSharpersCinema.Website.Controllers
 
             EditUserViewModel model = new EditUserViewModel();
             model.UserRole = userRole;
-            model.RoleTypes = roleManager.Roles.Select(x => x.Name).ToList();
+            model.RoleTypes = Enum.GetValues(typeof(RoleType))
+                .Cast<RoleType>()
+                .Select(r => r.ToString())
+                .ToList();
+            //model.RoleTypes = roleManager.Roles.Select(x => x.Name).ToList();
 
             return View(model);
         }
