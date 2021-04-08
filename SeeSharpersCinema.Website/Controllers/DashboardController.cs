@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SeeSharpersCinema.Data.Models.Repository;
 using SeeSharpersCinema.Data.Models.ViewModel;
 using SeeSharpersCinema.Infrastructure;
+using SeeSharpersCinema.Models;
 using SeeSharpersCinema.Models.Film;
 using SeeSharpersCinema.Models.Program;
 using SeeSharpersCinema.Models.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,14 +19,16 @@ namespace SeeSharpersCinema.Website.Controllers
     {
         private IPlayListRepository playListRepository;
         private IMovieRepository movieRepository;
+        private ITimeSlotRepository timeSlotRepository;
 
         /// <summary>
         /// DashboardController constructor
         /// </summary>
-        public DashboardController(IPlayListRepository playListRepository, IMovieRepository movieRepository)
+        public DashboardController(IPlayListRepository playListRepository, IMovieRepository movieRepository, ITimeSlotRepository timeSlotRepository)
         {
             this.playListRepository = playListRepository;
             this.movieRepository = movieRepository;
+            this.timeSlotRepository = timeSlotRepository;
         }
 
         /// <summary>
@@ -117,15 +122,17 @@ namespace SeeSharpersCinema.Website.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTimeSlots(EditPlayListViewModel model)
         {
-            
-            
+            List<TimeSlot> editTimeSlotList = new List<TimeSlot>();
 
+            var playListId = model.PlayLists.First().Id;
+            model.PlayLists.ForEach(async p => {                
+                TimeSlot slot = new TimeSlot { Id = p.Id ,RoomId = p.TimeSlot.RoomId, SlotStart = p.TimeSlot.SlotStart, SlotEnd = p.TimeSlot.SlotEnd };
+                editTimeSlotList.Add(slot);
+            });
+           
+            await timeSlotRepository.UpdateTimeSlots(editTimeSlotList);
 
-
-
-
-
-            return RedirectToAction("Week", "Dashboard");
+            return RedirectToAction("PlayList", "Dashboard",new { id = playListId });
             
         }
 
