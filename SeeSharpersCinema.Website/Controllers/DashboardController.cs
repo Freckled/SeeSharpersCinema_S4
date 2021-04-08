@@ -109,6 +109,22 @@ namespace SeeSharpersCinema.Website.Controllers
             var playList = await playListRepository.FindByMovieID(movieId);
             var playListList = playList.ToList();
 
+            var timeSlots = await timeSlotRepository.FindAllAsync();
+            var playListAll = await playListRepository.FindAllAsync();
+
+
+            var timeSlotPlayListId = playListAll.Select(p => p.TimeSlot.Id).ToList();
+
+            var tsList = timeSlots.ToList();
+            tsList.ForEach(t =>
+            {
+                if (!timeSlotPlayListId.Contains(t.Id))
+                {
+                    viewModel.TimeSlots.Add(t);
+                }                    
+            });
+              
+
             playListList.ForEach(p =>
             {
                 viewModel.PlayLists.Add(p);
@@ -122,17 +138,20 @@ namespace SeeSharpersCinema.Website.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTimeSlots(EditPlayListViewModel model)
         {
-            List<TimeSlot> editTimeSlotList = new List<TimeSlot>();
-
             var playListId = model.PlayLists.First().Id;
-            model.PlayLists.ForEach(async p => {                
-                TimeSlot slot = new TimeSlot { Id = p.Id ,RoomId = p.TimeSlot.RoomId, SlotStart = p.TimeSlot.SlotStart, SlotEnd = p.TimeSlot.SlotEnd };
-                editTimeSlotList.Add(slot);
-            });
-           
-            await timeSlotRepository.UpdateTimeSlots(editTimeSlotList);
+            /*          
+                       List<TimeSlot> editTimeSlotList = new List<TimeSlot>();
+
+                        var playListId = model.PlayLists.First().Id;
+                        model.PlayLists.ForEach(async p => {                
+                            TimeSlot slot = new TimeSlot { Id = p.Id ,RoomId = p.TimeSlot.RoomId, SlotStart = p.TimeSlot.SlotStart, SlotEnd = p.TimeSlot.SlotEnd };
+                            editTimeSlotList.Add(slot);
+                        });
+
+                        await timeSlotRepository.UpdateTimeSlots(editTimeSlotList);*/
 
             return RedirectToAction("PlayList", "Dashboard",new { id = playListId });
+            
             
         }
 

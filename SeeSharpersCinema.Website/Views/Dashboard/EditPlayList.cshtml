@@ -7,6 +7,7 @@
         <table>
             <tr>
                 <th>Cinema Room</th>
+                <th>Cinema Room</th>
                 <th>Date</th>
                 <th>Start time</th>
                 <th>End time</th>
@@ -36,10 +37,11 @@
             <input type="hidden" asp-for="PlayLists[i].Id" value="@Model.PlayLists[i].Id" />
             <input type="hidden" asp-for="PlayLists[i].MovieId" value="@Model.PlayLists[i].MovieId" />
             <input type="hidden" asp-for="PlayLists[i].TimeSlot.Id" value="@Model.PlayLists[i].TimeSlot.Id" />
-            <td><input type="text" asp-for="PlayLists[i].TimeSlot.Room.Id" value=@Model.PlayLists[i].TimeSlot.Room.Id></td>
-            <td><input type="date" asp-for="PlayLists[i].TimeSlot.SlotStart.Date" value=@Model.PlayLists[i].TimeSlot.SlotStart.Date.ToString("yyyy-MM-dd")></td>
-            <td><input type="datetime" asp-for="PlayLists[i].TimeSlot.SlotStart" value=@Model.PlayLists[i].TimeSlot.SlotStart.ToString("HH:mm")></td>
-            <td><input type="datetime" asp-for="PlayLists[i].TimeSlot.SlotEnd" value=@Model.PlayLists[i].TimeSlot.SlotEnd.ToString("HH:mm")></td>
+
+            <td>@Html.DropDownListFor(i => i.TimeSlots, new SelectList(Model.TimeSlots, "SlotStart", "SlotEnd"))</td>
+            <td>@Model.PlayLists[i].TimeSlot.Room.Id></td>
+            <td>@Model.PlayLists[i].TimeSlot.SlotStart.ToString("HH:mm")></td>
+            <td>@Model.PlayLists[i].TimeSlot.SlotEnd.ToString("HH:mm")></td>
             <td>
                 @Html.ActionLink("Remove",
                                 "RemoveTimeSlot",
