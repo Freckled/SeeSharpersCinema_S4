@@ -21,6 +21,9 @@ namespace SeeSharpersCinema.Data.Models.ViewModel
         }
     }
 
+    /// <summary>
+    /// UserRole used by the UserViewModel. Combines user and their roles
+    /// </summary>
     public class UserRole
     {
         public List<string> Roles { get; set; }
