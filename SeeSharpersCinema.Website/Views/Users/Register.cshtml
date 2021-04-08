@@ -1,14 +1,8 @@
 ﻿@model RegisterUserViewModel
 @{ ViewData["Title"] = "Register"; }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>@ViewData["Title"] - SeeSharpersCinema</title>
-    <link rel="stylesheet" href="~/css/registerForm.css" />
-</head>
-<body>
-    <div class="container" id="registerForm">
-        <div class="m-1 p-1 text-white"><h4>Register as a new user</h4></div>
+    
+    <div class="container formBody" id="registerForm">
+        <div class="m-1 p-1 text-white formTitle"><h4>Register as a new user</h4></div>
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <form asp-action="Register" method="post">
@@ -36,7 +30,7 @@
             <button class="btn btn-primary" type="submit">Register</button>
         </form>
     </div>
-    </body>
-</html>
+    
+
 
 

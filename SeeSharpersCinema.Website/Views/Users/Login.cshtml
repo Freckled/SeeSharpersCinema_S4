@@ -1,14 +1,8 @@
 ﻿@model SeeSharpersCinema.Data.Models.ViewModel.LoginViewModel
 @{ ViewData["Title"] = "Login"; }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>@ViewData["Login"] - SeeSharpersCinema</title>
-    <link rel="stylesheet" href="~/css/loginForm.css" />
-</head>
-<body>
-    <div class="container" id="loginForm">
-        <div class="m-1 p-1 text-white"><h4>Login</h4></div>
+   
+    <div class="container formBody" id="loginForm">
+        <div class="m-1 p-1 text-white formTitle"><h4>Login</h4></div>
         <div class="text-danger" asp-validation-summary="All"></div>
         <div class="container">
             <form asp-action="login" method="post">
@@ -29,5 +23,4 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+
