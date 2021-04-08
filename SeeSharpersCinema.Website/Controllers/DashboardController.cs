@@ -19,16 +19,14 @@ namespace SeeSharpersCinema.Website.Controllers
     {
         private IPlayListRepository playListRepository;
         private IMovieRepository movieRepository;
-        private ITimeSlotRepository timeSlotRepository;
 
         /// <summary>
         /// DashboardController constructor
         /// </summary>
-        public DashboardController(IPlayListRepository playListRepository, IMovieRepository movieRepository, ITimeSlotRepository timeSlotRepository)
+        public DashboardController(IPlayListRepository playListRepository, IMovieRepository movieRepository)
         {
             this.playListRepository = playListRepository;
             this.movieRepository = movieRepository;
-            this.timeSlotRepository = timeSlotRepository;
         }
 
         /// <summary>
@@ -43,17 +41,13 @@ namespace SeeSharpersCinema.Website.Controllers
 
 
         [HttpGet]
-        [Route("Dashboard/Edit")]
-        public async Task<IActionResult> EditMovie(long? id)
+        [Route("Dashboard/Edit/{movieId}")]
+        public async Task<IActionResult> EditMovie(long movieId)
         {
             //change repos later
-            if (id == null)
-            {
-                //return NotFound();
-                id = 2;
-            }
+
             var PlayListList = await playListRepository.FindAllAsync();
-            var PlayList = PlayListList.FirstOrDefault(p => p.Id == id);
+            var PlayList = PlayListList.FirstOrDefault(p => p.Id == movieId);
 
             if (PlayList == null)
             {
@@ -98,62 +92,5 @@ namespace SeeSharpersCinema.Website.Controllers
             var movies = await movieRepository.FindAllAsync();
             return View(movies);
         }
-
-
-        [HttpGet]
-        [Route("Dashboard/PlayList/{movieId}")]
-        public async Task<IActionResult> EditPlayList(long movieId)
-        {
-            EditPlayListViewModel viewModel = new EditPlayListViewModel();
-
-            var playList = await playListRepository.FindByMovieID(movieId);
-            var playListList = playList.ToList();
-
-            var timeSlots = await timeSlotRepository.FindAllAsync();
-            var playListAll = await playListRepository.FindAllAsync();
-
-
-            var timeSlotPlayListId = playListAll.Select(p => p.TimeSlot.Id).ToList();
-
-            var tsList = timeSlots.ToList();
-            tsList.ForEach(t =>
-            {
-                if (!timeSlotPlayListId.Contains(t.Id))
-                {
-                    viewModel.TimeSlots.Add(t);
-                }                    
-            });
-              
-
-            playListList.ForEach(p =>
-            {
-                viewModel.PlayLists.Add(p);
-            });
-
-
-            return View(viewModel);
-        }
-
-        [HttpPost]        
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditTimeSlots(EditPlayListViewModel model)
-        {
-            var playListId = model.PlayLists.First().Id;
-            /*          
-                       List<TimeSlot> editTimeSlotList = new List<TimeSlot>();
-
-                        var playListId = model.PlayLists.First().Id;
-                        model.PlayLists.ForEach(async p => {                
-                            TimeSlot slot = new TimeSlot { Id = p.Id ,RoomId = p.TimeSlot.RoomId, SlotStart = p.TimeSlot.SlotStart, SlotEnd = p.TimeSlot.SlotEnd };
-                            editTimeSlotList.Add(slot);
-                        });
-
-                        await timeSlotRepository.UpdateTimeSlots(editTimeSlotList);*/
-
-            return RedirectToAction("PlayList", "Dashboard",new { id = playListId });
-            
-            
-        }
-
     }
 }
