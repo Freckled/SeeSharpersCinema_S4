@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SeeSharpersCinema.Data.Models.ViewModel;
 using SeeSharpersCinema.Infrastructure;
 using SeeSharpersCinema.Models.Film;
+using SeeSharpersCinema.Models.Program;
 using SeeSharpersCinema.Models.Repository;
 using System;
 using System.Linq;
@@ -84,6 +86,48 @@ namespace SeeSharpersCinema.Website.Controllers
             //add movie overview redirect
         }
 
+        [HttpGet]
+        //[Route("Dashboard/PlayList/{movieId}")]
+        public async Task<IActionResult> Movies()
+        {
+            var movies = await movieRepository.FindAllAsync();
+            return View(movies);
+        }
+
+
+        [HttpGet]
+        [Route("Dashboard/PlayList/{movieId}")]
+        public async Task<IActionResult> EditPlayList(long movieId)
+        {
+            EditPlayListViewModel viewModel = new EditPlayListViewModel();
+
+            var playList = await playListRepository.FindByMovieID(movieId);
+            var playListList = playList.ToList();
+
+            playListList.ForEach(p =>
+            {
+                viewModel.PlayLists.Add(p);
+            });
+
+
+            return View(viewModel);
+        }
+
+        [HttpPost]        
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTimeSlots(EditPlayListViewModel model)
+        {
+            
+            
+
+
+
+
+
+
+            return RedirectToAction("Week", "Dashboard");
+            
+        }
 
     }
 }

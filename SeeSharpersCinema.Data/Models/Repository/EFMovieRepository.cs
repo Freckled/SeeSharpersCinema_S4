@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SeeSharpersCinema.Models.Database;
 using SeeSharpersCinema.Models.Film;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,11 @@ namespace SeeSharpersCinema.Models.Repository
         {
             context = ctx;
         }
+
+        public async Task<IEnumerable<Movie>> FindAllAsync()
+            => await context.Movies
+            .OrderBy(m => m.Title)
+            .ToListAsync();
 
         public async Task<Movie> FindByIdAsync(long MovieId)
             => await context.Movies
