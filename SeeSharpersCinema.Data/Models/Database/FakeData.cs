@@ -27,13 +27,13 @@ namespace SeeSharpersCinema.Models.Database
         public static List<Room> FakeRooms
             = new List<Room>
             {
-                new Room { Id = 1, Capacity = 300, CinemaId = 1, Rows = 15 },
-                new Room { Id = 2, Capacity = 300, CinemaId = 1, Rows = 15 },
-                new Room { Id = 3, Capacity = 300, CinemaId = 1, Rows = 15 },
-                new Room { Id = 4, Capacity = 300, CinemaId = 1, Rows = 15 },
-                new Room { Id = 5, Capacity = 300, CinemaId = 1, Rows = 15 },
-                new Room { Id = 6, Capacity = 300, CinemaId = 1, Rows = 15 },
-                new Room { Id = 7, Capacity = 300, CinemaId = 1, Rows = 15 }
+                new Room { Id = 1, Capacity = 120, CinemaId = 1, Rows = 8 },
+                new Room { Id = 2, Capacity = 120, CinemaId = 1, Rows = 8 },
+                new Room { Id = 3, Capacity = 120, CinemaId = 1, Rows = 8 },
+                new Room { Id = 4, Capacity = 60, CinemaId = 1, Rows = 6 },
+                new Room { Id = 5, Capacity = 50, CinemaId = 1, Rows = 5 },
+                new Room { Id = 6, Capacity = 50, CinemaId = 1, Rows = 5 },
+                new Room { Id = 7, Capacity = 200, CinemaId = 1, Rows = 10 }
             };
 
         public static List<TimeSlot> FakeTimeSlots

@@ -2254,51 +2254,51 @@ namespace SeeSharpersCinema.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            Capacity = 300,
+                            Capacity = 120,
                             CinemaId = 1L,
-                            Rows = 15
+                            Rows = 8
                         },
                         new
                         {
                             Id = 2L,
-                            Capacity = 300,
+                            Capacity = 120,
                             CinemaId = 1L,
-                            Rows = 15
+                            Rows = 8
                         },
                         new
                         {
                             Id = 3L,
-                            Capacity = 300,
+                            Capacity = 120,
                             CinemaId = 1L,
-                            Rows = 15
+                            Rows = 8
                         },
                         new
                         {
                             Id = 4L,
-                            Capacity = 300,
+                            Capacity = 60,
                             CinemaId = 1L,
-                            Rows = 15
+                            Rows = 6
                         },
                         new
                         {
                             Id = 5L,
-                            Capacity = 300,
+                            Capacity = 50,
                             CinemaId = 1L,
-                            Rows = 15
+                            Rows = 5
                         },
                         new
                         {
                             Id = 6L,
-                            Capacity = 300,
+                            Capacity = 50,
                             CinemaId = 1L,
-                            Rows = 15
+                            Rows = 5
                         },
                         new
                         {
                             Id = 7L,
-                            Capacity = 300,
+                            Capacity = 200,
                             CinemaId = 1L,
-                            Rows = 15
+                            Rows = 10
                         });
                 });
 

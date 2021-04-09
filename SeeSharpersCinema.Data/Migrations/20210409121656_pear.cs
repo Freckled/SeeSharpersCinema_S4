@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SeeSharpersCinema.Data.Migrations
 {
-    public partial class banana : Migration
+    public partial class pear : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -398,13 +398,13 @@ namespace SeeSharpersCinema.Data.Migrations
                 columns: new[] { "Id", "Capacity", "CinemaId", "Rows" },
                 values: new object[,]
                 {
-                    { 1L, 300, 1L, 15 },
-                    { 2L, 300, 1L, 15 },
-                    { 3L, 300, 1L, 15 },
-                    { 4L, 300, 1L, 15 },
-                    { 5L, 300, 1L, 15 },
-                    { 6L, 300, 1L, 15 },
-                    { 7L, 300, 1L, 15 }
+                    { 1L, 120, 1L, 8 },
+                    { 2L, 120, 1L, 8 },
+                    { 3L, 120, 1L, 8 },
+                    { 4L, 60, 1L, 6 },
+                    { 5L, 50, 1L, 5 },
+                    { 6L, 50, 1L, 5 },
+                    { 7L, 200, 1L, 10 }
                 });
 
             migrationBuilder.InsertData(
