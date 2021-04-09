@@ -53,7 +53,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <form method="post" asp-action="logout" asp-controller="users">
+                                <form method="post" asp-action="logout" asp-controller="Account">
                                     <button class="btn btn-outline-light" type="submit">logout @User.Identity.Name</button>
                                 </form>
                             </li>

@@ -66,7 +66,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <returns>The view of the movie, edited</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Dashboard/Edit")]
+        [Route("Dashboard/Edit/{movieId}")]
         public async Task<IActionResult> EditMovie(Movie movie)
         {
             await movieRepository.UpdateMovieDetailsAsync(movie);
@@ -96,7 +96,6 @@ namespace SeeSharpersCinema.Website.Controllers
         {
             await movieRepository.AddMovieAsync(movie);
             return RedirectToAction("Movies", "Dashboard");
-            //add movie overview redirect
         }
 
         /// <summary>
