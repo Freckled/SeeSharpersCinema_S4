@@ -134,7 +134,7 @@ namespace SeeSharpersCinema.Website.Controllers
             IdentityUser user = await userManager.FindByIdAsync(userId);
 
             await userManager.AddToRoleAsync(user, role);
-            return RedirectToAction("Manage", "Users", new { id = userId });
+            return RedirectToAction("Edit", "Users", new { id = userId });
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace SeeSharpersCinema.Website.Controllers
         {
             IdentityUser user = await userManager.FindByIdAsync(userId);
             await userManager.RemoveFromRoleAsync(user, role);
-            return RedirectToAction("Manage", "Users", new { id = userId });
+            return RedirectToAction("Edit", "Users", new { id = userId });
         }
 
         [HttpGet]
