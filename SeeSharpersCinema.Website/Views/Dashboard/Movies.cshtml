@@ -2,7 +2,11 @@
 
 <div>
     <div class="row"><h1>All Movies</h1></div>
-
+    <div class="row">
+        <a asp-controller="Dashboard" asp-action="Movies" class="btn btn-info btn-lg m-2">All movies</a>
+        <a asp-controller="Notices" asp-action="Edit" asp-route-id="1" class="btn btn-danger btn-lg m-2">Edit banner</a>
+        <a asp-controller="Dashboard" asp-action="Add" class="btn btn-info btn-lg m-2">Add movie</a>
+    </div>
     <div class="row">
         @foreach (var movie in Model)
         {

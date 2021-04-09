@@ -67,7 +67,7 @@ namespace SeeSharpersCinema.Website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Dashboard/Edit")]
-        public async Task<IActionResult> EditMovie([Bind("Id,Title,PosterUrl,Duration,Cast,Director,Country,Language,Technique,Description,ViewIndication,Genre,Year")] Movie movie)
+        public async Task<IActionResult> EditMovie(Movie movie)
         {
             await movieRepository.UpdateMovieDetailsAsync(movie);
             return RedirectToAction("Edit", "Dashboard", new { id = movie.Id });
