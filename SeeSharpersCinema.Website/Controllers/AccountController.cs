@@ -57,7 +57,7 @@ namespace SeeSharpersCinema.Website.Controllers
             {
                 IdentityUser user = new IdentityUser
                 {
-                    UserName = model.Name,
+                    UserName = model.UserName,
                     Email = model.Email
                 };
 
@@ -97,7 +97,7 @@ namespace SeeSharpersCinema.Website.Controllers
             {
                 Microsoft.AspNetCore.Identity.SignInResult result
                     = await signInManager.PasswordSignInAsync(
-                            model.Name,
+                            model.UserName,
                             model.Password,
                             isPersistent: false,
                             lockoutOnFailure: false);
