@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using SeeSharpersCinema.Website.Controllers;
@@ -39,48 +39,55 @@ namespace SeeSharpersCinema.Tests
 
         }
 
-        private Mock<SignInManager<IdentityUser>> GetMockSignInManager()
+        private Mock<SignInManager<IdentityUser>> GetMockSignInManager(Mock<UserManager<IdentityUser>> userManager = null)
         {
-            var userManager = GetMockUserManager();
+            if (userManager == null) { 
+                userManager = GetMockUserManager();
+            }
+
             var signInManagerMock = new Mock<SignInManager<IdentityUser>>(
             userManager.Object,
-            /* IHttpContextAccessor contextAccessor */Mock.Of<IHttpContextAccessor>(),
-            /* IUserClaimsPrincipalFactory<TUser> claimsFactory */Mock.Of<IUserClaimsPrincipalFactory<IdentityUser>>(),
-            /* IOptions<IdentityOptions> optionsAccessor */null,
-            /* ILogger<SignInManager<TUser>> logger */null,
-            /* IAuthenticationSchemeProvider schemes */null,
-            /* IUserConfirmation<TUser> confirmation */null);
+            *//* IHttpContextAccessor contextAccessor *//*Mock.Of<IHttpContextAccessor>(),
+            *//* IUserClaimsPrincipalFactory<TUser> claimsFactory *//*Mock.Of<IUserClaimsPrincipalFactory<IdentityUser>>(),
+            *//* IOptions<IdentityOptions> optionsAccessor *//*null,
+            *//* ILogger<SignInManager<TUser>> logger *//*null,
+            *//* IAuthenticationSchemeProvider schemes *//*null,
+            *//* IUserConfirmation<TUser> confirmation *//*null);
             return signInManagerMock;
         }
 
-        [Fact]
-        public void AddRoleTest()
+*//*        [Fact]
+        public async Task AddRoleTestAsync()
         {
             //Arrange
             var user = new IdentityUser() { UserName = "JohnDoe", Id = "1" };
-            userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(user);
-
+            user.Id = "02dfeb89-9b80-4884-b694-862adf38f09d";
             
+            userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(user);
+            //userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "Admin", "Member", "Moderator" });
+            //userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "Admin", "Member", "Moderator" });
+
             UsersController controller = new UsersController(userManagerMock.Object, signInManagerMock.Object, roleManagerMock.Object);
 
-            
             //Act
+            await controller.RemoveRole(user.UserName, "Admin");
+            var roles = await userManagerMock.Object.GetRolesAsync(user);
 
-
-
-            //Assert
+            
+            //Assert*//*
 
 
         }
-        
+
         //RemoveRole
         //Edit
         //DeleteUser
 
-        
+
 
 
 
 
     }
 }
+*/

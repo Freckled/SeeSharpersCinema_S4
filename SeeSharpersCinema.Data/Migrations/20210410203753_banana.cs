@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SeeSharpersCinema.Data.Migrations
 {
-    public partial class mango : Migration
+    public partial class banana : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
