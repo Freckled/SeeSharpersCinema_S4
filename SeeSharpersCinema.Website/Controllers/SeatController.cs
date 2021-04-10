@@ -134,28 +134,6 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /// <summary>
         /// Adds Seats to left and right in case of social distancing
         /// </summary>
