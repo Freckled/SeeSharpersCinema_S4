@@ -4,9 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using SeeSharpersCinema.Data.Models.Repository;
+using SeeSharpersCinema.Models.Repository;
 using SeeSharpersCinema.Website.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -55,47 +59,89 @@ namespace SeeSharpersCinema.Tests
             return signInManagerMock;
         }
 
+        [Fact]
+        public void DashboardControllerAutherizeTests() {
+            //Arrange
+            var playListRepositoryMock = new Mock<IPlayListRepository>();
+            var movieRepositoryMock = new Mock<IMovieRepository>();
 
 
-        public void AccountControllerAutherizeTests() { }
-        public void DashboardControllerAutherizeTests() { }
-        public void HomeControllerAutherizeTests() { }
-        public void ReviewControllerAutherizeTests() { }
-        public void SeatControllerAutherizeTests() { }
+            DashboardController controller = new DashboardController(playListRepositoryMock.Object, movieRepositoryMock.Object);
+            var controllerType = controller.GetType();
+
+            //Act
+            var attrib = controllerType.GetCustomAttributes(typeof(AuthorizeAttribute), true).FirstOrDefault() as AuthorizeAttribute;
+            if (attrib == null)
+            {
+                throw new Exception();
+            }
+
+            //Assert
+            Assert.DoesNotContain("Desk", attrib.Roles);
+            Assert.DoesNotContain("Member", attrib.Roles);
+            Assert.Contains("Admin", attrib.Roles);
+            Assert.Contains("Manager", attrib.Roles);
+
+        }
+    
+        
+        [Fact]
+        public void ReviewControllerAutherizeTests() {
+            //Arrange
+            var playListRepositoryMock = new Mock<IPlayListRepository>();
+            var reviewRepositoryMock = new Mock<IReviewRepository>();
+            ReviewController controller = new ReviewController(playListRepositoryMock.Object, userManagerMock.Object, reviewRepositoryMock.Object);
+
+            //Act
+            var actualAttribute = controller.GetType().GetCustomAttributes(typeof(AuthorizeAttribute), true);
+            
+            //Assert
+            Assert.Equal(typeof(AuthorizeAttribute), actualAttribute[0].GetType());
+
+        }
 
         [Fact]
+        public void SeatControllerAutherizeTests() {
+            //Arrange
+            var playListRepositoryMock = new Mock<IPlayListRepository>();
+            var reservedSeatRepositoryMock = new Mock<IReservedSeatRepository>();
+            
+            SeatController controller = new SeatController(playListRepositoryMock.Object, reservedSeatRepositoryMock.Object);
+            var controllerType = controller.GetType();
+            var method = controllerType.GetMethod("RemoveSeats");
+
+            //Act
+            var attrib = method.GetCustomAttributes(typeof(AuthorizeAttribute), true).FirstOrDefault() as AuthorizeAttribute;
+            if (attrib == null)
+            {
+                throw new Exception();
+            }
+            //Assert
+            Assert.Contains("Desk", attrib.Roles);
+            Assert.DoesNotContain("Member", attrib.Roles);
+        }
+
+         [Fact]
         public void UsersControllerAutherizeTests()
         {
             //Arrange
-            //var userManagerMock = GetMockUserManager();
-/*            userManagerMock.Setup(userManager => userManager.FindByIdAsync(It.IsAny<string>()))
-                    .ReturnsAsync(new IdentityUser { UserName = "Noel" });
-            userManagerMock.Setup(userManager => userManager.IsInRoleAsync(It.IsAny<IdentityUser>(), "Noel"))
-                    .ReturnsAsync(true);*/
-            
-            //var roleManagerMock = GetMockRoleManager();
-            //var signInManagerMock = GetMockSignInManager();
-            //var signInManager = GetMockSignInManager();
-
-            //var signInManager = new Mock<SignInManager<IdentityUser>>(userManager.Object,
-            //    contextAccessor.Object, userPrincipalFactory.Object, null, null, null);
-
             UsersController controller = new UsersController(userManagerMock.Object, signInManagerMock.Object, roleManagerMock.Object);
-
-
-            //Act
+            var controllerType = controller.GetType();
+            //var method = controllerType.GetMethod("Manage");
             
-            var actualAttribute = controller.GetType().GetMethod("Manage").GetCustomAttributes(typeof(AuthorizeAttribute), true);
-            Console.WriteLine(actualAttribute);
+            //Act
+            var attrib = controllerType.GetCustomAttributes(typeof(AuthorizeAttribute), true).FirstOrDefault() as AuthorizeAttribute;
+                if (attrib == null)
+                {
+                    throw new Exception();
+                }
 
             //Assert
-
-
-
+            Assert.DoesNotContain("Desk", attrib.Roles);
+            Assert.DoesNotContain("Member", attrib.Roles);
+            Assert.Contains("Admin", attrib.Roles);
+            Assert.Contains("Manager", attrib.Roles);
 
         }
-        //public void NoticesControllerAutherizeTests() { }
-        //public void PaymentControllerAutherizeTests() { }
-
     }
 }

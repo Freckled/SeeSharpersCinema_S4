@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SeeSharpersCinema.Data.Infrastructure;
 using SeeSharpersCinema.Data.Models.Program;
 using SeeSharpersCinema.Data.Models.Repository;
@@ -86,6 +87,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// </summary>
         /// <param name="model">SeatViewModel with data from the reserveseatform.</param>
         /// <returns>Redirects to seating page</returns>
+        [Authorize(Roles = "Desk")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveSeats([Bind("SeatingArrangement, TimeSlotId, SeatAction")] SeatViewModel model)//todo remove testdata

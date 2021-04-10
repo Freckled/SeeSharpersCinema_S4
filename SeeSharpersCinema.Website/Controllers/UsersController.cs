@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Website.Controllers
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class UsersController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -34,7 +35,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <summary>
         /// Gets a list of all the users and their role(s)
         /// </summary>
-        [Authorize(Roles = "Admin, Manager")]
+        
         public async Task<IActionResult> Manage()
         {
             var users = userManager.Users.ToList();
@@ -56,7 +57,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// Deletes a user
         /// </summary>
         /// <param name="userId">the UserID to be deleted</param>
-        [Authorize(Roles = "Admin, Manager")]
+        
         [Route("Users/DeleteUser/{UserId}")]
         public async Task<IActionResult> DeleteUser(string UserId)
         {
@@ -82,7 +83,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// Gets the user information
         /// </summary>
         /// <param name="userId">the UserID of which the info for</param>
-        [Authorize(Roles = "Admin, Manager")]
+        
         [HttpGet]
         [Route("Users/Edit/{UserId}")]
         public async Task<IActionResult> Edit(string UserId)
@@ -109,7 +110,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <param name="userId">the UserID of which the infor to be modified</param>
         /// <param name="UserName">the (new) UserName</param>
         /// <param name="Email">the (new) Email adress</param>
-        [Authorize(Roles = "Admin, Manager")]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("UserId,UserName,Email")] EditUserViewModel model)
@@ -128,7 +129,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// </summary>
         /// <param name="userId">the UserID to which to add the role</param>
         /// <param name="role">role to be added</param>
-        [Authorize(Roles = "Admin, Manager")]
+        
         public async Task<IActionResult> AddRole(string userId, string role)
         {
             IdentityUser user = await userManager.FindByIdAsync(userId);
@@ -142,7 +143,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// </summary>
         /// <param name="userId">the UserID to which to remove the role</param>
         /// <param name="role">role to be removed</param>
-        [Authorize(Roles = "Admin, Manager")]
+        
         public async Task<IActionResult> RemoveRole(string userId, string role)
         {
             IdentityUser user = await userManager.FindByIdAsync(userId);
@@ -150,6 +151,7 @@ namespace SeeSharpersCinema.Website.Controllers
             return RedirectToAction("Edit", "Users", new { id = userId });
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("/Account/AccessDenied")]
         public ActionResult AccessDenied()
