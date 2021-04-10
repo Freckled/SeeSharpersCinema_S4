@@ -6,9 +6,9 @@ using SeeSharpersCinema.TouchScreen.Controllers;
 using System.Linq;
 using Xunit;
 
-namespace SeeSharpersCinema.Tests
+namespace SeeSharpersCinema.IntegrationTests
 {
-    public class MovieControllerTest
+    public class MovieControllerTests
     {
         [Fact]
         public void UsableMovieRepo()

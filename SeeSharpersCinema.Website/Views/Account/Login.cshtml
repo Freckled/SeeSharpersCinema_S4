@@ -1,0 +1,31 @@
+﻿@model SeeSharpersCinema.Data.Models.ViewModel.LoginViewModel
+@{ ViewData["Title"] = "Login"; }
+
+<div class="container formBody" id="loginForm">
+    <div class="m-1 p-1 text-white formTitle"><h4>Login</h4></div>
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <div class="container">
+        <form asp-action="login" method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Login</button>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="container formBody">
+    <p class="d-inline-block">Not a member yet? Join us for a better viewing experience!</p>
+    <a asp-controller="Account" asp-action="Register" id="registerButton" class="btn btn-primary m-sm-2">Register</a>
+</div>

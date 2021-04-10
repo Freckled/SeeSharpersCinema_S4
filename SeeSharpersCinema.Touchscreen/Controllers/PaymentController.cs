@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SeeSharpersCinema.Models.Repository;
+using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.TouchScreen.Controllers
 {
@@ -22,9 +24,21 @@ namespace SeeSharpersCinema.TouchScreen.Controllers
         /// <param name="movieId">Method needs a parameter of type long</param>
         /// <returns>Ticket view of a specific movie by its id</returns>
         [Route("Ticket/Selector/Payment")]
-        public IActionResult Index([FromRoute] long movieId)
+        public async Task<IActionResult> IndexAsync(long movieId)
         {
-            return View();
+            if (movieId == 0) 
+            { 
+                return NotFound(); 
+            }
+
+            var movie = await repository.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie == null) 
+            { 
+                return NotFound(); 
+            }
+
+            return View(movie);
         }
 
         /// <summary>

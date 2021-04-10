@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using  Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SeeSharpersCinema.Website</title>
+    <link rel="stylesheet" href="~/css/seatLayout.css" />
+    <link rel="stylesheet" href="~/css/review.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="https://kit.fontawesome.com/5d381e35a1.js" crossorigin="anonymous"></script>
@@ -20,6 +24,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -28,8 +33,39 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+
                     </ul>
 
+                </div>
+                <div class="justify-content-end">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Manage">User Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Dashboard" asp-action="Week">Dashboard</a>
+                            </li>
+
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-action="logout" asp-controller="Account">
+                                    <button class="btn btn-outline-light" type="submit">logout @User.Identity.Name</button>
+                                </form>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light mr-1" asp-controller="Account" asp-action="Login">Login / Register</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
 
             </div>
@@ -48,6 +84,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,0 +1,97 @@
+﻿@model SeeSharpersCinema.Data.Models.ViewModel.SeatViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <a asp-controller="Home" asp-action="Index" type="button" class="btn btn-link btn-lg">&lt; Back</a>
+            <a class="navbar-brand" asp-area="" asp-route-movieId="@Model.PlayListId" asp-controller="Payment" asp-action="Pay">Order</a>
+            <div class="card">
+                <img class="card-img-top img-fluid" src="@Model.Movie.PosterUrl" alt="@Model.Movie.Title" title="@Model.Movie.Title" loading="eager" />
+                <div class="card-body">
+                    <h3 class="card-title">@Model.Movie.Title</h3>
+                    <hr />
+                    <h5>@Model.TimeSlot.SlotStart.ToString("dddd, dd MMMM")</h5>
+                    <h4>@Model.TimeSlot.SlotStart.ToString("hh:mm") - @Model.TimeSlot.SlotEnd.ToString("hh:mm")</h4>
+                    <ul class="mt-4">
+                        <li>@Model.Movie.Technique</li>
+                        <li>@Model.Movie.Duration Min</li>
+                    </ul>
+                    <hr />
+                    <p class="card-text">@Model.Movie.Description</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <h1>Pick your seats!</h1>
+            <hr />
+            <div class="movieLayoutContainer"></div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <form name="reserveSeatForm" id="reserveSeatForm" asp-action="ReserveSeats">
+        <div class="form-group">
+            <input type="hidden" asp-for="SeatingArrangement" value="" id="SeatStringReserve" />
+            <input type="hidden" asp-for="TimeSlotId" value=@Model.TimeSlot.Id />
+        </div>
+    </form>
+</div>
+
+<div>
+    <form name="removeSeatForm" id="removeSeatForm" asp-action="RemoveSeats">
+        <div class="form-group">
+            <input type="hidden" asp-for="SeatingArrangement" value="" id="SeatStringRemove" />
+            <input type="hidden" asp-for="TimeSlotId" value=@Model.TimeSlot.Id />
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @if (User.IsInRole("Desk"))
+    {
+        <script src="~/js/jquery.seatLayoutRemove.js" type="text/javascript"></script>
+    }
+    else
+    {
+        <script src="~/js/jquery.seatLayout.js" type="text/javascript"></script>
+    }
+<script type="text/javascript">
+        $('.movieLayoutContainer').seatLayout({
+            data: @Html.Raw(@Model.SeatingArrangement),
+            showActionButtons: true,
+            classes: {     // Add class or classes for the component
+                doneBtn: '',
+                cancelBtn: '',
+                delBtn:'',
+                row: '',
+                area: '',
+                screen: '',
+                seat: ''
+            },
+            numberOfSeat: 2,  // Nuber of seat want to select. This need to be filled via form
+            callOnSeatRender: function (Obj) {
+                //modify seat object if require and return it;
+                return Obj;
+            },
+            callOnSeatSelect: function (_event, _data, _element) {
+            },
+            selectionDone: function (_array) {
+                var SeatString = JSON.stringify(_array);
+                document.getElementById("SeatStringReserve").value = SeatString;
+                document.forms["reserveSeatForm"].submit();
+            },
+            selectionDelete: function (_array) {
+                var SeatString = JSON.stringify(_array);
+                document.getElementById("SeatStringRemove").value = SeatString;
+                document.forms["removeSeatForm"].submit();
+            },
+            cancel: function () {
+                location.reload();
+                return false;
+            }
+        });
+</script>
+}
+

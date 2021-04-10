@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SeeSharpersCinema.Data.Models.Repository;
 using SeeSharpersCinema.Data.Models.ViewModel;
 using SeeSharpersCinema.Infrastructure;
 using SeeSharpersCinema.Models.Repository;
 using SeeSharpersCinema.Models.Website;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-
 
 namespace SeeSharpersCinema.Website.Controllers
 {
@@ -14,7 +15,7 @@ namespace SeeSharpersCinema.Website.Controllers
     {
 
         private IPlayListRepository repository;
-
+        private IReviewRepository reviewRepository;
         private INoticeRepository noticeRepository;
 
         /// <summary>
@@ -22,10 +23,11 @@ namespace SeeSharpersCinema.Website.Controllers
         /// </summary>
         /// <param name="repo">Constructor needs IPlayListRepository object</param>
         /// <param name="noticeRepo">Constructor needs INoticeRepository object</param>
-        public HomeController(IPlayListRepository repo, INoticeRepository noticeRepo)
+        public HomeController(IPlayListRepository repo, INoticeRepository noticeRepo, IReviewRepository reviewRepository)
         {
             repository = repo;
             noticeRepository = noticeRepo;
+            this.reviewRepository = reviewRepository;
         }
 
         /// <summary>
@@ -39,17 +41,25 @@ namespace SeeSharpersCinema.Website.Controllers
             {
                 return NotFound();
             }
+            var PlayListList = await repository.FindAllAsync();
+            var PlayList = PlayListList.FirstOrDefault(p => p.Id == id);
 
-            var movie = await repository.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
+            if (PlayList == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
-        }
 
+            DetailsViewModel model = new DetailsViewModel();
+            model.Movie = PlayList.Movie;
+            model.PlayListId = PlayList.Id;
+
+            var reviews = await reviewRepository.FindAllByMovieIdAsync(PlayList.Movie.Id);
+            model.Reviews = reviews.ToList();
+
+            return View(model);
+        }
+        
         /// <summary>
         /// Get the View Index for showing current movieweek
         /// </summary>
@@ -128,6 +138,9 @@ namespace SeeSharpersCinema.Website.Controllers
             return View(homeViewModel);
         }
 
+        /// <summary>
+        /// Returns the privacy policy view
+        /// </summary>
         public IActionResult Privacy()
         {
             return View();

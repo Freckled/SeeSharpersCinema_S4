@@ -1,9 +1,14 @@
-﻿@using SeeSharpersCinema.Models.Order;
-@model Ticket
+﻿@using SeeSharpersCinema.Models.Program;
+@model TimeSlot
 
 <a asp-controller="playlist" asp-action="Overview" type="button" class="btn btn-primary btn-lg">Back</a>
 <h1>Stoel selectie</h1>
-<h2>@Model.Movie.Title</h2>
+
+
+@*<p>@Model.Movie.Title</p>
+<p>@Model.TimeSlot.SlotStart</p>*@
+
+@*<h2>@Model.Movie.Title</h2>
 <img class="img-fluid" src="@Model.Movie.PosterUrl" />
 <ul>
     <li>@Model.Movie.Technique</li>

@@ -1,88 +1,127 @@
-﻿@model SeeSharpersCinema.Models.Film.Movie
+﻿@using  Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager;
+@model DetailsViewModel
+
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>@Html.DisplayFor(model => model.Title)</h1>
+<h1>@Html.DisplayFor(model => model.Movie.Title)</h1>
 
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Movie.Title)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Movie.Title)
         </dd>
         <dt class="col-sm-2">
 
         </dt>
         <dd class="col-sm-10">
-            <img class="img-fluid" src="@Html.DisplayFor(model => model.PosterUrl)" />
+            <img class="img-fluid" src="@Html.DisplayFor(model => model.Movie.PosterUrl)" />
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Duration)
+            @Html.DisplayNameFor(model => model.Movie.Duration)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Duration) Minutes
+            @Html.DisplayFor(model => model.Movie.Duration) Minutes
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Country)
+            @Html.DisplayNameFor(model => model.Movie.Country)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Country)
+            @Html.DisplayFor(model => model.Movie.Country)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Language)
+            @Html.DisplayNameFor(model => model.Movie.Language)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Language)
+            @Html.DisplayFor(model => model.Movie.Language)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Technique)
+            @Html.DisplayNameFor(model => model.Movie.Technique)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Technique)
+            @Html.DisplayFor(model => model.Movie.Technique)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Movie.Description)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Movie.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ViewIndication)
+            @Html.DisplayNameFor(model => model.Movie.ViewIndication)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ViewIndication)
+            @Html.DisplayFor(model => model.Movie.ViewIndication)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
+            @Html.DisplayNameFor(model => model.Movie.Genre)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Genre)
+            @Html.DisplayFor(model => model.Movie.Genre)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
+            @Html.DisplayNameFor(model => model.Movie.Year)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Year)
+            @Html.DisplayFor(model => model.Movie.Year)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Director)
+            @Html.DisplayNameFor(model => model.Movie.Director)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Director)
+            @Html.DisplayFor(model => model.Movie.Director)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cast)
+            @Html.DisplayNameFor(model => model.Movie.Cast)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cast)
+            @Html.DisplayFor(model => model.Movie.Cast)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary ms-1" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary ms-1" asp-action="Selector" asp-controller="Seat" asp-route-playListId="@Model.PlayListId">Reserve a Seat</a>
+    @if (User.IsInRole("Member"))
+    {
+        <a class="btn btn-primary ms-1" asp-action="Post" asp-controller="Review" asp-route-playListId="@Model.PlayListId">Post a review</a>
+    }
+
+</div>
+
+<div class="container mt-3">
+    @foreach (var item in Model.Reviews)
+    {
+        
+    <div class="card mt-3">
+        <div class="card-header">
+            <b>@item.Title</b>
+            <div>
+                @for (var i = 1; i <= 5; i++)
+                {
+                    if (i <= item.Rating)
+                    {
+                        <span class="fa fa-star checked"></span>
+                    } else
+                    {
+                        <span class="fa fa-star unchecked"></span>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>@item.Message</p>
+                <footer class="blockquote-footer">@item.IdentityUser.UserName <cite title="Source Title"> posted at @item.Date.ToString("dddd, dd MMMM yyyy")</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+    }
 </div>

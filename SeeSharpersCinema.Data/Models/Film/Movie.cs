@@ -1,8 +1,5 @@
 ﻿namespace SeeSharpersCinema.Models.Film
 {
-    /// <summary>
-    /// Class Movie with properties about the movie
-    /// </summary>
     public class Movie
     {
         public long Id { get; set; }

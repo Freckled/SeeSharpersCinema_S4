@@ -36,6 +36,7 @@ namespace SeeSharpersCinema.Models.Repository
             => await context.PlayLists
             .Include(b => b.Movie)
             .Include(c => c.TimeSlot)
+            .Include(r => r.TimeSlot.Room)
             .OrderBy(p => p.TimeSlot.SlotStart)
             .ThenBy(q => q.TimeSlot.RoomId)
             .ToListAsync();
@@ -182,5 +183,20 @@ namespace SeeSharpersCinema.Models.Repository
                    z.Movie.ViewIndication.Equals(Enum.Parse(typeof(ViewIndication), uiViewIndication)) &&
                    z.Movie.Genre.Equals(Enum.Parse(typeof(Genre), uiGenre)))
            .ToListAsync();
+
+        /// <summary>
+        /// Queries the database to find a movie by movieId in a task for correct threading
+        /// </summary>
+        /// <param name="movieId">Long movie Id</param>
+        /// <returns>Playlists of Movie with this id</returns>
+        public async Task<IEnumerable<PlayList>> FindByMovieID(long movieId)
+            => await context.PlayLists
+            .Include(b => b.Movie)
+            .Include(c => c.TimeSlot)
+            .Include(c => c.TimeSlot.Room)
+            .OrderBy(p => p.TimeSlot.SlotStart)
+            .ThenBy(q => q.TimeSlot.RoomId)
+            .Where(z => z.Movie.Id==movieId)
+            .ToListAsync();
     }
 }

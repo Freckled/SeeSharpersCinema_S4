@@ -119,3 +119,101 @@ p.poster_label {
         margin: 0;
         font-size: 1.2em;
     }
+    
+.SeatReserved{
+    color: red;
+}
+
+.SeatFree {
+    color: green;
+}
+
+/* jQuery Seats Charts CSS */
+div.seatCharts-container {
+    /*min-width: 700px;*/
+}
+
+div.seatCharts-cell {
+    height: 16px;
+    width: 16px;
+    margin: 3px;
+    float: left;
+    text-align: center;
+    outline: none;
+    font-size: 13px;
+    line-height: 16px;
+    color: blue;
+}
+
+div.seatCharts-seat {
+    background-color: green;
+    color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: default;
+}
+
+    div.seatCharts-seat:focus {
+        border: none;
+    }
+/*
+.seatCharts-seat:focus {
+	outline: none;
+}
+*/
+
+div.seatCharts-space {
+    background-color: white;
+}
+
+div.seatCharts-row {
+    height: 50px;
+}
+
+    div.seatCharts-row:after {
+        clear: both;
+    }
+
+div.seatCharts-seat.selected {
+    background-color: aqua;
+}
+
+div.seatCharts-seat.focused {
+    background-color: #6db131;
+}
+
+div.seatCharts-seat.available {
+    background-color: green;
+}
+
+div.seatCharts-seat.unavailable {
+    background-color: red;
+    cursor: not-allowed;
+}
+
+ul.seatCharts-legendList {
+    list-style: none;
+}
+
+li.seatCharts-legendItem {
+    margin-top: 10px;
+    line-height: 2;
+}
+
+.formBody {
+    border-color: black;
+    width: 50%;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    padding: 2em;
+    margin-bottom: 2em;
+}
+
+.formTitle {
+    padding: 0.25em;
+    border-radius: 4px;
+    background-color: #343a40 !important;
+}
+

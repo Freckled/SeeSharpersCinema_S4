@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SeeSharpersCinema.Data.Models.Repository;
 using SeeSharpersCinema.Models.Database;
 using SeeSharpersCinema.Models.Repository;
 

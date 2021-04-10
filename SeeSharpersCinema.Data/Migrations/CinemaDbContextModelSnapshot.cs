@@ -19,6 +19,236 @@ namespace SeeSharpersCinema.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("SeeSharpersCinema.Data.Models.Film.Review", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("MovieId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Review");
+                });
+
             modelBuilder.Entity("SeeSharpersCinema.Models.Film.Movie", b =>
                 {
                     b.Property<long>("Id")
@@ -1784,6 +2014,178 @@ namespace SeeSharpersCinema.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SeeSharpersCinema.Models.Program.ReservedSeat", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RowId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatState")
+                        .HasColumnType("int");
+
+                    b.Property<long>("TimeSlotId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TimeSlotId");
+
+                    b.ToTable("ReservedSeat");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            RowId = 1,
+                            SeatId = 1,
+                            SeatState = 1,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            RowId = 1,
+                            SeatId = 2,
+                            SeatState = 1,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            RowId = 1,
+                            SeatId = 3,
+                            SeatState = 2,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            RowId = 1,
+                            SeatId = 4,
+                            SeatState = 1,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            RowId = 1,
+                            SeatId = 5,
+                            SeatState = 1,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            RowId = 2,
+                            SeatId = 5,
+                            SeatState = 2,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            RowId = 2,
+                            SeatId = 6,
+                            SeatState = 1,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            RowId = 2,
+                            SeatId = 8,
+                            SeatState = 1,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            RowId = 2,
+                            SeatId = 9,
+                            SeatState = 2,
+                            TimeSlotId = 1L
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            RowId = 1,
+                            SeatId = 1,
+                            SeatState = 1,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            RowId = 1,
+                            SeatId = 2,
+                            SeatState = 1,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            RowId = 1,
+                            SeatId = 3,
+                            SeatState = 2,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            RowId = 1,
+                            SeatId = 4,
+                            SeatState = 1,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            RowId = 1,
+                            SeatId = 5,
+                            SeatState = 1,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            RowId = 2,
+                            SeatId = 5,
+                            SeatState = 2,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            RowId = 2,
+                            SeatId = 6,
+                            SeatState = 1,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            RowId = 2,
+                            SeatId = 8,
+                            SeatState = 1,
+                            TimeSlotId = 2L
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            RowId = 2,
+                            SeatId = 9,
+                            SeatState = 2,
+                            TimeSlotId = 2L
+                        });
+                });
+
             modelBuilder.Entity("SeeSharpersCinema.Models.Theater.Cinema", b =>
                 {
                     b.Property<long>("Id")
@@ -1839,6 +2241,9 @@ namespace SeeSharpersCinema.Data.Migrations
                     b.Property<long>("CinemaId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("Rows")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CinemaId");
@@ -1849,44 +2254,51 @@ namespace SeeSharpersCinema.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            Capacity = 300,
-                            CinemaId = 1L
+                            Capacity = 120,
+                            CinemaId = 1L,
+                            Rows = 8
                         },
                         new
                         {
                             Id = 2L,
-                            Capacity = 300,
-                            CinemaId = 1L
+                            Capacity = 120,
+                            CinemaId = 1L,
+                            Rows = 8
                         },
                         new
                         {
                             Id = 3L,
-                            Capacity = 300,
-                            CinemaId = 1L
+                            Capacity = 120,
+                            CinemaId = 1L,
+                            Rows = 8
                         },
                         new
                         {
                             Id = 4L,
-                            Capacity = 300,
-                            CinemaId = 1L
+                            Capacity = 60,
+                            CinemaId = 1L,
+                            Rows = 6
                         },
                         new
                         {
                             Id = 5L,
-                            Capacity = 300,
-                            CinemaId = 1L
+                            Capacity = 50,
+                            CinemaId = 1L,
+                            Rows = 5
                         },
                         new
                         {
                             Id = 6L,
-                            Capacity = 300,
-                            CinemaId = 1L
+                            Capacity = 50,
+                            CinemaId = 1L,
+                            Rows = 5
                         },
                         new
                         {
                             Id = 7L,
-                            Capacity = 300,
-                            CinemaId = 1L
+                            Capacity = 200,
+                            CinemaId = 1L,
+                            Rows = 10
                         });
                 });
 
@@ -3864,6 +4276,74 @@ namespace SeeSharpersCinema.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SeeSharpersCinema.Data.Models.Film.Review", b =>
+                {
+                    b.HasOne("SeeSharpersCinema.Models.Film.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("IdentityUser");
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("SeeSharpersCinema.Models.Order.Ticket", b =>
                 {
                     b.HasOne("SeeSharpersCinema.Models.Film.Movie", "Movie")
@@ -3900,6 +4380,17 @@ namespace SeeSharpersCinema.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Movie");
+
+                    b.Navigation("TimeSlot");
+                });
+
+            modelBuilder.Entity("SeeSharpersCinema.Models.Program.ReservedSeat", b =>
+                {
+                    b.HasOne("SeeSharpersCinema.Models.TimeSlot", "TimeSlot")
+                        .WithMany()
+                        .HasForeignKey("TimeSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TimeSlot");
                 });
