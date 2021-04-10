@@ -42,7 +42,8 @@ namespace SeeSharpersCinema.Models.Repository
         /// Updates an object of type Movie in the the database.
         /// </summary>
         /// <param name="MovieId">The movieId on which to search. This is defined by the method in SeatController.</param>
-        public async Task UpdateMovieDetailsAsync(Movie movie) {
+        public async Task UpdateMovieDetailsAsync(Movie movie)
+        {
             context.Update(movie);
             await context.SaveChangesAsync();
 

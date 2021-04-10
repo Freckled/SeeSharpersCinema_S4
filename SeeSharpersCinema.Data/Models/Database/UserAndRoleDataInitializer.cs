@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SeeSharpersCinema.Data.Models.User;
 using System;
-using System.Security.Claims;
 
 namespace SeeSharpersCinema.Models.Database
 {

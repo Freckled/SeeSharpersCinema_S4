@@ -77,9 +77,9 @@ namespace SeeSharpersCinema.Website.Controllers
             if (COVID)
             {
                 seatList = await COVIDSeats(seatList);
-            }                                        
+            }
             await seatRepository.ReserveSeats(seatList);
-            return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });                   
+            return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
         }
 
         /// <summary>
@@ -95,9 +95,10 @@ namespace SeeSharpersCinema.Website.Controllers
             var PlayListList = await playListRepository.FindAllAsync();
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
 
-            if (model.SeatingArrangement != null) { 
+            if (model.SeatingArrangement != null)
+            {
                 var seatingArrangement = JsonSerializer.Deserialize<DeserializeRoot>(model.SeatingArrangement);
-            
+
                 var ReservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(model.TimeSlotId);
                 var Seats = ReservedSeats.ToList();
 
@@ -129,7 +130,7 @@ namespace SeeSharpersCinema.Website.Controllers
                 if (seatList.Count > 0)
                 {
                     await seatRepository.RemoveSeats(seatList);
-                }                
+                }
             }
             return RedirectToAction("Selector", "Seat", new { id = PlayList.Id });
         }
@@ -148,7 +149,8 @@ namespace SeeSharpersCinema.Website.Controllers
             List<ReservedSeat> ReservedSeatList = new List<ReservedSeat>();
             ReservedSeatList = ReservedSeats.ToList();
 
-            if (addSeat) { 
+            if (addSeat)
+            {
                 SeatList.ForEach(s =>
                 {
                     if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId - 1) && r.RowId == s.RowId) == -1) && SeatList.FindIndex(f => f.SeatId == (s.SeatId - 1) && f.RowId == s.RowId) == -1)
@@ -164,7 +166,8 @@ namespace SeeSharpersCinema.Website.Controllers
                     }
                 });
             }
-            else { 
+            else
+            {
                 SeatList.ForEach(s =>
                 {
                     if ((ReservedSeatList.FindIndex(r => r.SeatId == (s.SeatId - 1) && r.RowId == s.RowId) >= 0) && SeatList.FindIndex(f => f.SeatId == (s.SeatId - 1) && f.RowId == s.RowId) == -1)

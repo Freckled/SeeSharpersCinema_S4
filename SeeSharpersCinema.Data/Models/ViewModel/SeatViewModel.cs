@@ -1,7 +1,5 @@
-﻿using SeeSharpersCinema.Data.Models.Theater;
-using SeeSharpersCinema.Models;
+﻿using SeeSharpersCinema.Models;
 using SeeSharpersCinema.Models.Film;
-using System.Collections.Generic;
 
 namespace SeeSharpersCinema.Data.Models.ViewModel
 {

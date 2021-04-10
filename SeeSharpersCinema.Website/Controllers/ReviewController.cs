@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SeeSharpersCinema.Data.Models.Film;
 using SeeSharpersCinema.Data.Models.Repository;
 using SeeSharpersCinema.Data.Models.ViewModel;
 using SeeSharpersCinema.Models.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 namespace SeeSharpersCinema.Website.Controllers
 {
@@ -48,7 +46,7 @@ namespace SeeSharpersCinema.Website.Controllers
 
             ReviewViewModel model = new ReviewViewModel();
             model.Movie = PlayList.Movie;
-                
+
             return View(model);
         }
 
@@ -59,7 +57,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <param name="review">Review object from the form with details for the review</param>
         [HttpPost]
         [Route("Review/Post/{playListId}")]
-        public async Task<IActionResult> Post([FromRoute] long playListId,[Bind("MovieId,Title,Message,Rating")] Review review)
+        public async Task<IActionResult> Post([FromRoute] long playListId, [Bind("MovieId,Title,Message,Rating")] Review review)
         {
             review.IdentityUser = await _userManager.GetUserAsync(HttpContext.User);
             review.Date = DateTime.UtcNow;

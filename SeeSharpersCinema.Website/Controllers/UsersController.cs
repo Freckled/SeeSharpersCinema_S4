@@ -35,18 +35,18 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <summary>
         /// Gets a list of all the users and their role(s)
         /// </summary>
-        
+
         public async Task<IActionResult> Manage()
         {
             var users = userManager.Users.ToList();
-            UserViewModel model = new UserViewModel();            
+            UserViewModel model = new UserViewModel();
 
             foreach (var user in users)
             {
                 UserRole userRole = new UserRole();
                 userRole.User = user;
                 userRole.Roles = (List<string>)await userManager.GetRolesAsync(user);
-                
+
                 model.Users.Add(userRole);
             }
 
@@ -57,7 +57,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// Deletes a user
         /// </summary>
         /// <param name="userId">the UserID to be deleted</param>
-        
+
         [Route("Users/DeleteUser/{UserId}")]
         public async Task<IActionResult> DeleteUser(string UserId)
         {
@@ -66,24 +66,24 @@ namespace SeeSharpersCinema.Website.Controllers
             if (user != null)
             {
                 IdentityResult result = await userManager.DeleteAsync(user);
-                if (result.Succeeded) 
-                { 
+                if (result.Succeeded)
+                {
                     return RedirectToAction("Manage", "Users");
                 }
             }
-            else 
-            { 
+            else
+            {
                 ModelState.AddModelError("", "User Not Found");
             }
 
-            return RedirectToAction("Manage","Users");
+            return RedirectToAction("Manage", "Users");
         }
 
         /// <summary>
         /// Gets the user information
         /// </summary>
         /// <param name="userId">the UserID of which the info for</param>
-        
+
         [HttpGet]
         [Route("Users/Edit/{UserId}")]
         public async Task<IActionResult> Edit(string UserId)
@@ -110,7 +110,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <param name="userId">the UserID of which the infor to be modified</param>
         /// <param name="UserName">the (new) UserName</param>
         /// <param name="Email">the (new) Email adress</param>
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("UserId,UserName,Email")] EditUserViewModel model)
@@ -129,7 +129,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// </summary>
         /// <param name="userId">the UserID to which to add the role</param>
         /// <param name="role">role to be added</param>
-        
+
         public async Task<IActionResult> AddRole(string userId, string role)
         {
             IdentityUser user = await userManager.FindByIdAsync(userId);
@@ -143,7 +143,7 @@ namespace SeeSharpersCinema.Website.Controllers
         /// </summary>
         /// <param name="userId">the UserID to which to remove the role</param>
         /// <param name="role">role to be removed</param>
-        
+
         public async Task<IActionResult> RemoveRole(string userId, string role)
         {
             IdentityUser user = await userManager.FindByIdAsync(userId);

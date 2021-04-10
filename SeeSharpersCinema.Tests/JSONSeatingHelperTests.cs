@@ -97,7 +97,7 @@ namespace SeeSharpersCinema.Tests
 
         }
     }
-    
+
     /// <summary>
     /// Class needed for setting up the test
     /// </summary>

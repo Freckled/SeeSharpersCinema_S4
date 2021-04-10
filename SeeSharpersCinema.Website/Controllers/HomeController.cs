@@ -59,7 +59,7 @@ namespace SeeSharpersCinema.Website.Controllers
 
             return View(model);
         }
-        
+
         /// <summary>
         /// Get the View Index for showing current movieweek
         /// </summary>

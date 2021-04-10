@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SeeSharpersCinema.Data.Models.Repository;
-using SeeSharpersCinema.Data.Models.ViewModel;
 using SeeSharpersCinema.Infrastructure;
-using SeeSharpersCinema.Models;
 using SeeSharpersCinema.Models.Film;
 using SeeSharpersCinema.Models.Program;
 using SeeSharpersCinema.Models.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

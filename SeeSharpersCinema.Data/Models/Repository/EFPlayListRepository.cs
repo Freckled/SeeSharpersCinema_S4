@@ -196,7 +196,7 @@ namespace SeeSharpersCinema.Models.Repository
             .Include(c => c.TimeSlot.Room)
             .OrderBy(p => p.TimeSlot.SlotStart)
             .ThenBy(q => q.TimeSlot.RoomId)
-            .Where(z => z.Movie.Id==movieId)
+            .Where(z => z.Movie.Id == movieId)
             .ToListAsync();
     }
 }

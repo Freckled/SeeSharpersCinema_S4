@@ -1,18 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Moq;
 using SeeSharpersCinema.Data.Models.Repository;
 using SeeSharpersCinema.Models.Repository;
 using SeeSharpersCinema.Website.Controllers;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace SeeSharpersCinema.Tests
@@ -60,7 +54,8 @@ namespace SeeSharpersCinema.Tests
         }
 
         [Fact]
-        public void DashboardControllerAutherizeTests() {
+        public void DashboardControllerAutherizeTests()
+        {
             //Arrange
             var playListRepositoryMock = new Mock<IPlayListRepository>();
             var movieRepositoryMock = new Mock<IMovieRepository>();
@@ -83,10 +78,11 @@ namespace SeeSharpersCinema.Tests
             Assert.Contains("Manager", attrib.Roles);
 
         }
-    
-        
+
+
         [Fact]
-        public void ReviewControllerAutherizeTests() {
+        public void ReviewControllerAutherizeTests()
+        {
             //Arrange
             var playListRepositoryMock = new Mock<IPlayListRepository>();
             var reviewRepositoryMock = new Mock<IReviewRepository>();
@@ -94,18 +90,19 @@ namespace SeeSharpersCinema.Tests
 
             //Act
             var actualAttribute = controller.GetType().GetCustomAttributes(typeof(AuthorizeAttribute), true);
-            
+
             //Assert
             Assert.Equal(typeof(AuthorizeAttribute), actualAttribute[0].GetType());
 
         }
 
         [Fact]
-        public void SeatControllerAutherizeTests() {
+        public void SeatControllerAutherizeTests()
+        {
             //Arrange
             var playListRepositoryMock = new Mock<IPlayListRepository>();
             var reservedSeatRepositoryMock = new Mock<IReservedSeatRepository>();
-            
+
             SeatController controller = new SeatController(playListRepositoryMock.Object, reservedSeatRepositoryMock.Object);
             var controllerType = controller.GetType();
             var method = controllerType.GetMethod("RemoveSeats");
@@ -121,20 +118,20 @@ namespace SeeSharpersCinema.Tests
             Assert.DoesNotContain("Member", attrib.Roles);
         }
 
-         [Fact]
+        [Fact]
         public void UsersControllerAutherizeTests()
         {
             //Arrange
             UsersController controller = new UsersController(userManagerMock.Object, signInManagerMock.Object, roleManagerMock.Object);
             var controllerType = controller.GetType();
             //var method = controllerType.GetMethod("Manage");
-            
+
             //Act
             var attrib = controllerType.GetCustomAttributes(typeof(AuthorizeAttribute), true).FirstOrDefault() as AuthorizeAttribute;
-                if (attrib == null)
-                {
-                    throw new Exception();
-                }
+            if (attrib == null)
+            {
+                throw new Exception();
+            }
 
             //Assert
             Assert.DoesNotContain("Desk", attrib.Roles);

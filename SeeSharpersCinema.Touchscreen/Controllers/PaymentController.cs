@@ -26,16 +26,16 @@ namespace SeeSharpersCinema.TouchScreen.Controllers
         [Route("Ticket/Selector/Payment")]
         public async Task<IActionResult> IndexAsync(long movieId)
         {
-            if (movieId == 0) 
-            { 
-                return NotFound(); 
+            if (movieId == 0)
+            {
+                return NotFound();
             }
 
             var movie = await repository.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
 
-            if (movie == null) 
-            { 
-                return NotFound(); 
+            if (movie == null)
+            {
+                return NotFound();
             }
 
             return View(movie);
