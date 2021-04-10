@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SeeSharpersCinema.Data.Migrations
 {
-    public partial class pear : Migration
+    public partial class mango : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
