@@ -14,8 +14,6 @@ namespace SeeSharpersCinema.Website.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
-        private readonly RoleManager<IdentityRole> roleManager;
 
         /// <summary>
         /// Constructor UsersController
@@ -26,7 +24,6 @@ namespace SeeSharpersCinema.Website.Controllers
         public UsersController(UserManager<IdentityUser> userManager)
         {
             this.userManager = userManager;
-
         }
 
         /// <summary>

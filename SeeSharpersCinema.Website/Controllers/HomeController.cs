@@ -49,7 +49,6 @@ namespace SeeSharpersCinema.Website.Controllers
                 return NotFound();
             }
 
-
             DetailsViewModel model = new DetailsViewModel();
             model.Movie = PlayList.Movie;
             model.PlayListId = PlayList.Id;

@@ -14,14 +14,10 @@ namespace SeeSharpersCinema.Tests
     public class AutherizeAttributeTest
     {
         private Mock<UserManager<IdentityUser>> userManagerMock;
-        private Mock<RoleManager<IdentityRole>> roleManagerMock;
-        private Mock<SignInManager<IdentityUser>> signInManagerMock;
 
         public AutherizeAttributeTest()
         {
             this.userManagerMock = GetMockUserManager();
-            this.roleManagerMock = GetMockRoleManager();
-            this.signInManagerMock = GetMockSignInManager();
         }
 
         private Mock<UserManager<IdentityUser>> GetMockUserManager()
@@ -29,28 +25,6 @@ namespace SeeSharpersCinema.Tests
             var userStoreMock = new Mock<IUserStore<IdentityUser>>();
             return new Mock<UserManager<IdentityUser>>(
                 userStoreMock.Object, null, null, null, null, null, null, null, null);
-        }
-
-        public static Mock<RoleManager<IdentityRole>> GetMockRoleManager()
-        {
-            var roleStore = new Mock<IRoleStore<IdentityRole>>();
-            return new Mock<RoleManager<IdentityRole>>(
-                         roleStore.Object, null, null, null, null);
-
-        }
-
-        private Mock<SignInManager<IdentityUser>> GetMockSignInManager()
-        {
-            var userManager = GetMockUserManager();
-            var signInManagerMock = new Mock<SignInManager<IdentityUser>>(
-            userManager.Object,
-            /* IHttpContextAccessor contextAccessor */Mock.Of<IHttpContextAccessor>(),
-            /* IUserClaimsPrincipalFactory<TUser> claimsFactory */Mock.Of<IUserClaimsPrincipalFactory<IdentityUser>>(),
-            /* IOptions<IdentityOptions> optionsAccessor */null,
-            /* ILogger<SignInManager<TUser>> logger */null,
-            /* IAuthenticationSchemeProvider schemes */null,
-            /* IUserConfirmation<TUser> confirmation */null);
-            return signInManagerMock;
         }
 
         [Fact]

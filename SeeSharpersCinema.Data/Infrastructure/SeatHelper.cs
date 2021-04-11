@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace SeeSharpersCinema.Data.Infrastructure
 {
+    /// <summary>
+    /// Helps with adding and removing seats for different occasions, such as COVID
+    /// </summary>
+    /// <param name="SeatList">A List of type Reserved Seat from user selected seats.</param>
+    /// <param name="seatRepository">The repository where reserved seats are maintained.</param>
+    /// <returns>A List of type Reserved Seat from user selected seats with disables seats on each side</returns>
     public class SeatHelper
     {
         private IReservedSeatRepository seatRepository;
@@ -19,6 +25,10 @@ namespace SeeSharpersCinema.Data.Infrastructure
             this.SeatList = SeatList;
         }
 
+        /// <summary>
+        /// Adds a seat to the left and right of the selected seats with the seatstate of disabled.
+        /// </summary>
+        /// <returns>A List of type Reserved Seat from user selected seats with disabled seats on each side</returns>
         public async Task<List<ReservedSeat>> AddCOVIDSeats()
         {
             var ReservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(SeatList[0].TimeSlotId);
@@ -45,7 +55,10 @@ namespace SeeSharpersCinema.Data.Infrastructure
             return tempSeatList;
         }
 
-
+        /// <summary>
+        /// Adds a seat to the left and right of the selected seats with the seatstate of disabled.
+        /// </summary>
+        /// <returns>A List of type Reserved Seat from user selected seats with disabled seats on each side</returns>
         public async Task<List<ReservedSeat>> RemoveCOVIDSeats()
         {
             var ReservedSeats = await seatRepository.FindAllByTimeSlotIdAsync(SeatList[0].TimeSlotId);

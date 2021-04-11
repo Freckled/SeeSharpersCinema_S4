@@ -8,7 +8,6 @@ namespace SeeSharpersCinema.Website.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
-        private readonly RoleManager<IdentityRole> roleManager;
 
         /// <summary>
         /// Constructor UsersController
@@ -17,12 +16,10 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <param name="signInManager">Constructorneeds SignInManager of IdentityUser object</param>
         /// <param name="roleManager">Constructor needs RoleManager of IdentityUser object</param>
         public AccountController(UserManager<IdentityUser> userManager,
-                               SignInManager<IdentityUser> signInManager,
-                               RoleManager<IdentityRole> roleManager)
+                               SignInManager<IdentityUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.roleManager = roleManager;
         }
 
         /// <summary>
