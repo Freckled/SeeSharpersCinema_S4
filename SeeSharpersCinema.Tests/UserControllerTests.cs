@@ -1,4 +1,4 @@
-﻿/*using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using SeeSharpersCinema.Website.Controllers;
@@ -13,7 +13,7 @@ namespace SeeSharpersCinema.Tests
 {
     public class UserControllerTests
     {
-        private Mock<UserManager<IdentityUser>> userManagerMock;
+        /*private Mock<UserManager<IdentityUser>> userManagerMock;
         private Mock<RoleManager<IdentityRole>> roleManagerMock;
         private Mock<SignInManager<IdentityUser>> signInManagerMock;
 
@@ -41,28 +41,29 @@ namespace SeeSharpersCinema.Tests
 
         private Mock<SignInManager<IdentityUser>> GetMockSignInManager(Mock<UserManager<IdentityUser>> userManager = null)
         {
-            if (userManager == null) { 
+            if (userManager == null)
+            {
                 userManager = GetMockUserManager();
             }
 
             var signInManagerMock = new Mock<SignInManager<IdentityUser>>(
             userManager.Object,
-            *//* IHttpContextAccessor contextAccessor *//*Mock.Of<IHttpContextAccessor>(),
-            *//* IUserClaimsPrincipalFactory<TUser> claimsFactory *//*Mock.Of<IUserClaimsPrincipalFactory<IdentityUser>>(),
-            *//* IOptions<IdentityOptions> optionsAccessor *//*null,
-            *//* ILogger<SignInManager<TUser>> logger *//*null,
-            *//* IAuthenticationSchemeProvider schemes *//*null,
-            *//* IUserConfirmation<TUser> confirmation *//*null);
+             IHttpContextAccessor contextAccessor Mock.Of<IHttpContextAccessor>(),
+             IUserClaimsPrincipalFactory < TUser > claimsFactory Mock.Of<IUserClaimsPrincipalFactory<IdentityUser>>(),
+             IOptions < IdentityOptions > optionsAccessor null,
+             ILogger < SignInManager < TUser >> logger null,
+             IAuthenticationSchemeProvider schemes null,
+             IUserConfirmation < TUser > confirmation null);
             return signInManagerMock;
         }
 
-*//*        [Fact]
+        [Fact]
         public async Task AddRoleTestAsync()
         {
             //Arrange
             var user = new IdentityUser() { UserName = "JohnDoe", Id = "1" };
             user.Id = "02dfeb89-9b80-4884-b694-862adf38f09d";
-            
+
             userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(user);
             //userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "Admin", "Member", "Moderator" });
             //userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "Admin", "Member", "Moderator" });
@@ -73,8 +74,8 @@ namespace SeeSharpersCinema.Tests
             await controller.RemoveRole(user.UserName, "Admin");
             var roles = await userManagerMock.Object.GetRolesAsync(user);
 
-            
-            //Assert*//*
+
+            //Assert
 
 
         }
@@ -82,7 +83,7 @@ namespace SeeSharpersCinema.Tests
         //RemoveRole
         //Edit
         //DeleteUser
-
+*/
 
 
 
@@ -90,4 +91,3 @@ namespace SeeSharpersCinema.Tests
 
     }
 }
-*/

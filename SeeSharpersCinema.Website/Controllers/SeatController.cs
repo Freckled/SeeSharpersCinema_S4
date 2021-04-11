@@ -76,7 +76,7 @@ namespace SeeSharpersCinema.Website.Controllers
             var PlayList = PlayListList.FirstOrDefault(p => p.TimeSlotId == model.TimeSlotId);
             if (COVID)
             {
-                seatList = await COVIDSeats(seatList);
+                seatList = await new SeatHelper(seatRepository,seatList).AddCOVIDSeats();
             }
             await seatRepository.ReserveSeats(seatList);
             return RedirectToAction("Pay", "Payment", new { id = PlayList.Id });
@@ -113,7 +113,7 @@ namespace SeeSharpersCinema.Website.Controllers
 
                 if (COVID)
                 {
-                    tempList = await COVIDSeats(tempList, false);
+                    tempList = await new SeatHelper(seatRepository, tempList).RemoveCOVIDSeats();
                 }
 
                 tempList.ForEach(s =>

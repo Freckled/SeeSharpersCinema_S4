@@ -23,13 +23,10 @@ namespace SeeSharpersCinema.Website.Controllers
         /// <param name="userManager">Constructor needs UserManager of IdentityUser object</param>
         /// <param name="signInManager">Constructorneeds SignInManager of IdentityUser object</param>
         /// <param name="roleManager">Constructor needs RoleManager of IdentityUser object</param>
-        public UsersController(UserManager<IdentityUser> userManager,
-                               SignInManager<IdentityUser> signInManager,
-                               RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<IdentityUser> userManager)
         {
             this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.roleManager = roleManager;
+
         }
 
         /// <summary>

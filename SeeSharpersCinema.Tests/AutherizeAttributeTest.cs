@@ -122,7 +122,7 @@ namespace SeeSharpersCinema.Tests
         public void UsersControllerAutherizeTests()
         {
             //Arrange
-            UsersController controller = new UsersController(userManagerMock.Object, signInManagerMock.Object, roleManagerMock.Object);
+            UsersController controller = new UsersController(userManagerMock.Object);
             var controllerType = controller.GetType();
             //var method = controllerType.GetMethod("Manage");
 
